@@ -1,0 +1,21 @@
+{
+  "name": "react-app",
+  "private": true,
+  "repository": "git@bitbucket.org:peppermintgroup/react-app.git",
+  "author": "Rishat Sharafiev <rishatsharafiev@ya.ru>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn run -s install-deps && yarn run -s start:only",
+    "build": "yarn run -s install-deps && yarn run -s build:only",
+    "start:only": "cd webpack && yarn run -s start",
+    "build:only": "cd webpack && yarn run -s build",
+    "install-deps": "yarn run -s install-deps:local && yarn run -s install-deps:webpack",
+    "install-deps:local": "yarn install --no-progress || yarn install --no-progress",
+    "install-deps:webpack": "cd webpack && (yarn install --no-progress || yarn install --no-progress)"
+  },
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-hot-loader": "^3.1.3"
+  }
+}
