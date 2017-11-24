@@ -160,7 +160,6 @@ function makeConfig(options) {
           enforce: "pre",
           options: {
             configFile: eslintRcPath,
-            cache: true,
             fix: true
           }
         },

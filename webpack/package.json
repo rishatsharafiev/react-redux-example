@@ -1,7 +1,6 @@
 {
   "name": "webpack3-config",
   "private": true,
-  "repository": "git@bitbucket.org:peppermintgroup/react-app.git",
   "author": "Rishat Sharafiev <rishatsharafiev@ya.ru>",
   "license": "MIT",
   "scripts": {

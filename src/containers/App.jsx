@@ -1,7 +1,7 @@
 import React from 'react';
 
-import '../styles/index';
-import Hello from './Hello';
+import 'styles/index';
+import Hello from 'containers/Hello';
 
 const App = () => (
   <div>

@@ -23,7 +23,8 @@
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,
     "import/extensions": 0,
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/ignore": [".css$","node_modules/*"]

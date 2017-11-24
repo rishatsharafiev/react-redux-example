@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import 'react-hot-loader/patch';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './containers/App';
+import App from 'containers/App';
 
 const render = (Component) => {
   ReactDOM.render(
