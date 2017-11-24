@@ -1,6 +1,13 @@
 import React from 'react';
 import '../styles/index.scss';
+import Hello from './Hello';
 
-const App = () => <h1>Hellosdd</h1>;
+const App = () => (
+  <div>
+    <h1>Hellosdd</h1>
+    <Hello name='Alex' />
+    <Hello />
+  </div>
+);
 
 export default App;

@@ -131,7 +131,7 @@ function makeConfig(options) {
   ];
 
   if (isProd) {
-    cssLoaders.unshift(ExtractTextPlugin.loader({ remove: true, omit: 1, disable: isProd ? false: true }));
+    cssLoaders.unshift(ExtractTextPlugin.loader({ remove: true, omit: 1 /*, disable: isProd ? false: true*/ }));
   }
 
   const stats = "errors-only";
@@ -159,7 +159,8 @@ function makeConfig(options) {
           enforce: "pre",
           options: {
             configFile: eslintRcPath,
-            cache: true
+            cache: true,
+            fix: true
           }
         },
       ]).concat([
