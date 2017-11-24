@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const cssNano = require('cssnano');
 
 const PROJECT_ROOT = path.join(__dirname, '..');;
@@ -192,10 +193,11 @@ function makeConfig(options) {
     },
 
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.scss'],
+      extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
+      enforceExtension: false,
       modules: [
         SOURCES_DIR,
-        path.join(PROJECT_ROOT, "node_modules")
+        path.join(PROJECT_ROOT, "node_modules"),
       ].concat(isRunningDevServer ? [
         path.join(WEBPACK_DIR, "node_modules")
       ] : []),
@@ -234,6 +236,8 @@ function makeConfig(options) {
 
     plugins: ((plugins) => {
       plugins = [
+        new CaseSensitivePathsPlugin(),
+        new webpack.NormalModuleReplacementPlugin(/element-react[\/\\]src[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-react/src/locale/lang/ru'),
         new CleanWebpackPlugin(
           [DIST_DIR],
           {

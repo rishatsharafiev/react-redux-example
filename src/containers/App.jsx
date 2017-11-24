@@ -1,12 +1,12 @@
 import React from 'react';
-import '../styles/index.scss';
+
+import '../styles/index';
 import Hello from './Hello';
 
 const App = () => (
   <div>
-    <h1>Hellosdd</h1>
-    <Hello name='Alex' />
-    <Hello />
+    <h1>App</h1>
+    <Hello progress={50} />
   </div>
 );
 
