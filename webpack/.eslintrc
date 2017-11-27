@@ -29,7 +29,8 @@
     "jsx-a11y/anchor-is-valid": [ "error", {
       "components": [ "Link" ],
       "specialLink": [ "to" ]
-    }]
+    }],
+    "react/forbid-prop-types": ["error", { forbid: ["any"] }]
   },
   "settings": {
     "import/ignore": [".css$","node_modules/*"]
