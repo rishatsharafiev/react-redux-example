@@ -2,7 +2,12 @@
   "presets": [
     "env",
     "react",
-    "flow"
+    "flow",
+    ["es2015", { "modules": false }]
   ],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
 }

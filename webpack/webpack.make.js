@@ -160,7 +160,6 @@ function makeConfig(options) {
           enforce: "pre",
           options: {
             configFile: eslintRcPath,
-            cache: true,
             fix: true
           }
         },
@@ -213,6 +212,11 @@ function makeConfig(options) {
       hints: isProd ? 'warning' : false, // webpack-dev-tools takes over 200kb by iteself, so warning is guaranteed
       maxAssetSize: 200000,
       maxEntrypointSize: 400000,
+    },
+
+    watchOptions: {
+      aggregateTimeout: 200,
+      poll: 400
     },
 
     stats: stats,
