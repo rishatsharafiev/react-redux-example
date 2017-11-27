@@ -10,6 +10,7 @@
     "react"
   ],
   "rules": {
+    "semi": ["error", "never"],
     "no-debugger": 0,
     "no-console": 0,
     "new-cap": 0,
@@ -24,7 +25,12 @@
     "react/jsx-uses-vars": 1,
     "import/extensions": 0,
     "import/no-unresolved": 0,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }],
+    "react/forbid-prop-types": ["error", { forbid: ["any"] }]
   },
   "settings": {
     "import/ignore": [".css$","node_modules/*"]

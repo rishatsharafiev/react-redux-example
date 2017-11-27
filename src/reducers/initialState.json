@@ -1,3 +1,5 @@
 {
-  "app": {}
+  "task": {
+    "name": "Nothing"
+  }
 }

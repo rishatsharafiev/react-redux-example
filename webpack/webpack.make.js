@@ -277,13 +277,14 @@ function makeConfig(options) {
       }
 
       if (isRunningDevServer) {
-        plugins.push(new webpack.HotModuleReplacementPlugin());
+        plugins.push(new webpack.HotModuleReplacementPlugin({multiStep:false}));
         plugins.push(new webpack.NamedModulesPlugin());
       }
 
       if(options.lint) {
         plugins.push(new StyleLintPlugin({
           configFile: stylelintRcPath,
+          syntax: 'scss'
         }));
       }
 
