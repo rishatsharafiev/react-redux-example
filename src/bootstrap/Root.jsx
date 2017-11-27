@@ -1,21 +1,33 @@
 import React from 'react';
-import { Router } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { routes } from './Routes.jsx';
-import { store } from '../store/configureStore';
+import store from 'store/configureStore';
+import App from 'components/App';
+import 'styles/index';
 
-function handleRouteChange() {
-  window.scrollTo(0,0);
+/* eslint-disable react/prop-types */
+class ScrollToTop extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    return this.props.children;
+  }
 }
+/* eslint-enable react/prop-types */
 
-const Root = (props) => (
+const supportsHistory = 'pushState' in window.history;
+
+const Root = () => (
   <Provider store={store}>
-    <Router
-      history={browserHistory}
-      routes={routes}
-      onUpdate={handleRouteChange}
-    />
+    <Router basename='/' forceRefresh={!supportsHistory}>
+      <ScrollToTop>
+        <App />
+      </ScrollToTop>
+    </Router>
   </Provider>
 );
 
