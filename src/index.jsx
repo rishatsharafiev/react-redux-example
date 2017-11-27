@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import 'react-hot-loader/patch';
 import React from 'react';
 import ReactDOM from 'react-dom';

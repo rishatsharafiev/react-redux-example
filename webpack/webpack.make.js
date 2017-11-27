@@ -214,6 +214,11 @@ function makeConfig(options) {
       maxEntrypointSize: 400000,
     },
 
+    watchOptions: {
+      aggregateTimeout: 200,
+      poll: 400
+    },
+
     stats: stats,
 
     devtool: generateSourcemaps ? 'source-map' : false,
