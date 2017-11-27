@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import * as taskActions from 'actions/task'
+import taskActions from 'actions/task'
 import { Input } from 'element-react'
 
 class Task extends Component {
@@ -28,7 +28,8 @@ class Task extends Component {
     return (
       <div>
         <h1>Task</h1>
-        <Input type='text' value={task.name} onChange={this.handleChange} />
+        <Input type='text' onChange={this.handleChange} />
+        <p style={{ color: 'red' }}>{task.name}</p>
       </div>
     )
   }

@@ -1,3 +1,4 @@
+import constants from 'constants/task'
 import initialState from './initialState.json'
 
 export default function analyticsReducer(state = initialState.task, action) {
@@ -6,7 +7,7 @@ export default function analyticsReducer(state = initialState.task, action) {
   } = action
 
   switch (action.type) {
-    case 'TASK_SET_NAME':
+    case constants.SET_NAME:
       return { ...state, name }
     default:
       return state

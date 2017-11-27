@@ -1,7 +1,11 @@
+import constants from 'constants/task'
+
 export function setTaskName(name = '') {
-  return {
-    type: 'TASK_SET_NAME',
-    name,
+  return (dispatch) => {
+    dispatch({
+      type: constants.SET_NAME,
+      name,
+    })
   }
 }
 
