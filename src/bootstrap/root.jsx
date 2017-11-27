@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store/configureStore';
-import App from 'components/App';
+import App from 'components/app';
 import 'styles/index';
 
 /* eslint-disable react/prop-types */
