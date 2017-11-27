@@ -14,6 +14,7 @@
     "install-deps:webpack": "cd webpack && (yarn install --no-progress || yarn install --no-progress)"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "element-react": "^1.4.3",
     "element-theme-default": "^1.4.10",
     "prop-types": "^15.6.0",
