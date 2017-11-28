@@ -1,7 +1,7 @@
 import React from 'react'
 import 'element-theme-default'
-import Header from 'components/layout/header'
-import Main from 'components/layout/main'
+import Header from 'containers/layout/header'
+import Main from 'containers/layout/main'
 
 const App = () => (
   <div>
