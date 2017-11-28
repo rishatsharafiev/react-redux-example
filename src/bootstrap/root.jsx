@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from 'store/configureStore'
+import initialState from 'reducers/initialState'
 import App from 'containers/app'
 import 'styles/index'
 
@@ -22,7 +23,7 @@ class ScrollToTop extends React.Component {
 const supportsHistory = 'pushState' in window.history
 
 const Root = () => (
-  <Provider store={store}>
+  <Provider store={store(initialState)}>
     <Router basename='/' forceRefresh={!supportsHistory}>
       <ScrollToTop>
         <App />
