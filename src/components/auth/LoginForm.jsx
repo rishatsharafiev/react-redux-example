@@ -5,14 +5,14 @@ import { Form, Button } from 'element-react'
 import TextInput from 'components/common/textInput'
 
 const LoginForm = (props) => {
-  const { handleSubmit } = props
+  const { handleSubmit, actions } = props
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit(actions.loginUser)}>
       <Form.Item label='Username'>
-        <Field name='username' component={TextInput} type='text' />
+        <Field name='username' component={TextInput} type='text' autocomplete='off' />
       </Form.Item>
       <Form.Item label='Password'>
-        <Field name='password' component={TextInput} type='password' />
+        <Field name='password' component={TextInput} type='password' autocomplete='off' />
       </Form.Item>
       <Button nativeType='submit'>Submit</Button>
     </Form>
@@ -21,10 +21,11 @@ const LoginForm = (props) => {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 }
 
 const LoginFormHOC = reduxForm({
   form: 'login',
-})
+})(LoginForm)
 
-export default LoginFormHOC(LoginForm)
+export default LoginFormHOC

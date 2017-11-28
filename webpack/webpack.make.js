@@ -253,7 +253,6 @@ function makeConfig(options) {
         ),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
-          'API': JSON.stringify(options.api)
         }),
         new HtmlWebpackPlugin({
           filename: path.join('../', options.HtmlWebpackPlugin.filename || 'index.html' ),

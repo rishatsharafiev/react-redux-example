@@ -17,6 +17,7 @@
     "axios": "^0.17.1",
     "element-react": "^1.4.3",
     "element-theme-default": "^1.4.10",
+    "lockr": "^0.8.4",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",

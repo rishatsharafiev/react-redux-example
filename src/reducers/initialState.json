@@ -1,4 +1,8 @@
 {
+  "auth": {
+    "username": null,
+    "password": null
+  },
   "task": {
     "name": "Nothing"
   }
