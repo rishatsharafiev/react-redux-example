@@ -4,5 +4,6 @@ module.exports = require('./webpack.make')({
   lint: true,
   HtmlWebpackPlugin: {
     title: 'React App - Development'
-  }
+  },
+  api: 'http://api.arm.dev/'
 });
