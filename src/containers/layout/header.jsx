@@ -9,7 +9,7 @@ const Header = () => (
         <Link to='/'>Main</Link>
       </Menu.Item>
       <Menu.Item index='2'>
-        <Link to='/test2'>Test 2</Link>
+        <Link to='/login'>Login</Link>
       </Menu.Item>
       <Menu.Item index='3'>
         <Link to='/test3'>Test 3</Link>
