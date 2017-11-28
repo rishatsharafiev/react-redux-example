@@ -12,7 +12,6 @@ const client = axios.create({
   timeout: 1000,
 })
 
-
 const request = (options, onSuccess, onError) => client(options)
   .then(onSuccess)
   .catch(onError)
