@@ -1,6 +1,6 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
+import { Field, reduxForm } from 'redux-form'
 import { Form, Button } from 'element-react'
 import TextInput from 'components/common/textInput'
 

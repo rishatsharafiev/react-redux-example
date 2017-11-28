@@ -1,5 +1,5 @@
 import constants from 'constants/task'
-import initialState from './initialState.json'
+import initialState from 'reducers/initialState'
 
 export default function analyticsReducer(state = initialState.task, action) {
   const {

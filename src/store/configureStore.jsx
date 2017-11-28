@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
-import rootReducer from 'reducers/index'
 import thunk from 'redux-thunk'
-import initial from 'reducers/initialState'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import rootReducer from 'reducers/index'
+import initial from 'reducers/initialState'
 
 function configureStore(initialState) {
   return createStore(
