@@ -6,13 +6,13 @@ const Header = () => (
   <div>
     <Menu theme='dark' className='menu' mode='horizontal'>
       <Menu.Item index='1'>
-        <Link to='/'>Main</Link>
+        <Link to='/'>Главная</Link>
       </Menu.Item>
       <Menu.Item index='2'>
-        <Link to='/login'>Login</Link>
+        <Link to='/login'>Войти</Link>
       </Menu.Item>
       <Menu.Item index='3'>
-        <Link to='/test3'>Test 3</Link>
+        <Link to='/register'>Регистрация</Link>
       </Menu.Item>
     </Menu>
   </div>
