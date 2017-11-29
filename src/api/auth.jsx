@@ -1,20 +1,24 @@
 import request from 'utils/axios'
-import Lockr from 'lockr'
 
-const authenticate = (data, onSuccess, onError) => {
-  const headers = {
-    Authorization: Lockr.get('Authorization', null),
-  }
-
+const login = (data, onSuccess, onError) => {
   request({
-    url: '/authenticate',
+    url: '/login',
     method: 'post',
     responseType: 'json',
     data,
-    headers,
+  }, onSuccess, onError)
+}
+
+const register = (data, onSuccess, onError) => {
+  request({
+    url: '/register',
+    method: 'post',
+    responseType: 'json',
+    data,
   }, onSuccess, onError)
 }
 
 export default {
-  authenticate,
+  login,
+  register,
 }

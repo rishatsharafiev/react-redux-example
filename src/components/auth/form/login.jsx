@@ -15,7 +15,7 @@ const LoginForm = (props) => {
   return (
     <Form onSubmit={handleSubmit(loginUser)}>
       <Form.Item label='E-mail'>
-        <Field name='username' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' />
+        <Field name='email' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' />
       </Form.Item>
       <Form.Item label='Пароль'>
         <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' />

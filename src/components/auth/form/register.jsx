@@ -7,9 +7,9 @@ import TextInput from 'components/common/textInput'
 const RegisterForm = (props) => {
   const { handleSubmit, actions } = props
   return (
-    <Form onSubmit={handleSubmit(actions.loginUser)}>
+    <Form onSubmit={handleSubmit(actions.registerUser)}>
       <Form.Item label='Имя'>
-        <Field name='username' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' />
+        <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' />
       </Form.Item>
       <Form.Item label='E-mail'>
         <Field name='email' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' />
