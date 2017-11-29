@@ -1,33 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { Form, Button } from 'element-react'
-import TextInput from 'components/common/textInput'
+import { Form, Button, Alert } from 'element-react'
+import { required, email, minLength2, minLength8, maxLength30, alphaNumeric, russianName } from 'utils/validate'
+import { firstUpperNextLowerCase } from 'utils/normalize'
+import TextInput from 'components/common/input/text'
 
-const RegisterForm = (props) => {
-  const { handleSubmit, actions } = props
-  return (
-    <Form onSubmit={handleSubmit(actions.registerUser)}>
-      <Form.Item label='Имя'>
-        <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' />
-      </Form.Item>
-      <Form.Item label='E-mail'>
-        <Field name='email' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' />
-      </Form.Item>
-      <Form.Item label='Пароль'>
-        <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' />
-      </Form.Item>
-      <Form.Item label='Подтвердите пароль'>
-        <Field name='password_confirmation' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль еще раз' />
-      </Form.Item>
-      <Button nativeType='submit'>Регистрация</Button>
-    </Form>
-  )
-}
+const RegisterForm = ({
+  handleSubmit,
+  submitting,
+  pristine,
+  valid,
+  error,
+  actions: {
+    registerUser,
+  },
+}) => (
+  <Form onSubmit={handleSubmit(registerUser)}>
+    <Form.Item label='Имя'>
+      <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' validate={[required, russianName, minLength2, maxLength30]} normalize={firstUpperNextLowerCase} />
+    </Form.Item>
+    <Form.Item label='E-mail'>
+      <Field name='email' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' validate={[required, email]} />
+    </Form.Item>
+    <Form.Item label='Пароль'>
+      <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
+    </Form.Item>
+    <Form.Item label='Подтвердите пароль'>
+      <Field name='password_confirmation' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль еще раз' validate={[required, alphaNumeric, minLength8, maxLength30]} />
+    </Form.Item>
+    <Button nativeType='submit' disabled={pristine || submitting || !valid}>Регистрация</Button>
+    {error &&
+      <Alert title={error[0]} type='error' closable={false} />}
+  </Form>
+)
 
 RegisterForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+}
+
+RegisterForm.defaultProps = {
+  error: '',
 }
 
 export default RegisterForm

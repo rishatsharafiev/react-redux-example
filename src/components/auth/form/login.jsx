@@ -1,33 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { Form, Button } from 'element-react'
-import TextInput from 'components/common/textInput'
+import { Form, Button, Alert } from 'element-react'
+import { required, email, minLength8, maxLength30, alphaNumeric } from 'utils/validate'
+import TextInput from 'components/common/input/text'
 
-const LoginForm = (props) => {
-  const {
-    handleSubmit,
-    actions: {
-      loginUser,
-    },
-  } = props
-
-  return (
-    <Form onSubmit={handleSubmit(loginUser)}>
-      <Form.Item label='E-mail'>
-        <Field name='email' component={TextInput} type='email' autocomplete='off' placeholder='Введите e-mail' />
-      </Form.Item>
-      <Form.Item label='Пароль'>
-        <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' />
-      </Form.Item>
-      <Button nativeType='submit'>Войти</Button>
-    </Form>
-  )
-}
+const LoginForm = ({
+  handleSubmit,
+  submitting,
+  pristine,
+  valid,
+  error,
+  actions: {
+    loginUser,
+  },
+}) => (
+  <Form onSubmit={handleSubmit(loginUser)}>
+    <Form.Item label='E-mail'>
+      <Field name='email' component={TextInput} autocomplete='off' placeholder='Введите e-mail' validate={[required, email]} />
+    </Form.Item>
+    <Form.Item label='Пароль'>
+      <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
+    </Form.Item>
+    <Button nativeType='submit' disabled={pristine || submitting || !valid}>Войти</Button>
+    {error &&
+      <Alert title={error} type='error' closable={false} />}
+  </Form>
+)
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+}
+
+LoginForm.defaultProps = {
+  error: '',
 }
 
 export default LoginForm
