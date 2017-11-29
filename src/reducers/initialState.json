@@ -1,7 +1,6 @@
 {
   "auth": {
-    "username": null,
-    "password": null
+    "isAuthenticated": false
   },
   "task": {
     "name": "Nothing"

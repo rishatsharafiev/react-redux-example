@@ -9,7 +9,7 @@ const Routes = (
   <Switch>
     <Route path='/' exact component={Task} />
     <Route path='/login' component={Login} />
-    <Route path='/register' exact component={Register} />
+    <Route path='/register' component={Register} />
     <Route component={NotFound} />
   </Switch>
 )

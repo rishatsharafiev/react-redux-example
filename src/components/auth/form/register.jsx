@@ -30,7 +30,7 @@ const RegisterForm = ({
       <Field name='password_confirmation' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль еще раз' validate={[required, alphaNumeric, minLength8, maxLength30]} />
     </Form.Item>
     <Button nativeType='submit' disabled={pristine || submitting || !valid}>Регистрация</Button>
-    {error &&
+    {error[0] &&
       <Alert title={error[0]} type='error' closable={false} />}
   </Form>
 )
@@ -41,11 +41,11 @@ RegisterForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.array,
 }
 
 RegisterForm.defaultProps = {
-  error: '',
+  error: [],
 }
 
 export default RegisterForm
