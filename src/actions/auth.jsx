@@ -3,10 +3,10 @@ import { SubmissionError } from 'redux-form'
 import constants from 'constants/auth'
 import api from 'api/auth'
 
-export function setAuthorization() {
+export function isLoggedIn() {
   return {
-    type: constants.AUTHORIZATION,
-    payload: Lockr.get('Authorization', null),
+    type: null,
+    loggedIn: Lockr.get('Authorization', null),
   }
 }
 
@@ -16,9 +16,8 @@ export function loginUser(payload) {
     if (token) {
       Lockr.set('Authorization', token)
       dispatch({
-        type: constants.LOGIN_USER,
-        payload: {},
-        error: false,
+        type: constants.AUTHORIZATION,
+        payload: Lockr.get('Authorization', null),
       })
     }
   }, (error) => {
@@ -32,9 +31,8 @@ export function registerUser(payload) {
     if (token) {
       Lockr.set('Authorization', token)
       dispatch({
-        type: constants.REGISTER_USER,
-        payload: {},
-        error: false,
+        type: constants.AUTHORIZATION,
+        payload: Lockr.get('Authorization', null),
       })
     }
   }, (error) => {
@@ -43,7 +41,7 @@ export function registerUser(payload) {
 }
 
 export default {
-  setAuthorization,
+  isLoggedIn,
   loginUser,
   registerUser,
 }

@@ -1,6 +1,6 @@
 {
   "auth": {
-    "isAuthenticated": false
+    "token": null
   },
   "task": {
     "name": "Nothing"
