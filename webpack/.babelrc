@@ -6,8 +6,11 @@
     ["es2015", { "modules": false }]
   ],
   "plugins": [
+    "transform-runtime",
     "react-hot-loader/babel",
     "transform-object-rest-spread",
-    "transform-class-properties"
+    "transform-class-properties",
+    "syntax-async-functions",
+    "transform-regenerator",
   ]
 }

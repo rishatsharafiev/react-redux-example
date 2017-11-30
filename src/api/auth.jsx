@@ -1,18 +1,18 @@
 import request from 'utils/axios'
 
-const login = (data, onSuccess, onError) => request({
+const login = data => request({
   url: '/login',
   method: 'post',
   responseType: 'json',
   data,
-}, onSuccess, onError)
+})
 
-const register = (data, onSuccess, onError) => request({
+const register = data => request({
   url: '/register',
   method: 'post',
   responseType: 'json',
   data,
-}, onSuccess, onError)
+})
 
 export default {
   login,

@@ -12,35 +12,35 @@ export function isLoggedIn() {
 }
 
 export function loginUser(payload) {
-  return dispatch => api.login(payload, (response) => {
-    const token = response.data.token ? `Bearer ${response.data.token}` : null
-    if (token) {
-      Lockr.set('Authorization', token)
-      dispatch({
-        type: constants.AUTHORIZATION,
-        payload: Lockr.get('Authorization', null),
-      })
-      history.push('/')
+  return async (dispatch) => {
+    try {
+      const response = await api.login(payload)
+      const token = response.data.token ? `Bearer ${response.data.token}` : null
+      if (token) {
+        Lockr.set('Authorization', token)
+        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', null) })
+        history.push('/')
+      }
+    } catch (error) {
+      throw new SubmissionError({ _error: error.response.data.message })
     }
-  }, (error) => {
-    throw new SubmissionError({ _error: error.response.data.message })
-  })
+  }
 }
 
 export function registerUser(payload) {
-  return dispatch => api.register(payload, (response) => {
-    const token = response.data.token ? `Bearer ${response.data.token}` : null
-    if (token) {
-      Lockr.set('Authorization', token)
-      dispatch({
-        type: constants.AUTHORIZATION,
-        payload: Lockr.get('Authorization', null),
-      })
-      history.push('/')
+  return async (dispatch) => {
+    try {
+      const response = await api.register(payload)
+      const token = response.data.token ? `Bearer ${response.data.token}` : null
+      if (token) {
+        Lockr.set('Authorization', token)
+        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', null) })
+        history.push('/')
+      }
+    } catch (error) {
+      throw new SubmissionError({ _error: error.response.data.message })
     }
-  }, (error) => {
-    throw new SubmissionError({ _error: error.response.data.errors })
-  })
+  }
 }
 
 export default {
