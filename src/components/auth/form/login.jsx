@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { Form, Button, Alert } from 'element-react'
+import { Form, Button, Tag } from 'element-react'
 import { required, email, minLength8, maxLength30, alphaNumeric } from 'utils/validate'
 import TextInput from 'components/common/input/text'
 
@@ -23,8 +23,9 @@ const LoginForm = ({
       <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
     </Form.Item>
     <Button nativeType='submit' disabled={pristine || submitting || !valid}>Войти</Button>
-    {error &&
-      <Alert title={error} type='error' closable={false} />}
+    <Form.Item>{error &&
+      <Tag type='danger'>{error}</Tag>}
+    </Form.Item>
   </Form>
 )
 

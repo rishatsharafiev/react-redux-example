@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input, Alert } from 'element-react'
+import { Input, Tag } from 'element-react'
 
 const TextInput = ({
   input,
@@ -19,9 +19,9 @@ const TextInput = ({
     />
     {touched &&
       ((error &&
-        <Alert title={error} type='error' closable={false} />) ||
+        <Tag type='danger'>{error}</Tag>) ||
         (warning &&
-          <Alert title={warning} type='warning' closable={false} />))}
+          <Tag type='warning'>{warning}</Tag>))}
   </div>
 )
 
