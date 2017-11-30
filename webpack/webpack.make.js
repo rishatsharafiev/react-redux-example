@@ -259,7 +259,13 @@ function makeConfig(options) {
           template: path.join(SOURCES_DIR, 'templates', 'index.html'),
           inject: 'body',
           title: options.HtmlWebpackPlugin.title,
-          alwaysWriteToDisk: true
+          alwaysWriteToDisk: true,
+          minify: {
+            collapseWhitespace: true,
+            collapseInlineTagWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true
+          }
         }),
         new WriteFilePlugin()
       ];
@@ -273,7 +279,25 @@ function makeConfig(options) {
           }
         }));
         plugins.push(new ExtractTextPlugin(`${baseFileName}.css`));
-        plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
+        plugins.push(new webpack.optimize.UglifyJsPlugin({
+          minimize: true,
+          parallel: true,
+          compress: {
+            warnings: false,
+            screw_ie8: true,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            sequences: true,
+            dead_code: true,
+            evaluate: true,
+            if_return: true,
+            join_vars: true
+          },
+          output: {
+            comments: false
+          }
+        }));
       }
 
       if (isRunningDevServer) {
