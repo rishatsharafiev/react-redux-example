@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { Form, Button, Tag } from 'element-react'
+import { Form, Button, Tag, Icon } from 'element-react'
 import { required, email, minLength8, maxLength30, alphaNumeric } from 'utils/validate'
 import TextInput from 'components/common/input/text'
 
@@ -24,7 +24,7 @@ const LoginForm = ({
     </Form.Item>
     <Button nativeType='submit' disabled={pristine || submitting || !valid}>Войти</Button>
     <Form.Item>{error &&
-      <Tag type='danger'>{error}</Tag>}
+      <Tag type='danger'><Icon name='warning' /> {error}</Tag>}
     </Form.Item>
   </Form>
 )

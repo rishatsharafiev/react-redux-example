@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { Form, Button, Tag } from 'element-react'
+import { Form, Button, Tag, Icon } from 'element-react'
 import { required, email, minLength2, minLength8, maxLength30, alphaNumeric, russianName } from 'utils/validate'
 import { firstUpperNextLowerCase } from 'utils/normalize'
 import TextInput from 'components/common/input/text'
@@ -31,7 +31,7 @@ const RegisterForm = ({
     </Form.Item>
     <Button nativeType='submit' disabled={pristine || submitting || !valid}>Регистрация</Button>
     <Form.Item>{error[0] &&
-      <Tag type='danger'>{error[0]}</Tag>}
+      <Tag type='danger'><Icon name='warning' /> {error[0]}</Tag>}
     </Form.Item>
   </Form>
 )
