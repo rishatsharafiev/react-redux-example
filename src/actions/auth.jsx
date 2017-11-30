@@ -1,5 +1,6 @@
 import Lockr from 'lockr'
 import { SubmissionError } from 'redux-form'
+import history from 'utils/history'
 import constants from 'constants/auth'
 import api from 'api/auth'
 
@@ -19,6 +20,7 @@ export function loginUser(payload) {
         type: constants.AUTHORIZATION,
         payload: Lockr.get('Authorization', null),
       })
+      history.push('/')
     }
   }, (error) => {
     throw new SubmissionError({ _error: error.response.data.message })
@@ -34,6 +36,7 @@ export function registerUser(payload) {
         type: constants.AUTHORIZATION,
         payload: Lockr.get('Authorization', null),
       })
+      history.push('/')
     }
   }, (error) => {
     throw new SubmissionError({ _error: error.response.data.errors })

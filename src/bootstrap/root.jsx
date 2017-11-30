@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Layout, Progress } from 'element-react'
+import history from 'utils/history'
 import store from 'store/configureStore'
 import initialState from 'reducers/initialState'
 import App from 'containers/app'
@@ -55,7 +56,7 @@ const supportsHistory = 'pushState' in window.history
 
 const Root = () => (
   <Provider store={store(initialState)}>
-    <Router basename='/' forceRefresh={!supportsHistory}>
+    <Router basename='/' forceRefresh={!supportsHistory} history={history}>
       <ScrollToTop>
         <App />
       </ScrollToTop>
