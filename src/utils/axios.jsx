@@ -12,7 +12,7 @@ const client = axios.create({
   timeout: 1000,
 })
 
-const request = async options =>
+const request = options =>
   client(options)
 
 export default request

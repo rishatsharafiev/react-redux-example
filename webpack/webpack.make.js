@@ -241,7 +241,7 @@ function makeConfig(options) {
     plugins: ((plugins) => {
       plugins = [
         new CaseSensitivePathsPlugin(),
-        new webpack.NormalModuleReplacementPlugin(/element-react[\/\\]src[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-react/src/locale/lang/ru'),
+        new webpack.NormalModuleReplacementPlugin(/element-react[\/\\]src[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-react/src/locale/lang/ru-RU'),
         new CleanWebpackPlugin(
           [DIST_DIR],
           {
