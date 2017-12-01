@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Layout, Progress } from 'element-react'
+import { Layout, Progress, i18n } from 'element-react'
+import locale from 'element-react/src/locale/lang/ru-RU'
+import routerHistory from 'utils/history'
 import store from 'store/configureStore'
 import initialState from 'reducers/initialState'
 import App from 'containers/app'
 import 'styles/index'
+
+i18n.use(locale)
 
 /* eslint-disable react/prop-types */
 class ScrollToTop extends Component {
@@ -51,11 +55,9 @@ class ScrollToTop extends Component {
 }
 /* eslint-enable react/prop-types */
 
-const supportsHistory = 'pushState' in window.history
-
 const Root = () => (
   <Provider store={store(initialState)}>
-    <Router basename='/' forceRefresh={!supportsHistory}>
+    <Router history={routerHistory}>
       <ScrollToTop>
         <App />
       </ScrollToTop>

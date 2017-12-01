@@ -1,7 +1,10 @@
 {
   "auth": {
-    "username": null,
-    "password": null
+    "token": "12",
+    "user": {
+      "name": "Anonymous",
+      "role": "anonymous"
+    }
   },
   "task": {
     "name": "Nothing"
