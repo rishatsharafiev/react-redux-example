@@ -3,7 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -242,15 +242,6 @@ function makeConfig(options) {
       plugins = [
         new CaseSensitivePathsPlugin(),
         new webpack.NormalModuleReplacementPlugin(/element-react[\/\\]src[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-react/src/locale/lang/ru-RU'),
-        new CleanWebpackPlugin(
-          [DIST_DIR],
-          {
-            root: __dirname,
-            verbose: true,
-            watch: false,
-            allowExternal: true
-          }
-        ),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
         }),
@@ -267,7 +258,10 @@ function makeConfig(options) {
             removeRedundantAttributes: true
           }
         }),
-        new WriteFilePlugin()
+        new WriteFilePlugin(),
+        new WebpackCleanupPlugin({
+          exclude: ['config.example.js', 'config.js'],
+        }),
       ];
 
       if (isProd) {

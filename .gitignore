@@ -1,5 +1,7 @@
 # Application
 /dist
+!/dist/config.example.js
+.idea
 
 # Logs
 logs

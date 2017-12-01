@@ -1,4 +1,5 @@
 import axios from 'axios'
+import config from 'utils/config'
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -7,7 +8,7 @@ const headers = {
 }
 
 const client = axios.create({
-  baseURL: 'http://api.arm.dev/api/',
+  baseURL: config.api,
   headers,
   timeout: 1000,
 })
