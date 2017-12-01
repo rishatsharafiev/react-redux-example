@@ -6,7 +6,7 @@ const Main = () => (
   <div>
     <Layout.Row gutter='20'>
       <Layout.Col offset='3' span='15'>
-        {Routes}
+        <Routes />
       </Layout.Col>
     </Layout.Row>
   </div>

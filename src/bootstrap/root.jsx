@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Layout, Progress, i18n } from 'element-react'
 import locale from 'element-react/src/locale/lang/ru-RU'
-import routerHistory from 'utils/history'
 import store from 'store/configureStore'
 import initialState from 'reducers/initialState'
 import App from 'containers/app'
@@ -57,11 +55,9 @@ class ScrollToTop extends Component {
 
 const Root = () => (
   <Provider store={store(initialState)}>
-    <Router history={routerHistory}>
-      <ScrollToTop>
-        <App />
-      </ScrollToTop>
-    </Router>
+    <ScrollToTop>
+      <App />
+    </ScrollToTop>
   </Provider>
 )
 

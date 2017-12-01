@@ -301,8 +301,7 @@ function makeConfig(options) {
 
       if(options.lint) {
         plugins.push(new StyleLintPlugin({
-          configFile: stylelintRcPath,
-          syntax: 'scss'
+          configFile: stylelintRcPath
         }));
       }
 
