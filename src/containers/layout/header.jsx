@@ -9,9 +9,12 @@ const Header = () => (
         <Link to='/'>Главная</Link>
       </Menu.Item>
       <Menu.Item index='2'>
-        <Link to='/login'>Войти</Link>
+        <Link to='/task'>Задачи</Link>
       </Menu.Item>
       <Menu.Item index='3'>
+        <Link to='/login'>Войти</Link>
+      </Menu.Item>
+      <Menu.Item index='4'>
         <Link to='/register'>Регистрация</Link>
       </Menu.Item>
     </Menu>

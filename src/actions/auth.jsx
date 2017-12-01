@@ -7,7 +7,7 @@ import api from 'api/auth'
 export function isLoggedIn() {
   return {
     type: null,
-    loggedIn: Lockr.get('Authorization', null),
+    loggedIn: Lockr.get('Authorization', ''),
   }
 }
 
@@ -15,10 +15,10 @@ export function loginUser(payload) {
   return async (dispatch) => {
     try {
       const response = await api.login(payload)
-      const token = response.data.token ? `Bearer ${response.data.token}` : null
+      const token = response.data.token ? `Bearer ${response.data.token}` : ''
       if (token) {
         Lockr.set('Authorization', token)
-        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', null) })
+        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', '') })
         history.push('/')
       }
     } catch (error) {
@@ -31,10 +31,10 @@ export function registerUser(payload) {
   return async (dispatch) => {
     try {
       const response = await api.register(payload)
-      const token = response.data.token ? `Bearer ${response.data.token}` : null
+      const token = response.data.token ? `Bearer ${response.data.token}` : ''
       if (token) {
         Lockr.set('Authorization', token)
-        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', null) })
+        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', '') })
         history.push('/')
       }
     } catch (error) {

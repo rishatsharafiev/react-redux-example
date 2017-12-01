@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'element-react'
-import Routes from 'containers/layout/routes'
+import Routes from 'containers/routes'
 
 const Main = () => (
   <div>
