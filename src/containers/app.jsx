@@ -1,17 +1,23 @@
 import React from 'react'
-import { Router } from 'react-router-dom'
-import routerHistory from 'utils/history'
+import { Router, Route } from 'react-router-dom'
 import 'element-theme-default'
-import Header from 'containers/layout/header'
+import routerHistory from 'utils/history'
 import Main from 'containers/layout/main'
+import Header from 'containers/layout/header'
+import Container from 'containers/layout/container'
 
 const App = () => (
-  <Router history={routerHistory}>
-    <div>
-      <Header />
-      <Main />
-    </div>
-  </Router>
+  <Main>
+    <Router history={routerHistory}>
+      <Route render={({ location }) => (
+        <div>
+          <Header />
+          <Container location={location} />
+        </div>
+      )}
+      />
+    </Router>
+  </Main>
 )
 
 export default App

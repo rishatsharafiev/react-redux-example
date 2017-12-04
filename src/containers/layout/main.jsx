@@ -1,15 +1,14 @@
 import React from 'react'
-import { Layout } from 'element-react'
-import Routes from 'containers/routes'
+import PropTypes from 'prop-types'
 
-const Main = () => (
+const Main = ({ children }) => (
   <div>
-    <Layout.Row gutter='20'>
-      <Layout.Col offset='3' span='15'>
-        <Routes />
-      </Layout.Col>
-    </Layout.Row>
+    {children}
   </div>
 )
+
+Main.propTypes = {
+  children: PropTypes.object.isRequired,
+}
 
 export default Main

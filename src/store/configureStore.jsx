@@ -1,14 +1,20 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from 'reducers/index'
+import createSagaMiddleware from 'redux-saga'
+import rootReducer from 'reducers'
+import sagas from 'sagas'
 
 export default function configureStore(initialState) {
+  const sagaMiddleware = createSagaMiddleware()
+
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunk)),
+    composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)),
   )
+
+  sagaMiddleware.run(sagas)
 
   if (module.hot) {
     module.hot.accept('reducers', () => {

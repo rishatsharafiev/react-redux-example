@@ -1,15 +1,8 @@
 import Lockr from 'lockr'
 import { SubmissionError } from 'redux-form'
-import history from 'utils/history'
-import constants from 'constants/auth'
+import routerHistory from 'utils/history'
+import { AUTHORIZATION } from 'constants/auth'
 import api from 'api/auth'
-
-export function isLoggedIn() {
-  return {
-    type: null,
-    loggedIn: Lockr.get('Authorization', ''),
-  }
-}
 
 export function loginUser(payload) {
   return async (dispatch) => {
@@ -18,8 +11,8 @@ export function loginUser(payload) {
       const token = response.data.token ? `Bearer ${response.data.token}` : ''
       if (token) {
         Lockr.set('Authorization', token)
-        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', '') })
-        history.push('/')
+        dispatch({ type: AUTHORIZATION, payload: Lockr.get('Authorization', '') })
+        routerHistory.push('/')
       }
     } catch (error) {
       throw new SubmissionError({ _error: error.response.data.message })
@@ -34,17 +27,11 @@ export function registerUser(payload) {
       const token = response.data.token ? `Bearer ${response.data.token}` : ''
       if (token) {
         Lockr.set('Authorization', token)
-        dispatch({ type: constants.AUTHORIZATION, payload: Lockr.get('Authorization', '') })
-        history.push('/')
+        dispatch({ type: AUTHORIZATION, payload: Lockr.get('Authorization', '') })
+        routerHistory.push('/')
       }
     } catch (error) {
       throw new SubmissionError({ _error: error.response.data.message })
     }
   }
-}
-
-export default {
-  isLoggedIn,
-  loginUser,
-  registerUser,
 }

@@ -30,12 +30,6 @@ class ScrollToTop extends Component {
     }, 120)
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0)
-    }
-  }
-
   render() {
     if (this.state.loading) {
       return (
