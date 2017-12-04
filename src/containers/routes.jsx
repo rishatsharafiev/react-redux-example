@@ -1,17 +1,18 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import Authorization from 'utils/auth/authorization'
+import { Switch, Route } from 'react-router'
+import Authorization from 'utils/auth'
+import Home from 'containers/home/home'
 import Task from 'containers/task/task'
 import Login from 'containers/auth/login'
 import Register from 'containers/auth/register'
 import NotFound from 'containers/error/notFound'
 
-const Manager = Authorization(['manager', 'staff'])
-const Admin = Authorization()
+// const Manager = Authorization(['manager', 'staff'])
+const Admin = Authorization(['admin'])
 
-const Routes = (
+const routes = (
   <Switch>
-    <Route path='/' exact component={Manager(Task)} />
+    <Route path='/' exact component={Home} />
     <Route path='/task' exact component={Admin(Task)} />
     <Route path='/login' exact component={Login} />
     <Route path='/register' exact component={Register} />
@@ -19,4 +20,4 @@ const Routes = (
   </Switch>
 )
 
-export default Routes
+export default routes

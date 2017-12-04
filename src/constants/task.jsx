@@ -1,5 +1,3 @@
-const SET_NAME = 'SET_NAME'
-
-export default {
-  SET_NAME,
-}
+const TASK = 'TASK'
+export default TASK
+export const SET_NAME = 'SET_NAME'

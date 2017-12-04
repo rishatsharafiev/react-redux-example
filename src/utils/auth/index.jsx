@@ -1,11 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
+import { Button } from 'element-react'
+import routerHistory from 'utils/history'
 
 const Authorization = (allowedRoles = null, Component = null) => (WrappedComponent) => {
   const WithAuthorization = (props) => {
-    const RedirectComponent = Component ? <Component {...props} /> : <Redirect to={{ pathname: '/login' }} />
+    const DefaultComponent = () => (
+      <div>
+        <h1>Доступ к странице запрещен</h1>
+        <Button onClick={() => { routerHistory.push('/') }}>На главную</Button>
+        <Button onClick={routerHistory.goBack}>Назад</Button>
+      </div>
+    )
+    const RedirectComponent = Component ? <Component {...props} /> : <DefaultComponent />
     const isTokenProvided = Boolean(props.token)
     return (isTokenProvided && !allowedRoles) ||
       (isTokenProvided && allowedRoles && allowedRoles.includes(props.role)) ?

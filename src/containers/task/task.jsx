@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { Pagination, Table, Button } from 'element-react'
+import { Layout, Card, Pagination, Table, Button } from 'element-react'
 // import actions from 'actions/task'
 
 class Task extends Component {
@@ -97,17 +97,23 @@ class Task extends Component {
   render() {
     return (
       <div>
-        <h1>Task</h1>
+        <Layout.Row type='flex' justify='center'>
+          <Layout.Col lg='24'>
+            <Card>
+              <h1>Task</h1>
 
-        <Table
-          style={{ width: '100%' }}
-          columns={this.state.columns}
-          data={this.state.data}
-          border
-        />
-        <div className='block'>
-          <Pagination layout='prev, pager, next, jumper' total={1000} pageSize={100} currentPage={5} />
-        </div>
+              <Table
+                style={{ width: '100%' }}
+                columns={this.state.columns}
+                data={this.state.data}
+                border
+              />
+              <div className='block'>
+                <Pagination layout='prev, pager, next, jumper' total={1000} pageSize={100} currentPage={5} />
+              </div>
+            </Card>
+          </Layout.Col>
+        </Layout.Row>
       </div>
     )
   }

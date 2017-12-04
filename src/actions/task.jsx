@@ -1,12 +1,8 @@
-import constants from 'constants/task'
+import {SET_NAME} from 'constants/task'
 
 export function setTaskName(name = '') {
   return {
-    type: constants.SET_NAME,
+    type: SET_NAME,
     name,
   }
-}
-
-export default {
-  setTaskName,
 }

@@ -1,9 +1,5 @@
-const AUTHORIZATION = 'AUTHORIZATION'
-const LOGIN_USER = 'LOGIN_USER'
-const REGISTER_USER = 'REGISTER_USER'
-
-export default {
-  AUTHORIZATION,
-  LOGIN_USER,
-  REGISTER_USER,
-}
+const AUTH = 'AUTH'
+export default AUTH
+export const AUTHORIZATION = 'AUTHORIZATION'
+export const LOGIN_USER = 'LOGIN_USER'
+export const REGISTER_USER = 'REGISTER_USER'

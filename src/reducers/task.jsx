@@ -1,4 +1,4 @@
-import constants from 'constants/task'
+import { SET_NAME } from 'constants/task'
 import initialState from 'reducers/initialState'
 
 export default function analyticsReducer(state = initialState.task, action) {
@@ -7,7 +7,7 @@ export default function analyticsReducer(state = initialState.task, action) {
   } = action
 
   switch (action.type) {
-    case constants.SET_NAME:
+    case SET_NAME:
       return { ...state, name }
     default:
       return state
