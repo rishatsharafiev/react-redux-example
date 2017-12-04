@@ -278,7 +278,7 @@ function makeConfig(options) {
           parallel: true,
           compress: {
             warnings: false,
-            screw_ie8: true,
+            drop_console: true,
             conditionals: true,
             unused: true,
             comparisons: true,
