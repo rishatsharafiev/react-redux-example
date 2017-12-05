@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { Button } from 'element-react'
 import routerHistory from 'utils/history'
 
-const Authorization = (allowedRoles = null, Component = null) => (WrappedComponent) => {
+const Authorization = (
+  allowedRoles = null,
+  Component = null,
+) => (WrappedComponent) => {
   const WithAuthorization = (props) => {
     const DefaultComponent = () => (
       <div>
@@ -16,7 +19,7 @@ const Authorization = (allowedRoles = null, Component = null) => (WrappedCompone
     const RedirectComponent = Component ? <Component {...props} /> : <DefaultComponent />
     const isTokenProvided = Boolean(props.token)
     return (isTokenProvided && !allowedRoles) ||
-      (isTokenProvided && allowedRoles && allowedRoles.includes(props.role)) ?
+      (isTokenProvided && Boolean(allowedRoles) && allowedRoles.includes(props.role)) ?
         <WrappedComponent {...props} /> :
       RedirectComponent
   }
