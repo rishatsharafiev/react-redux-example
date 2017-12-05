@@ -14,7 +14,15 @@ const register = data => request({
   data,
 })
 
+const authenticatedUser = data => request({
+  url: '/authenticated_user',
+  method: 'get',
+  responseType: 'json',
+  data,
+})
+
 export default {
   login,
   register,
+  authenticatedUser,
 }

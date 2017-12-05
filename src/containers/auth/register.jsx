@@ -12,6 +12,6 @@ const reduxFormConfig = {
   form: 'register',
 }
 
-const Container = reduxForm(reduxFormConfig)(Presentational)
+const Register = reduxForm(reduxFormConfig)(Presentational)
 
-export default connect(null, mapDispatchToProps)(Container)
+export default connect(null, mapDispatchToProps)(Register)

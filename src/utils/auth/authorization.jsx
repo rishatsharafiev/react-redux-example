@@ -6,6 +6,7 @@ import routerHistory from 'utils/history'
 
 const Authorization = (
   allowedRoles = null,
+  loggedIn = true,
   Component = null,
 ) => (WrappedComponent) => {
   const WithAuthorization = (props) => {
@@ -16,12 +17,18 @@ const Authorization = (
         <Button onClick={routerHistory.goBack}>Назад</Button>
       </div>
     )
-    const RedirectComponent = Component ? <Component {...props} /> : <DefaultComponent />
-    const isTokenProvided = Boolean(props.token)
-    return (isTokenProvided && !allowedRoles) ||
-      (isTokenProvided && Boolean(allowedRoles) && allowedRoles.includes(props.role)) ?
-        <WrappedComponent {...props} /> :
-      RedirectComponent
+    const isTokenProvided = !loggedIn ? Boolean(props.token) : true
+    const allowedRolesList = allowedRoles || ['anomymous']
+    if (isTokenProvided && !allowedRolesList) {
+      return <WrappedComponent {...props} />
+    } else if (
+      isTokenProvided &&
+      Boolean(allowedRolesList) &&
+      allowedRolesList.includes(props.role)
+    ) {
+      return <WrappedComponent {...props} />
+    }
+    return Component ? <Component {...props} /> : <DefaultComponent />
   }
 
   WithAuthorization.propTypes = {

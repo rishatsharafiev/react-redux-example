@@ -1,6 +1,6 @@
 {
   "auth": {
-    "token": "12",
+    "token": "",
     "user": {
       "name": "Anonymous",
       "role": "anonymous"

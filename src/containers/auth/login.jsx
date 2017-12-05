@@ -12,6 +12,6 @@ const reduxFormConfig = {
   form: 'login',
 }
 
-const Container = reduxForm(reduxFormConfig)(Presentational)
+const Login = reduxForm(reduxFormConfig)(Presentational)
 
-export default connect(null, mapDispatchToProps)(Container)
+export default connect(null, mapDispatchToProps)(Login)

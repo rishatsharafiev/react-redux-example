@@ -8,10 +8,17 @@ const Permission = (props) => {
     children,
     token,
     role,
+    loggedIn,
   } = props
-  const isTokenProvided = Boolean(token)
-  if ((isTokenProvided && !allowedRoles) ||
-    (isTokenProvided && Boolean(allowedRoles) && allowedRoles.includes(role))) {
+  const isTokenProvided = !loggedIn ? Boolean(token) : true
+  const allowedRolesList = allowedRoles || ['anonymous']
+  if (isTokenProvided && !allowedRolesList) {
+    return (
+      <div>
+        {children}
+      </div>
+    )
+  } else if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(role)) {
     return (
       <div>
         {children}
@@ -27,10 +34,12 @@ Permission.propTypes = {
   children: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
+  loggedIn: PropTypes.bool,
 }
 
 Permission.defaultProps = {
   allowedRoles: null,
+  loggedIn: true,
 }
 
 const mapStateToProps = state => ({

@@ -1,10 +1,12 @@
 import axios from 'axios'
 import config from 'utils/config'
+import Lockr from 'lockr'
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
   Accept: 'application/json',
   'Content-Type': 'application/json',
+  Authorization: Lockr.get('Authorization', ''),
 }
 
 const client = axios.create({
