@@ -10,13 +10,22 @@ import {
 import auth from 'api/auth'
 import routerHistory from 'utils/history'
 
+function callSaveToken(action) {
+  const token = action.payload.token ? `Bearer ${action.payload.token}` : ''
+  Lockr.set('Authorization', token)
+  redirect()
+}
+
+function redirect() {
+  routerHistory.push('/')
+}
+
 function* callSubmitLogin(action) {
   yield put(startSubmit('login'))
   let errors = {}
   const { response, error } = yield call(auth.login, action.payload)
-  if (response) {
-    yield put({ type: AUTH_LOGIN_SUCCESSFUL })
-    yield call(routerHistory.push, '/')
+  if (response && response.data && response.data.token) {
+    yield put({ type: AUTH_LOGIN_SUCCESSFUL, payload: response.data })
   } else {
     yield put({ type: AUTH_LOGIN_FAILED })
     errors = { ...error.response.data }
@@ -44,9 +53,14 @@ function* submitRegister() {
   yield takeEvery(AUTH_REGISTER_REQUESTED, callSubmitRegister)
 }
 
+function* saveToken() {
+  yield takeEvery(AUTH_LOGIN_SUCCESSFUL, callSaveToken)
+}
+
 export default function* rootSaga() {
   yield all([
     fork(submitLogin),
     fork(submitRegister),
+    fork(saveToken),
   ])
 }
