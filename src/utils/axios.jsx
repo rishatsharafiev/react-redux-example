@@ -15,5 +15,7 @@ const client = axios.create({
 
 const request = options =>
   client(options)
+    .then(response => ({ response }))
+    .catch(error => ({ error }))
 
 export default request

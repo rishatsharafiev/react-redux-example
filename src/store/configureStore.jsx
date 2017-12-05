@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from 'reducers'
-import sagas from 'sagas'
+import rootSaga from 'sagas'
 
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware()
@@ -14,7 +14,7 @@ export default function configureStore(initialState) {
     composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)),
   )
 
-  sagaMiddleware.run(sagas)
+  sagaMiddleware.run(rootSaga)
 
   if (module.hot) {
     module.hot.accept('reducers', () => {

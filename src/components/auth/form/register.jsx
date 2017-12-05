@@ -34,9 +34,18 @@ const RegisterForm = ({
             <Field name='password_confirmation' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль еще раз' validate={[required, alphaNumeric, minLength8, maxLength30]} />
           </Form.Item>
           <Button nativeType='submit' disabled={pristine || submitting || !valid}>Регистрация</Button>
-          <Form.Item>{error &&
-            <Tag type='danger'><Icon name='warning' /> {error}</Tag>}
-          </Form.Item>
+          {!error.errors && error.message &&
+            <Form.Item>
+              <Tag type='danger'><Icon name='warning' /> {error.message}</Tag>
+            </Form.Item>
+          }
+          {error.errors && error.errors[0] &&
+            error.errors.map(item => (
+              <Form.Item>
+                <Tag key={item} type='danger'><Icon name='warning' /> {item}</Tag>
+              </Form.Item>
+            ))
+          }
         </Form>
       </Card>
     </Layout.Col>
@@ -49,11 +58,11 @@ RegisterForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.object,
 }
 
 RegisterForm.defaultProps = {
-  error: '',
+  error: {},
 }
 
 export default RegisterForm
