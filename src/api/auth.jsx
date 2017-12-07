@@ -1,3 +1,4 @@
+import Lockr from 'lockr'
 import request from 'utils/axios'
 
 const login = (email, password) => request({
@@ -31,6 +32,9 @@ const authenticatedUser = () => request({
   url: '/authenticated_user',
   method: 'get',
   responseType: 'json',
+  headers: {
+    Authorization: `Bearer ${Lockr.get('token', '')}`,
+  },
 })
 
 export default {

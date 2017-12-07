@@ -12,13 +12,13 @@ const Permission = (props) => {
   } = props
   const isTokenProvided = !loggedIn ? Boolean(token) : true
   const allowedRolesList = allowedRoles || ['anonymous']
-  if (isTokenProvided && !allowedRolesList) {
+  if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(role)) {
     return (
       <div>
         {children}
       </div>
     )
-  } else if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(role)) {
+  } else if (isTokenProvided && !allowedRolesList) {
     return (
       <div>
         {children}
