@@ -39,7 +39,8 @@
       "specialLink": [ "to" ]
     }],
     "react/forbid-prop-types": ["error", { forbid: ["any"] }],
-    "jsx-a11y/label-has-for": 0
+    "jsx-a11y/label-has-for": 0,
+    "camelcase": 0
   },
   "settings": {
     "import/ignore": [".css$","node_modules/*"]

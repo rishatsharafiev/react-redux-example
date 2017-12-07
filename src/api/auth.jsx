@@ -10,12 +10,12 @@ const login = (email, password) => request({
   },
 })
 
-const register = ({
+const register = (
   name,
   email,
   password,
   password_confirmation,
-}) => request({
+) => request({
   url: '/register',
   method: 'post',
   responseType: 'json',

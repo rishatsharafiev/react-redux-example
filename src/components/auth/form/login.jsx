@@ -34,8 +34,8 @@ const LoginForm = ({
           }
           {error.errors && error.errors[0] &&
             error.errors.map(item => (
-              <Form.Item>
-                <Tag key={item} type='danger'><Icon name='warning' /> {item}</Tag>
+              <Form.Item key={item} >
+                <Tag type='danger'><Icon name='warning' /> {item}</Tag>
               </Form.Item>
             ))
           }
