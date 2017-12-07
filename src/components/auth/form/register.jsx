@@ -10,7 +10,7 @@ const RegisterForm = ({
   handleSubmit,
   submitting,
   pristine,
-  valid,
+  invalid,
   error,
   actions: {
     registerUser,
@@ -21,7 +21,7 @@ const RegisterForm = ({
       <Card>
         <h1>Регистрация</h1>
         <Form onSubmit={handleSubmit(registerUser)}>
-          <Form.Item label='Имя'>
+          <Form.Item label='Имя1'>
             <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' validate={[required, russianName, minLength2, maxLength30]} normalize={firstUpperNextLowerCase} />
           </Form.Item>
           <Form.Item label='E-mail'>
@@ -33,7 +33,7 @@ const RegisterForm = ({
           <Form.Item label='Подтвердите пароль'>
             <Field name='password_confirmation' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль еще раз' validate={[required, alphaNumeric, minLength8, maxLength30]} />
           </Form.Item>
-          <Button nativeType='submit' disabled={pristine || submitting || !valid}>Регистрация</Button>
+          <Button nativeType='submit' disabled={pristine || submitting || invalid}>Регистрация</Button>
           {!error.errors && error.message &&
             <Form.Item>
               <Tag type='danger'><Icon name='warning' /> {error.message}</Tag>
@@ -57,7 +57,7 @@ RegisterForm.propTypes = {
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
 }
 

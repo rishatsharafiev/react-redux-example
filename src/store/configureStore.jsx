@@ -17,9 +17,10 @@ export default function configureStore(initialState) {
   sagaMiddleware.run(rootSaga)
 
   if (module.hot) {
-    module.hot.accept('reducers', () => {
+    module.hot.accept('reducers/index', () => {
       /* eslint-disable global-require */
-      const nextRootReducer = require('reducers/index')
+      const createNextReducer = require('reducers/index')
+      const nextRootReducer = createNextReducer()
       store.replaceReducer(nextRootReducer)
       /* eslint-enable global-require */
     })

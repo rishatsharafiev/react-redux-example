@@ -17,7 +17,7 @@ const routes = (
     <Route path='/tasks' exact component={Auth(Task)} />
     <Route path='/login' exact component={Anonymous(Login)} />
     <Route path='/register' exact component={Anonymous(Register)} />
-    <Route path='/logout' exact component={Logout} />
+    <Route path='/logout' exact component={Auth(Logout)} />
     <Route component={NotFound} />
   </Switch>
 )

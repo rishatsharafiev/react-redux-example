@@ -9,7 +9,7 @@ const LoginForm = ({
   handleSubmit,
   submitting,
   pristine,
-  valid,
+  invalid,
   error,
   actions: {
     loginUser,
@@ -26,7 +26,8 @@ const LoginForm = ({
           <Form.Item label='Пароль'>
             <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
           </Form.Item>
-          <Button nativeType='submit' disabled={pristine || submitting || !valid}>Войти</Button>
+          <h1>{invalid}</h1>
+          <Button nativeType='submit' disabled={pristine || submitting || invalid}>Войти</Button>
           {!error.errors && error.message &&
             <Form.Item>
               <Tag type='danger'><Icon name='warning' /> {error.message}</Tag>
@@ -50,7 +51,7 @@ LoginForm.propTypes = {
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
 }
 

@@ -60,9 +60,6 @@ export function* loginFlow() {
     const action = yield take([LOGOUT, LOGIN_ERROR])
     if (action.type === LOGOUT) {
       yield cancel(task)
-      yield call(routerHistory.push, '/')
-      yield call([Lockr, Lockr.rm], 'token')
-      yield put({ type: FLUSH_AUTH })
     }
   }
 }
@@ -109,9 +106,6 @@ export function* registerFlow() {
     const action = yield take([LOGOUT, REGISTER_ERROR])
     if (action.type === LOGOUT) {
       yield cancel(task)
-      yield call(routerHistory.push, '/')
-      yield call([Lockr, Lockr.rm], 'token')
-      yield put({ type: FLUSH_AUTH })
     }
   }
 }
@@ -119,6 +113,7 @@ export function* registerFlow() {
 export function* logoutFlow() {
   while (true) {
     yield take(LOGOUT)
+    yield call(auth.logout)
     yield call([Lockr, Lockr.rm], 'token')
     yield put({ type: FLUSH_AUTH })
     yield call(routerHistory.push, '/')
