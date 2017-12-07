@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import routerHistory from 'utils/history'
 import * as actions from 'actions/auth'
 
 const Logout = (props) => {
   props.actions.logout()
-  routerHistory.push('/')
   return (
     <div />
   )

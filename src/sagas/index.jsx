@@ -1,102 +1,65 @@
-import { all, fork, call, put, takeEvery } from 'redux-saga/effects'
-import { startSubmit, stopSubmit } from 'redux-form'
+import { all, fork, call, take, put, cancelled, cancel } from 'redux-saga/effects'
 import Lockr from 'lockr'
-import {
-  AUTH_LOGIN_REQUESTED,
-  AUTH_LOGIN_SUCCESSFUL,
-  AUTH_LOGIN_FAILED,
-  AUTH_REGISTER_REQUESTED,
-  AUTH_LOGOUT,
-  AUTH_LOGOUT_SUCCESSFUL,
-  AUTH_SET_TOKEN,
-} from 'constants/auth'
-import {
-  setToken,
-  setRole,
-} from 'actions/auth'
-import auth from 'api/auth'
+import { startSubmit, stopSubmit } from 'redux-form'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from 'constants/auth'
 import routerHistory from 'utils/history'
+import auth from 'api/auth'
 
-function* callAuthenticatedUser() {
-  const { response, error } = yield call(auth.authenticatedUser)
-  if (response) {
-    yield put(setRole(response.data))
-  } else {
-    console.log(error)
-  }
-}
-
-function* callSaveToken(action) {
-  const token = action.payload.token ? `Bearer ${action.payload.token}` : ''
-  Lockr.set('Authorization', token)
-  if (token) {
-    yield put(setToken({ token }))
-    redirect()
-  }
-}
-
-function* callLogout() {
-  Lockr.set('Authorization', '')
-  yield put({ type: AUTH_LOGOUT_SUCCESSFUL })
-  redirect()
-}
-
-function redirect() {
-  routerHistory.push('/')
-}
-
-function* callSubmitLogin(action) {
-  yield put(startSubmit('login'))
+function* authorize(email, password) {
   let errors = {}
-  const { response, error } = yield call(auth.login, action.payload)
-  if (response && response.data && response.data.token) {
-    yield put({ type: AUTH_LOGIN_SUCCESSFUL, payload: response.data })
-  } else {
-    yield put({ type: AUTH_LOGIN_FAILED })
+  try {
+    yield put(startSubmit('login'))
+    const { response, error } = yield call(auth.login, email, password)
+    if (response && response.data && response.data.token) {
+      const { token } = response.data
+      yield put({ type: LOGIN_SUCCESS, token })
+      yield call([Lockr, Lockr.set], 'token', token)
+      yield routerHistory.push('/')
+      return token
+    }
     errors = { ...error.response.data }
+    yield put({ type: LOGIN_ERROR, error })
+    yield put(stopSubmit('login', { _error: errors }))
+  } catch (error) {
+    // network error
+    yield put({ type: LOGIN_ERROR, error })
+    yield put(stopSubmit('login', { _error: errors }))
+  } finally {
+    if (yield cancelled()) {
+      // ... put special cancellation handling code here
+    }
   }
-  yield put(stopSubmit('login', { _error: errors }))
+  return false
 }
 
-function* callSubmitRegister(action) {
-  yield put(startSubmit('register'))
-  let errors = {}
-  const { response, error } = yield call(auth.register, action.payload)
-  if (response) {
-    yield call(routerHistory.push, '/')
-  } else {
-    errors = { ...error.response.data }
+// function* registerFlow() {
+//   yield 'register'
+// }
+
+function* loginFlow() {
+  while (true) {
+    const { email, password } = yield take(LOGIN_REQUEST)
+    const task = yield fork(authorize, email, password)
+    const action = yield take([LOGOUT, LOGIN_ERROR])
+    if (action.type === LOGOUT) {
+      yield cancel(task)
+      yield routerHistory.push('/')
+      yield call([Lockr, Lockr.rm], 'token')
+    }
   }
-  yield put(stopSubmit('register', { _error: errors }))
 }
 
-function* submitLogin() {
-  yield takeEvery(AUTH_LOGIN_REQUESTED, callSubmitLogin)
-}
-
-function* submitRegister() {
-  yield takeEvery(AUTH_REGISTER_REQUESTED, callSubmitRegister)
-}
-
-function* saveToken() {
-  yield takeEvery(AUTH_LOGIN_SUCCESSFUL, callSaveToken)
-}
-
-function* saveRole() {
-  yield takeEvery(AUTH_SET_TOKEN, callAuthenticatedUser)
-}
-
-function* logoutSaga() {
-  yield takeEvery(AUTH_LOGOUT, callLogout)
+function* logoutFlow() {
+  while (true) {
+    yield take(LOGOUT)
+    yield call([Lockr, Lockr.rm], 'token')
+    yield routerHistory.push('/')
+  }
 }
 
 export default function* rootSaga() {
   yield all([
-    fork(submitLogin),
-    fork(submitRegister),
-    fork(saveToken),
-    fork(saveRole),
-    fork(callAuthenticatedUser),
-    fork(logoutSaga),
+    call(loginFlow),
+    call(logoutFlow),
   ])
 }

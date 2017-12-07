@@ -1,24 +1,36 @@
 import request from 'utils/axios'
 
-const login = data => request({
+const login = (email, password) => request({
   url: '/login',
   method: 'post',
   responseType: 'json',
-  data,
+  data: {
+    email,
+    password,
+  },
 })
 
-const register = data => request({
+const register = ({
+  name,
+  email,
+  password,
+  password_confirmation,
+}) => request({
   url: '/register',
   method: 'post',
   responseType: 'json',
-  data,
+  data: {
+    name,
+    email,
+    password,
+    password_confirmation,
+  },
 })
 
-const authenticatedUser = data => request({
+const authenticatedUser = () => request({
   url: '/authenticated_user',
   method: 'get',
   responseType: 'json',
-  data,
 })
 
 export default {
