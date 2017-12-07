@@ -1,11 +1,12 @@
 import { all, call } from 'redux-saga/effects'
-import { loginFlow, registerFlow, setRole, logoutFlow } from 'sagas/auth'
+import { loginFlow, registerFlow, appInitFlow, setRoleFlow, logoutFlow } from 'sagas/auth'
 
 export default function* rootSaga() {
   yield all([
+    call(setRoleFlow),
     call(loginFlow),
     call(registerFlow),
-    call(setRole),
     call(logoutFlow),
+    call(appInitFlow),
   ])
 }

@@ -4,17 +4,16 @@ import { startSubmit, stopSubmit } from 'redux-form'
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR,
   REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_ERROR,
-  SET_ROLE,
-  FLUSH_AUTH,
+  APP_INIT, SET_ROLE, FLUSH_AUTH,
   LOGOUT,
 } from 'constants/auth'
 import routerHistory from 'utils/history'
 import auth from 'api/auth'
 
-export function* setRole() {
+export function* setRoleFlow() {
   while (true) {
     let errors = {}
-    yield take([LOGIN_SUCCESS, REGISTER_SUCCESS])
+    yield take([APP_INIT, LOGIN_SUCCESS, REGISTER_SUCCESS])
     const { response, error } = yield call(auth.authenticatedUser)
     if (response && response.data) {
       yield put({ type: SET_ROLE, payload: { ...response.data } })
@@ -126,3 +125,6 @@ export function* logoutFlow() {
   }
 }
 
+export function* appInitFlow() {
+  yield put({ type: APP_INIT })
+}
