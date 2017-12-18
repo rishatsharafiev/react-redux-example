@@ -21,7 +21,7 @@ const RegisterForm = ({
       <Card>
         <h1>Регистрация</h1>
         <Form onSubmit={handleSubmit(registerUser)}>
-          <Form.Item label='Имя1'>
+          <Form.Item label='Имя'>
             <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' validate={[required, russianName, minLength2, maxLength30]} normalize={firstUpperNextLowerCase} />
           </Form.Item>
           <Form.Item label='E-mail'>
