@@ -5,5 +5,33 @@
       "name": "Anonymous",
       "role": "anonymous"
     }
+  },
+  "tasks": {
+    "columns": [
+      {
+        "label": "ID",
+        "prop": "id",
+        "width": 50
+      },
+      {
+        "label": "Адрес магазина",
+        "prop": "address",
+        "width": 180
+      },
+      {
+        "label": "Дата создания",
+        "prop": "created_at"
+      }
+    ],
+    "data": [
+      {
+        "id": "-",
+        "address": "-",
+        "created_at": "-",
+      }
+    ],
+    "total": 1,
+    "pageSize": 10,
+    "currentPage": 1
   }
 }

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { reduxForm } from 'redux-form'
-import Presentational from 'components/auth/form/register'
+import Presentational from 'components/auth/register'
 import * as actions from 'actions/auth'
 
 const mapDispatchToProps = dispatch => ({

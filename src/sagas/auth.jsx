@@ -4,7 +4,8 @@ import { startSubmit, stopSubmit } from 'redux-form'
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR,
   REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_ERROR,
-  APP_INIT, SET_ROLE, FLUSH_AUTH,
+  APP_INIT, APP_INIT_SUCCESS,
+  SET_ROLE, FLUSH_AUTH,
   LOGOUT,
 } from 'constants/auth'
 import routerHistory from 'utils/history'
@@ -17,6 +18,7 @@ export function* setRoleFlow() {
     const { response, error } = yield call(auth.authenticatedUser)
     if (response && response.data) {
       yield put({ type: SET_ROLE, payload: { ...response.data } })
+      yield put({ type: APP_INIT_SUCCESS })
     }
     // show errror popup
     if (error) {
