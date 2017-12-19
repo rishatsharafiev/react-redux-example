@@ -1,30 +1,30 @@
-import { fork, call, take, put, cancelled, cancel } from 'redux-saga/effects'
+import { fork, call, take, put, cancelled, cancel, all } from 'redux-saga/effects'
 import Lockr from 'lockr'
+import auth from 'api/auth'
+import routerHistory from 'utils/history'
 import { startSubmit, stopSubmit } from 'redux-form'
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR,
-  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_ERROR,
-  APP_INIT, APP_INIT_SUCCESS,
-  SET_ROLE, FLUSH_AUTH,
-  LOGOUT,
+  APP_INIT,
+  TOKEN_INIT, TOKEN_EMTPY,
+} from 'constants/app'
+import {
+  LOGIN_INIT, LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_ERROR,
+  REGISTER_INIT, REGISTER_REQUEST, REGISTER_REQUEST_SUCCESS, REGISTER_REQUEST_ERROR,
+  LOGOUT_INIT, LOGOUT_REQUEST,
 } from 'constants/auth'
-import routerHistory from 'utils/history'
-import auth from 'api/auth'
 
-export function* setRoleFlow() {
+export function* loginInit() {
   while (true) {
-    let errors = {}
-    yield take([APP_INIT, LOGIN_SUCCESS, REGISTER_SUCCESS])
-    const { response, error } = yield call(auth.authenticatedUser)
-    if (response && response.data) {
-      yield put({ type: SET_ROLE, payload: { ...response.data } })
-      yield put({ type: APP_INIT_SUCCESS })
+    yield take(TOKEN_EMTPY)
+    yield put.resolve({ type: LOGIN_INIT })
+    yield take(LOGIN_INIT)
+    const action2 = yield take(LOGIN_REQUEST)
+    console.log(action2)
+    const task = yield fork(login, '', '')
+    const action = yield take([LOGOUT_INIT, LOGIN_REQUEST_ERROR])
+    if (action.type === LOGOUT_INIT) {
+      yield cancel(task)
     }
-    // show errror popup
-    if (error) {
-      errors = { ...error.response.data }
-    }
-    yield put({ type: 'ROLE_ERROR', payload: errors, error: true })
   }
 }
 
@@ -36,31 +36,36 @@ export function* login(email, password) {
     if (response && response.data && response.data.token) {
       const { token } = response.data
       yield call([Lockr, Lockr.set], 'token', token)
-      yield put({ type: LOGIN_SUCCESS, payload: { token } })
-      yield call(routerHistory.push, '/')
-      return token
+      yield put({ type: LOGIN_REQUEST_SUCCESS, payload: { token } })
+      yield call([routerHistory, routerHistory.push], '/')
     }
     errors = { ...error.response.data }
-    yield put({ type: LOGIN_ERROR, payload: { error }, error: true })
+    yield put({ type: LOGIN_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('login', { _error: errors }))
   } catch (error) {
     // network error
-    yield put({ type: LOGIN_ERROR, payload: { error }, error: true })
+    yield put({ type: LOGIN_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('login', { _error: errors }))
   } finally {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
     }
   }
-  return false
 }
 
-export function* loginFlow() {
+export function* registerInit() {
   while (true) {
-    const { email, password } = yield take(LOGIN_REQUEST)
-    const task = yield fork(login, email, password)
-    const action = yield take([LOGOUT, LOGIN_ERROR])
-    if (action.type === LOGOUT) {
+    yield take(APP_INIT)
+    yield put.resolve({ type: REGISTER_INIT })
+    yield take(REGISTER_INIT)
+    const {
+      payload: {
+        name, email, password, password_confirmation,
+      },
+    } = yield take(REGISTER_REQUEST)
+    const task = yield fork(register, name, email, password, password_confirmation)
+    const action = yield take([REGISTER_INIT, REGISTER_REQUEST_ERROR])
+    if (action.type === LOGOUT_INIT) {
       yield cancel(task)
     }
   }
@@ -79,49 +84,38 @@ export function* register(name, email, password, password_confirmation) {
     )
     if (response && response.data && response.data.token) {
       const { token } = response.data
-      yield call([Lockr, Lockr.set], 'token', token)
-      yield put({ type: REGISTER_SUCCESS, payload: { token } })
-      yield call(routerHistory.push, '/')
-      return token
+      yield put({ type: REGISTER_REQUEST_SUCCESS, payload: { token } })
+      yield call([routerHistory, routerHistory.push], '/login')
     }
     errors = { ...error.response.data }
-    yield put({ type: REGISTER_ERROR, payload: { error }, error: true })
+    yield put({ type: REGISTER_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('register', { _error: errors }))
   } catch (error) {
     // network error
-    yield put({ type: REGISTER_ERROR, payload: { error }, error: true })
+    yield put({ type: REGISTER_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('register', { _error: errors }))
   } finally {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
     }
   }
-  return false
 }
 
-export function* registerFlow() {
+export function* logout() {
   while (true) {
-    const {
-      name, email, password, password_confirmation,
-    } = yield take(REGISTER_REQUEST)
-    const task = yield fork(register, name, email, password, password_confirmation)
-    const action = yield take([LOGOUT, REGISTER_ERROR])
-    if (action.type === LOGOUT) {
-      yield cancel(task)
-    }
-  }
-}
-
-export function* logoutFlow() {
-  while (true) {
-    yield take(LOGOUT)
-    yield call(auth.logout)
+    yield take(LOGOUT_INIT)
+    yield put.resolve({ type: LOGOUT_REQUEST })
+    yield take(LOGOUT_REQUEST)
+    // TODO: call logout api
     yield call([Lockr, Lockr.rm], 'token')
-    yield put({ type: FLUSH_AUTH })
-    yield call(routerHistory.push, '/')
+    yield put({ type: TOKEN_INIT })
   }
 }
 
-export function* appInitFlow() {
-  yield put({ type: APP_INIT })
+export default function* authSaga() {
+  yield all([
+    call(loginInit),
+    call(registerInit),
+    call(logout),
+  ])
 }

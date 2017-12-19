@@ -28,15 +28,6 @@ const register = (
   },
 })
 
-const authenticatedUser = () => request({
-  url: '/authenticated_user',
-  method: 'get',
-  responseType: 'json',
-  headers: {
-    Authorization: `Bearer ${Lockr.get('token', '')}`,
-  },
-})
-
 const logout = () => request({
   url: '/logout',
   method: 'post',
@@ -49,6 +40,5 @@ const logout = () => request({
 export default {
   login,
   register,
-  authenticatedUser,
   logout,
 }
