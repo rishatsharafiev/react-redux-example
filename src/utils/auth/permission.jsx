@@ -10,8 +10,8 @@ const Permission = (props) => {
     role,
     loggedIn,
   } = props
-  const isTokenProvided = !loggedIn ? Boolean(token) : true
-  const allowedRolesList = allowedRoles || ['anonymous']
+  const isTokenProvided = Boolean(token)
+  const allowedRolesList = allowedRoles || ['guest']
   if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(role)) {
     return (
       <div>
@@ -19,6 +19,12 @@ const Permission = (props) => {
       </div>
     )
   } else if (isTokenProvided && !allowedRolesList) {
+    return (
+      <div>
+        {children}
+      </div>
+    )
+  } else if (!loggedIn && !isTokenProvided) {
     return (
       <div>
         {children}
@@ -44,7 +50,7 @@ Permission.defaultProps = {
 
 const mapStateToProps = state => ({
   token: state.auth.token,
-  role: state.auth.user.role,
+  role: state.app.user.role,
 })
 
 export default connect(mapStateToProps)(Permission)

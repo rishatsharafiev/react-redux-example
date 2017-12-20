@@ -17,8 +17,8 @@ const Authorization = (
         <Button onClick={routerHistory.goBack}>Назад</Button>
       </div>
     )
-    const isTokenProvided = !loggedIn ? Boolean(props.token) : true
-    const allowedRolesList = allowedRoles || ['anomymous']
+    const isTokenProvided = Boolean(props.token)
+    const allowedRolesList = allowedRoles || ['guest']
     if (isTokenProvided && !allowedRolesList) {
       return <WrappedComponent {...props} />
     } else if (
@@ -27,7 +27,10 @@ const Authorization = (
       allowedRolesList.includes(props.role)
     ) {
       return <WrappedComponent {...props} />
+    } else if (!loggedIn && !isTokenProvided) {
+      return <WrappedComponent {...props} />
     }
+
     return Component ? <Component {...props} /> : <DefaultComponent />
   }
 
@@ -38,7 +41,7 @@ const Authorization = (
 
   const mapStateToProps = state => ({
     token: state.auth.token,
-    role: state.auth.user.role,
+    role: state.app.user.role,
   })
 
   return connect(mapStateToProps)(WithAuthorization)

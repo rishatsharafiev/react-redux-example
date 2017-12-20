@@ -16,7 +16,7 @@ const Header = () => (
           <Link to='/tasks'>Задачи</Link>
         </Menu.Item>
       </Permission>
-      <Permission>
+      <Permission loggedIn={false}>
         <Menu.Item index='login'>
           <Link to='/login'>Войти</Link>
         </Menu.Item>

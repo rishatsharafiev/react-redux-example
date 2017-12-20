@@ -1,23 +1,13 @@
 import initialState from 'reducers/initialState'
-import { LOGIN_SUCCESS, REGISTER_SUCCESS, SET_ROLE, FLUSH_AUTH } from 'constants/auth'
+import { LOGOUT_REQUEST } from 'constants/auth'
+import { TOKEN_FILLED } from 'constants/app'
 
 const auth = (state = initialState.auth, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case TOKEN_FILLED:
       return { ...state, ...action.payload }
-    case REGISTER_SUCCESS:
-      return { ...state, ...action.payload }
-    case SET_ROLE:
-      return { ...state, ...action.payload }
-    case FLUSH_AUTH:
-      return {
-        ...state,
-        token: '',
-        user: {
-          name: 'Anonymous',
-          role: 'anonymous',
-        },
-      }
+    case LOGOUT_REQUEST:
+      return { ...state, token: '' }
     default:
       return state
   }

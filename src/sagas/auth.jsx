@@ -4,32 +4,40 @@ import auth from 'api/auth'
 import routerHistory from 'utils/history'
 import { startSubmit, stopSubmit } from 'redux-form'
 import {
-  APP_INIT,
+  APP_INIT, APP_SUCCESS,
   TOKEN_INIT, TOKEN_EMTPY,
 } from 'constants/app'
 import {
   LOGIN_INIT, LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_ERROR,
   REGISTER_INIT, REGISTER_REQUEST, REGISTER_REQUEST_SUCCESS, REGISTER_REQUEST_ERROR,
   LOGOUT_INIT, LOGOUT_REQUEST,
+  AUTHORIZED,
 } from 'constants/auth'
+
+export function* loginInitWait() {
+  while (true) {
+    yield take([APP_INIT, TOKEN_EMTPY, LOGIN_REQUEST_ERROR])
+    yield put({ type: LOGIN_INIT })
+  }
+}
 
 export function* loginInit() {
   while (true) {
-    yield take(TOKEN_EMTPY)
-    yield put.resolve({ type: LOGIN_INIT })
     yield take(LOGIN_INIT)
-    const action2 = yield take(LOGIN_REQUEST)
-    console.log(action2)
-    const task = yield fork(login, '', '')
-    const action = yield take([LOGOUT_INIT, LOGIN_REQUEST_ERROR])
-    if (action.type === LOGOUT_INIT) {
+    const {
+      payload: {
+        email, password,
+      },
+    } = yield take(LOGIN_REQUEST)
+    const task = yield fork(login, email, password)
+    const action = yield take([LOGOUT_REQUEST, LOGIN_REQUEST_ERROR])
+    if (action.type === LOGOUT_REQUEST) {
       yield cancel(task)
     }
   }
 }
 
 export function* login(email, password) {
-  let errors = {}
   try {
     yield put(startSubmit('login'))
     const { response, error } = yield call(auth.login, email, password)
@@ -39,13 +47,13 @@ export function* login(email, password) {
       yield put({ type: LOGIN_REQUEST_SUCCESS, payload: { token } })
       yield call([routerHistory, routerHistory.push], '/')
     }
-    errors = { ...error.response.data }
+    const errors = { ...error.response.data }
     yield put({ type: LOGIN_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('login', { _error: errors }))
   } catch (error) {
     // network error
     yield put({ type: LOGIN_REQUEST_ERROR, payload: { error }, error: true })
-    yield put(stopSubmit('login', { _error: errors }))
+    yield put(stopSubmit('login', { _error: error }))
   } finally {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
@@ -53,10 +61,15 @@ export function* login(email, password) {
   }
 }
 
+export function* registerInitWait() {
+  while (true) {
+    yield take([APP_INIT, REGISTER_REQUEST_ERROR])
+    yield put({ type: REGISTER_INIT })
+  }
+}
+
 export function* registerInit() {
   while (true) {
-    yield take(APP_INIT)
-    yield put.resolve({ type: REGISTER_INIT })
     yield take(REGISTER_INIT)
     const {
       payload: {
@@ -64,15 +77,14 @@ export function* registerInit() {
       },
     } = yield take(REGISTER_REQUEST)
     const task = yield fork(register, name, email, password, password_confirmation)
-    const action = yield take([REGISTER_INIT, REGISTER_REQUEST_ERROR])
-    if (action.type === LOGOUT_INIT) {
+    const action = yield take([LOGOUT_REQUEST, REGISTER_REQUEST_ERROR])
+    if (action.type === LOGOUT_REQUEST) {
       yield cancel(task)
     }
   }
 }
 
 export function* register(name, email, password, password_confirmation) {
-  let errors = {}
   try {
     yield put(startSubmit('register'))
     const { response, error } = yield call(
@@ -87,13 +99,13 @@ export function* register(name, email, password, password_confirmation) {
       yield put({ type: REGISTER_REQUEST_SUCCESS, payload: { token } })
       yield call([routerHistory, routerHistory.push], '/login')
     }
-    errors = { ...error.response.data }
+    const errors = { ...error.response.data }
     yield put({ type: REGISTER_REQUEST_ERROR, payload: { error }, error: true })
     yield put(stopSubmit('register', { _error: errors }))
   } catch (error) {
     // network error
     yield put({ type: REGISTER_REQUEST_ERROR, payload: { error }, error: true })
-    yield put(stopSubmit('register', { _error: errors }))
+    yield put(stopSubmit('register', { _error: error }))
   } finally {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
@@ -101,21 +113,39 @@ export function* register(name, email, password, password_confirmation) {
   }
 }
 
+export function* authorizedInit() {
+  while (true) {
+    yield take(LOGIN_REQUEST_SUCCESS)
+    yield take(APP_SUCCESS)
+    yield put({ type: AUTHORIZED })
+  }
+}
+
+export function* logoutWait() {
+  while (true) {
+    yield take(APP_SUCCESS)
+    yield put({ type: LOGOUT_INIT })
+  }
+}
+
 export function* logout() {
   while (true) {
     yield take(LOGOUT_INIT)
-    yield put.resolve({ type: LOGOUT_REQUEST })
     yield take(LOGOUT_REQUEST)
-    // TODO: call logout api
     yield call([Lockr, Lockr.rm], 'token')
     yield put({ type: TOKEN_INIT })
+    yield call(routerHistory.push, '/login')
   }
 }
 
 export default function* authSaga() {
   yield all([
-    call(loginInit),
-    call(registerInit),
-    call(logout),
+    fork(loginInitWait),
+    fork(loginInit),
+    fork(registerInitWait),
+    fork(registerInit),
+    fork(authorizedInit),
+    fork(logoutWait),
+    fork(logout),
   ])
 }

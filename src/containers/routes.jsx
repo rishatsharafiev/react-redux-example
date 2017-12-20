@@ -8,7 +8,7 @@ import Register from 'containers/auth/register'
 import Logout from 'containers/auth/logout'
 import NotFound from 'containers/error/notFound'
 
-const Anonymous = Authorization(['anonymous'])
+const Anonymous = Authorization(['guest'], false)
 const Auth = Authorization(['100', '200', '300', '400', '500'])
 
 const routes = (

@@ -1,10 +1,12 @@
 {
-  "auth": {
-    "token": "",
+  "app": {
     "user": {
-      "name": "Anonymous",
-      "role": "anonymous"
+      "name": "Guest",
+      "role": "guest"
     }
+  },
+  "auth": {
+    "token": ""
   },
   "tasks": {
     "columns": [

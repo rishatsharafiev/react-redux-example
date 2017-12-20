@@ -1,7 +1,7 @@
 import {
   LOGIN_REQUEST,
   REGISTER_REQUEST,
-  LOGOUT_INIT,
+  LOGOUT_REQUEST,
 } from 'constants/auth'
 
 export const loginUser = ({ email, password }) => ({
@@ -17,4 +17,4 @@ export const registerUser = ({
   },
 })
 
-export const logout = () => ({ type: LOGOUT_INIT })
+export const logout = () => ({ type: LOGOUT_REQUEST })
