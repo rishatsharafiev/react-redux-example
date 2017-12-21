@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { reduxForm } from 'redux-form'
-import Presentational from 'components/auth/form/register'
+import Presentational from 'components/auth/register'
 import * as actions from 'actions/auth'
 
 const mapDispatchToProps = dispatch => ({
@@ -12,6 +12,6 @@ const reduxFormConfig = {
   form: 'register',
 }
 
-const Container = reduxForm(reduxFormConfig)(Presentational)
+const Register = reduxForm(reduxFormConfig)(Presentational)
 
-export default connect(null, mapDispatchToProps)(Container)
+export default connect(null, mapDispatchToProps)(Register)

@@ -16,7 +16,7 @@ export const email = value =>
 
 export const alphaNumeric = value =>
   (value && /[^a-zA-Z0-9]/i.test(value)
-    ? 'Должны быть только буквы и цифры'
+    ? 'Должны быть только английские буквы и цифры'
     : undefined)
 
 export const russianName = value =>

@@ -1,12 +1,30 @@
 {
-  "auth": {
-    "token": "12",
+  "app": {
     "user": {
-      "name": "Anonymous",
-      "role": "anonymous"
+      "name": "Guest",
+      "role": "guest"
     }
   },
-  "task": {
-    "name": "Nothing"
+  "auth": {
+    "token": ""
+  },
+  "tasks": {
+    "data": [
+      {
+        "shop": {
+          "address": "-"
+        },
+        "superior_fullname": "-",
+        "started_at": {
+          "date": "-"
+        }
+      }
+    ],
+    "meta": {
+      "total": 1,
+      "pageSize": 10,
+      "currentPage": 1,
+      "isLoading": false
+    }
   }
 }

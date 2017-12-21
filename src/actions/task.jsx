@@ -1,8 +1,4 @@
-import {SET_NAME} from 'constants/task'
+import { TASK_LIST_REQUEST } from 'constants/task'
 
-export function setTaskName(name = '') {
-  return {
-    type: SET_NAME,
-    name,
-  }
-}
+export const changeCurrentPage = page => ({ type: TASK_LIST_REQUEST, payload: { page } })
+export default () => {}

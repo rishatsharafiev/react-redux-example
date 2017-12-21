@@ -1,18 +1,20 @@
 import {
-  AUTH_LOGIN_REQUESTED,
-  AUTH_REGISTER_REQUESTED,
+  LOGIN_REQUEST,
+  REGISTER_REQUEST,
+  LOGOUT_REQUEST,
 } from 'constants/auth'
 
-export function loginUser(payload) {
-  return {
-    type: AUTH_LOGIN_REQUESTED,
-    payload,
-  }
-}
+export const login = ({ email, password }) => ({
+  type: LOGIN_REQUEST, payload: { email, password },
+})
 
-export function registerUser(payload) {
-  return {
-    type: AUTH_REGISTER_REQUESTED,
-    payload,
-  }
-}
+export const register = ({
+  name, email, password, password_confirmation,
+}) => ({
+  type: REGISTER_REQUEST,
+  payload: {
+    name, email, password, password_confirmation,
+  },
+})
+
+export const logout = () => ({ type: LOGOUT_REQUEST })

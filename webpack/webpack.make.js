@@ -9,6 +9,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin")
 const cssNano = require('cssnano');
 
 const PROJECT_ROOT = path.join(__dirname, '..');;
@@ -291,6 +292,13 @@ function makeConfig(options) {
           output: {
             comments: false
           }
+        }));
+        plugins.push(new CompressionPlugin({
+          asset: "[path]",
+          algorithm: "gzip",
+          test: /\.js$|\.css$|\.html$/,
+          threshold: 10240,
+          minRatio: 0.8
         }));
       }
 
