@@ -7,12 +7,12 @@ const columns = [
   {
     label: 'Постановщик задачи',
     prop: 'superior_fullname',
-    width: 180,
+    width: 250,
   },
   {
     label: 'Дата начала',
     prop: 'started_at',
-    width: 180,
+    width: 250,
     render(data) {
       return (
         <span>
@@ -57,6 +57,10 @@ const TaskList = ({
               style={{ width: '100%' }}
               columns={columns}
               data={data}
+              emptyText='Нет данных'
+              align='left'
+              height='441px'
+              resizable
               border
             />
             <div style={{ ...overlayStyles, display: isLoading ? 'block' : 'none' }}>
@@ -66,8 +70,8 @@ const TaskList = ({
           <div className='block'>
             <Pagination
               layout='prev, pager, next, jumper'
-              total={total}
-              pageSize={pageSize}
+              total={total || 10}
+              pageSize={pageSize || 10}
               currentPage={currentPage}
               onCurrentChange={(item) => { handleCurrentChange(item) }}
             />
