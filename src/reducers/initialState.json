@@ -9,17 +9,7 @@
     "token": ""
   },
   "tasks": {
-    "data": [
-      {
-        "shop": {
-          "address": "-"
-        },
-        "superior_fullname": "-",
-        "started_at": {
-          "date": "-"
-        }
-      }
-    ],
+    "data": [],
     "meta": {
       "total": 1,
       "pageSize": 10,
