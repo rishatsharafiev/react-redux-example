@@ -9,17 +9,13 @@ import {
   POPUP_SHOW_ERROR,
 } from 'constants/app'
 import { TASK_LIST_INIT, TASK_INSTANCE_INIT } from 'constants/task'
-import { LOGIN_REQUEST_SUCCESS } from 'constants/auth'
+import { LOGIN_REQUEST_SUCCESS, AUTHORIZED } from 'constants/auth'
 
-export function* appInit() {
+export function* appAuthorized() {
   while (true) {
-    const action = yield take([APP_SUCCESS, APP_ERROR])
-    if (action.type === APP_SUCCESS) {
-      yield put({ type: TASK_LIST_INIT })
-      yield put({ type: TASK_INSTANCE_INIT })
-    } else if (action.type === APP_ERROR) {
-      yield put({ type: POPUP_SHOW_ERROR })
-    }
+    yield take(AUTHORIZED)
+    yield put({ type: TASK_LIST_INIT })
+    yield put({ type: TASK_INSTANCE_INIT })
   }
 }
 
@@ -37,14 +33,22 @@ export function* appError() {
   }
 }
 
-export function* tokenInitWait() {
+export function* popupShowError() {
+  while (true) {
+    const action = yield take([APP_ERROR])
+    yield put({ ...action, type: POPUP_SHOW_ERROR })
+    // TODO: popup mechanism implementaion
+  }
+}
+
+export function* tokenWait() {
   while (true) {
     yield take([APP_INIT, LOGIN_REQUEST_SUCCESS])
     yield put({ type: TOKEN_INIT })
   }
 }
 
-export function* tokenInit() {
+export function* tokenApply() {
   while (true) {
     yield take(TOKEN_INIT)
     const token = yield call([Lockr, Lockr.get], 'token')
@@ -57,21 +61,21 @@ export function* tokenInit() {
   }
 }
 
-export function* roleInitTokenFilled() {
+export function* roleTokenFilled() {
   while (true) {
     yield take(TOKEN_FILLED)
     yield put({ type: ROLE_INIT })
   }
 }
 
-export function* roleInitWait() {
+export function* roleWait() {
   while (true) {
     yield take(ROLE_INIT)
     yield put({ type: ROLE_REQUEST })
   }
 }
 
-export function* roleInit() {
+export function* role() {
   while (true) {
     yield take(ROLE_REQUEST)
     try {
@@ -90,13 +94,14 @@ export function* roleInit() {
 
 export default function* appSaga() {
   yield all([
-    fork(appInit),
+    fork(appAuthorized),
     fork(appSuccess),
     fork(appError),
-    fork(tokenInitWait),
-    fork(tokenInit),
-    fork(roleInitTokenFilled),
-    fork(roleInitWait),
-    fork(roleInit),
+    fork(popupShowError),
+    fork(tokenWait),
+    fork(tokenApply),
+    fork(roleTokenFilled),
+    fork(roleWait),
+    fork(role),
   ])
 }

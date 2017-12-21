@@ -14,14 +14,14 @@ import {
   AUTHORIZED,
 } from 'constants/auth'
 
-export function* loginInitWait() {
+export function* loginWait() {
   while (true) {
     yield take([APP_INIT, TOKEN_EMTPY, LOGIN_REQUEST_ERROR])
     yield put({ type: LOGIN_INIT })
   }
 }
 
-export function* loginInit() {
+export function* login() {
   while (true) {
     yield take(LOGIN_INIT)
     const {
@@ -29,7 +29,7 @@ export function* loginInit() {
         email, password,
       },
     } = yield take(LOGIN_REQUEST)
-    const task = yield fork(login, email, password)
+    const task = yield fork(loginFork, email, password)
     const action = yield take([LOGOUT_REQUEST, LOGIN_REQUEST_ERROR])
     if (action.type === LOGOUT_REQUEST) {
       yield cancel(task)
@@ -37,7 +37,7 @@ export function* loginInit() {
   }
 }
 
-export function* login(email, password) {
+export function* loginFork(email, password) {
   try {
     yield put(startSubmit('login'))
     const { response, error } = yield call(auth.login, email, password)
@@ -61,14 +61,14 @@ export function* login(email, password) {
   }
 }
 
-export function* registerInitWait() {
+export function* registerWait() {
   while (true) {
     yield take([APP_INIT, REGISTER_REQUEST_ERROR])
     yield put({ type: REGISTER_INIT })
   }
 }
 
-export function* registerInit() {
+export function* register() {
   while (true) {
     yield take(REGISTER_INIT)
     const {
@@ -76,7 +76,7 @@ export function* registerInit() {
         name, email, password, password_confirmation,
       },
     } = yield take(REGISTER_REQUEST)
-    const task = yield fork(register, name, email, password, password_confirmation)
+    const task = yield fork(registerFork, name, email, password, password_confirmation)
     const action = yield take([LOGOUT_REQUEST, REGISTER_REQUEST_ERROR])
     if (action.type === LOGOUT_REQUEST) {
       yield cancel(task)
@@ -84,7 +84,7 @@ export function* registerInit() {
   }
 }
 
-export function* register(name, email, password, password_confirmation) {
+export function* registerFork(name, email, password, password_confirmation) {
   try {
     yield put(startSubmit('register'))
     const { response, error } = yield call(
@@ -113,7 +113,7 @@ export function* register(name, email, password, password_confirmation) {
   }
 }
 
-export function* authorizedInit() {
+export function* authorized() {
   while (true) {
     yield take(LOGIN_REQUEST_SUCCESS)
     yield take(APP_SUCCESS)
@@ -140,11 +140,11 @@ export function* logout() {
 
 export default function* authSaga() {
   yield all([
-    fork(loginInitWait),
-    fork(loginInit),
-    fork(registerInitWait),
-    fork(registerInit),
-    fork(authorizedInit),
+    fork(loginWait),
+    fork(login),
+    fork(registerWait),
+    fork(register),
+    fork(authorized),
     fork(logoutWait),
     fork(logout),
   ])

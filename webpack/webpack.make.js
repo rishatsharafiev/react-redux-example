@@ -298,7 +298,7 @@ function makeConfig(options) {
           algorithm: "gzip",
           test: /\.js$|\.css$|\.html$/,
           threshold: 10240,
-          minRatio: 0.5
+          minRatio: 0.8
         }));
       }
 
