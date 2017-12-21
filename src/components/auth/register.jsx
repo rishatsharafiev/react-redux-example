@@ -13,14 +13,14 @@ const RegisterForm = ({
   invalid,
   error,
   actions: {
-    registerUser,
+    register,
   },
 }) => (
   <Layout.Row type='flex' justify='center'>
     <Layout.Col lg='10'>
       <Card>
         <h1>Регистрация</h1>
-        <Form onSubmit={handleSubmit(registerUser)}>
+        <Form onSubmit={handleSubmit(register)}>
           <Form.Item label='Имя'>
             <Field name='name' component={TextInput} type='text' autocomplete='off' placeholder='Введите имя' validate={[required, russianName, minLength2, maxLength30]} normalize={firstUpperNextLowerCase} />
           </Form.Item>

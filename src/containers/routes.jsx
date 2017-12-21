@@ -9,7 +9,7 @@ import Logout from 'containers/auth/logout'
 import NotFound from 'containers/error/notFound'
 
 const Anonymous = Authorization(['guest'], false)
-const Auth = Authorization(['100', '200', '300', '400', '500'])
+const Auth = Authorization(['admin', 'moderator', 'manager', 'user'])
 
 const routes = (
   <Switch>

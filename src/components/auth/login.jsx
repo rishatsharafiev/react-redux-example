@@ -12,14 +12,14 @@ const LoginForm = ({
   invalid,
   error,
   actions: {
-    loginUser,
+    login,
   },
 }) => (
   <Layout.Row type='flex' justify='center'>
     <Layout.Col lg='10'>
       <Card>
         <h1>Войти</h1>
-        <Form onSubmit={handleSubmit(loginUser)}>
+        <Form onSubmit={handleSubmit(login)}>
           <Form.Item label='E-mail'>
             <Field name='email' component={TextInput} autocomplete='off' placeholder='Введите e-mail' validate={[required, email]} />
           </Form.Item>

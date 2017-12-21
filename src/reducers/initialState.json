@@ -9,31 +9,22 @@
     "token": ""
   },
   "tasks": {
-    "columns": [
-      {
-        "label": "ID",
-        "prop": "id",
-        "width": 60
-      },
-      {
-        "label": "Адрес магазина",
-        "prop": "address",
-        "width": 180
-      },
-      {
-        "label": "Дата создания",
-        "prop": "created_at"
-      }
-    ],
     "data": [
       {
-        "id": "-",
-        "address": "-",
-        "created_at": "-"
+        "shop": {
+          "address": "-"
+        },
+        "superior_fullname": "-",
+        "started_at": {
+          "date": "-"
+        }
       }
     ],
-    "total": 1,
-    "pageSize": 10,
-    "currentPage": 1
+    "meta": {
+      "total": 1,
+      "pageSize": 10,
+      "currentPage": 1,
+      "isLoading": false
+    }
   }
 }

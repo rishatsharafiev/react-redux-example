@@ -1,7 +1,7 @@
 import { call, take, put, all, fork } from 'redux-saga/effects'
 import axios from 'axios'
 import Lockr from 'lockr'
-import app from 'api/app'
+import appApi from 'api/app'
 import {
   APP_INIT, APP_SUCCESS, APP_ERROR,
   TOKEN_INIT, TOKEN_FILLED, TOKEN_EMTPY,
@@ -29,6 +29,9 @@ export function* appSuccess() {
 export function* appError() {
   while (true) {
     const action = yield take(ROLE_REQUEST_ERROR)
+    if (action.type === ROLE_REQUEST_ERROR) {
+      yield call([Lockr, Lockr.rm], 'token')
+    }
     yield put({ ...action, type: APP_ERROR })
   }
 }
@@ -43,7 +46,7 @@ export function* popupShowError() {
 
 export function* tokenWait() {
   while (true) {
-    yield take([APP_INIT, LOGIN_REQUEST_SUCCESS])
+    yield take([APP_INIT, LOGIN_REQUEST_SUCCESS, APP_ERROR])
     yield put({ type: TOKEN_INIT })
   }
 }
@@ -79,7 +82,7 @@ export function* role() {
   while (true) {
     yield take(ROLE_REQUEST)
     try {
-      const { response, error } = yield call(app.authenticatedUser)
+      const { response, error } = yield call(appApi.authenticatedUser)
       if (response && response.data) {
         yield put({ type: ROLE_REQUEST_SUCCESS, payload: { ...response.data } })
       } else if (error) {

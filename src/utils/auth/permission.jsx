@@ -7,12 +7,13 @@ const Permission = (props) => {
     allowedRoles,
     children,
     token,
-    role,
+    roleName,
     loggedIn,
   } = props
+
   const isTokenProvided = Boolean(token)
   const allowedRolesList = allowedRoles || ['guest']
-  if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(role)) {
+  if (isTokenProvided && Boolean(allowedRolesList) && allowedRolesList.includes(roleName)) {
     return (
       <div>
         {children}
@@ -38,19 +39,21 @@ const Permission = (props) => {
 Permission.propTypes = {
   allowedRoles: PropTypes.array,
   children: PropTypes.instanceOf(Object).isRequired,
-  token: PropTypes.string.isRequired,
-  role: PropTypes.string.isRequired,
+  token: PropTypes.string,
+  roleName: PropTypes.string,
   loggedIn: PropTypes.bool,
 }
 
 Permission.defaultProps = {
   allowedRoles: null,
   loggedIn: true,
+  roleName: '',
+  token: '',
 }
 
 const mapStateToProps = state => ({
   token: state.auth.token,
-  role: state.app.user.role,
+  roleName: state.app.user.role_name,
 })
 
 export default connect(mapStateToProps)(Permission)

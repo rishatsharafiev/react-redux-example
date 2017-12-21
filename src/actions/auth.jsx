@@ -4,11 +4,11 @@ import {
   LOGOUT_REQUEST,
 } from 'constants/auth'
 
-export const loginUser = ({ email, password }) => ({
+export const login = ({ email, password }) => ({
   type: LOGIN_REQUEST, payload: { email, password },
 })
 
-export const registerUser = ({
+export const register = ({
   name, email, password, password_confirmation,
 }) => ({
   type: REGISTER_REQUEST,

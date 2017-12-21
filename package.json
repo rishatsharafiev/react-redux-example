@@ -18,6 +18,7 @@
     "element-react": "^1.4.3",
     "element-theme-default": "^1.4.10",
     "lockr": "^0.8.4",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

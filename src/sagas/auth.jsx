@@ -1,6 +1,6 @@
 import { fork, call, take, put, cancelled, cancel, all } from 'redux-saga/effects'
 import Lockr from 'lockr'
-import auth from 'api/auth'
+import authApi from 'api/auth'
 import routerHistory from 'utils/history'
 import { startSubmit, stopSubmit } from 'redux-form'
 import {
@@ -40,7 +40,7 @@ export function* login() {
 export function* loginFork(email, password) {
   try {
     yield put(startSubmit('login'))
-    const { response, error } = yield call(auth.login, email, password)
+    const { response, error } = yield call(authApi.login, email, password)
     if (response && response.data && response.data.token) {
       const { token } = response.data
       yield call([Lockr, Lockr.set], 'token', token)
@@ -48,7 +48,7 @@ export function* loginFork(email, password) {
       yield call([routerHistory, routerHistory.push], '/')
     }
     const errors = { ...error.response.data }
-    yield put({ type: LOGIN_REQUEST_ERROR, payload: { error }, error: true })
+    yield put({ type: LOGIN_REQUEST_ERROR, payload: { errors }, error: true })
     yield put(stopSubmit('login', { _error: errors }))
   } catch (error) {
     // network error
@@ -88,7 +88,7 @@ export function* registerFork(name, email, password, password_confirmation) {
   try {
     yield put(startSubmit('register'))
     const { response, error } = yield call(
-      auth.register,
+      authApi.register,
       name,
       email,
       password,
@@ -100,7 +100,7 @@ export function* registerFork(name, email, password, password_confirmation) {
       yield call([routerHistory, routerHistory.push], '/login')
     }
     const errors = { ...error.response.data }
-    yield put({ type: REGISTER_REQUEST_ERROR, payload: { error }, error: true })
+    yield put({ type: REGISTER_REQUEST_ERROR, payload: { errors }, error: true })
     yield put(stopSubmit('register', { _error: errors }))
   } catch (error) {
     // network error
@@ -115,7 +115,6 @@ export function* registerFork(name, email, password, password_confirmation) {
 
 export function* authorized() {
   while (true) {
-    yield take(LOGIN_REQUEST_SUCCESS)
     yield take(APP_SUCCESS)
     yield put({ type: AUTHORIZED })
   }
