@@ -9,7 +9,7 @@ import {
   POPUP_SHOW_ERROR,
 } from 'constants/app'
 import { TASK_LIST_INIT, TASK_INSTANCE_INIT } from 'constants/task'
-import { LOGIN_REQUEST_SUCCESS, AUTHORIZED } from 'constants/auth'
+import { LOGIN_REQUEST_SUCCESS, LOGOUT_INIT, LOGOUT_REQUEST, AUTHORIZED } from 'constants/auth'
 
 export function* appAuthorized() {
   while (true) {
@@ -38,9 +38,17 @@ export function* appError() {
 
 export function* popupShowError() {
   while (true) {
-    const action = yield take([APP_ERROR])
+    const action = yield take(APP_ERROR)
     yield put({ ...action, type: POPUP_SHOW_ERROR })
     // TODO: popup mechanism implementaion
+  }
+}
+
+export function* logoutInit() {
+  while (true) {
+    yield take(APP_ERROR)
+    yield put({ type: LOGOUT_INIT })
+    yield put({ type: LOGOUT_REQUEST })
   }
 }
 
@@ -101,6 +109,7 @@ export default function* appSaga() {
     fork(appSuccess),
     fork(appError),
     fork(popupShowError),
+    fork(logoutInit),
     fork(tokenWait),
     fork(tokenApply),
     fork(roleTokenFilled),
