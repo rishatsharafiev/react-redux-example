@@ -32,7 +32,11 @@ export function* taskListFork(page) {
     if (response && response.data) {
       yield put({ type: TASK_LIST_REQUEST_SUCCESS, payload: { ...response.data } })
     } else if (error) {
-      yield put({ type: TASK_LIST_REQUEST_ERROR, payload: { ...error.response.data }, error: true })
+      yield put({
+        type: TASK_LIST_REQUEST_ERROR,
+        payload: { ...error.response.data },
+        error: true,
+      })
     }
   } catch (error) {
     yield put({ type: TASK_LIST_REQUEST_ERROR, payload: { error }, error: true })

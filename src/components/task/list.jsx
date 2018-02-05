@@ -6,7 +6,7 @@ import moment from 'utils/moment'
 const columns = [
   {
     label: 'Постановщик задачи',
-    prop: 'superior_fullname',
+    prop: 'author',
     width: 250,
   },
   {
@@ -14,10 +14,15 @@ const columns = [
     prop: 'started_at',
     width: 250,
     render(data) {
+      let started_at = ''
+      if (data.started_at) {
+        started_at = moment(data.started_at.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS').format('DD MMMM YYYY')
+      }
+
       return (
         <span>
           <Icon name='time' />
-          <span style={{ marginLeft: '10px' }}>{moment(data.started_at.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS').format('DD MMMM YYYY')}</span>
+          <span style={{ marginLeft: '10px' }}>{started_at}</span>
         </span>
       )
     },
