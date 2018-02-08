@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu } from 'element-react'
 import Permission from 'utils/auth/permission'
 
-const allowedRoles = ['admin', 'moderator', 'manager', 'user']
+const allowedRoles = ['100']
 
 const Header = () => (
   <div>

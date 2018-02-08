@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 
 const dataState = state => state.tasks.data
 const totalState = state => state.tasks.meta.total
-const pageSizeState = state => state.tasks.meta.pageSize
+const perPageState = state => state.tasks.meta.perPage
 const currentPageState = state => state.tasks.meta.currentPage
 const isLoadingState = state => state.tasks.meta.isLoading
 
@@ -16,8 +16,8 @@ export const total = createSelector(
   items => items,
 )
 
-export const pageSize = createSelector(
-  pageSizeState,
+export const perPage = createSelector(
+  perPageState,
   items => items,
 )
 
