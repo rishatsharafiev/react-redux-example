@@ -1,36 +1,24 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Presentational from 'components/task/page'
+import { bindActionCreators } from 'redux'
+import { reduxForm } from 'redux-form'
+import * as actions from 'actions/task'
+import * as selectors from 'selectors/task/browse'
+import Dumb from 'components/task/add'
 
-class List extends Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-  }
+const reduxFormConfig = {
+  form: 'taskAdd',
+}
 
-  constructor(props) {
-    super(props)
-    const {
-      match: {
-        params: {
-          id,
-        },
-      },
-    } = props
-    console.log(id)
-  }
+const Smart = reduxForm(reduxFormConfig)(Dumb)
 
-  render() {
-    return <Presentational {...this.props} />
+function mapStateToProps(state) {
+  return {
+    data: selectors.data(state),
   }
 }
 
-function mapStateToProps() {
-  return {}
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+})
 
-function mapDispatchToProps() {
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(Smart)

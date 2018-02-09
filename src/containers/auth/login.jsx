@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { reduxForm } from 'redux-form'
-import Presentational from 'components/auth/login'
 import * as actions from 'actions/auth'
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
-})
+import Dumb from 'components/auth/login'
 
 const reduxFormConfig = {
   form: 'login',
 }
 
-const Login = reduxForm(reduxFormConfig)(Presentational)
+const Smart = reduxForm(reduxFormConfig)(Dumb)
 
-export default connect(null, mapDispatchToProps)(Login)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+})
+
+export default connect(null, mapDispatchToProps)(Smart)

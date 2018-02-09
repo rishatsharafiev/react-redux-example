@@ -13,7 +13,7 @@ const Header = () => (
       </Menu.Item>
       <Permission allowedRoles={allowedRoles}>
         <Menu.Item index='tasks'>
-          <Link to='/tasks'>Задачи</Link>
+          <Link to='/tasks'>Заявки</Link>
         </Menu.Item>
       </Permission>
       <Permission loggedIn={false}>
@@ -26,7 +26,7 @@ const Header = () => (
       </Permission>
       <Permission allowedRoles={allowedRoles}>
         <Menu.Item index='logout'>
-          <Link to='/logout'>Выход</Link>
+          <Link to='/logout'>Выйти</Link>
         </Menu.Item>
       </Permission>
     </Menu>

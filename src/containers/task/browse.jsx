@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Dumb from 'components/task/browse'
 import * as actions from 'actions/task'
 import * as selectors from 'selectors/task/browse'
+import Dumb from 'components/task/browse'
 
 class Smart extends Component {
   static propTypes = {

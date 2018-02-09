@@ -1,22 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input, Tag, Icon } from 'element-react'
+import { DatePicker, Tag, Icon } from 'element-react'
 
 const Dumb = ({
   input,
-  type,
   label,
   placeholder,
   meta: { touched, error, warning },
 }) => (
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
-    <Input
-      {...input}
-      name={input.name}
-      type={type}
+    <DatePicker
+      isShowTime
       placeholder={placeholder}
+      onChange={(date) => {
+        console.debug('DatePicker1 changed: ', date)
+      }}
+      disabledDate={time => time.getTime() < Date.now() - 8.64e7}
     />
+
     {touched &&
       ((error &&
         <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
@@ -27,16 +29,14 @@ const Dumb = ({
 
 Dumb.propTypes = {
   input: PropTypes.object.isRequired,
-  type: PropTypes.string,
   label: PropTypes.string,
-  meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
+  meta: PropTypes.object.isRequired,
 }
 
 Dumb.defaultProps = {
-  placeholder: '',
-  type: 'text',
   label: '',
+  placeholder: '',
 }
 
 export default Dumb

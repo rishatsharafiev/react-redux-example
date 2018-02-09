@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "element-react": "^1.4.3",
-    "element-theme-default": "^1.4.10",
+    "element-react": "^1.4.5",
+    "element-theme-default": "^1.4.13",
     "lockr": "^0.8.4",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",

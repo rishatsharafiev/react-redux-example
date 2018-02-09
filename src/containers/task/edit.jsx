@@ -1,0 +1,37 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+// import Dumb from 'components/task/add'
+
+class Smart extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    const {
+      match: {
+        params: {
+          id,
+        },
+      },
+    } = props
+    console.log(id)
+  }
+
+  render() {
+    // return <Dumb {...this.props} />
+    return <div />
+  }
+}
+
+function mapStateToProps() {
+  return {}
+}
+
+function mapDispatchToProps() {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Smart)

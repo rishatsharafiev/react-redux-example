@@ -131,15 +131,18 @@ const Dumb = ({
   isLoading,
 }) => (
   <div>
-    <h1>Задачи</h1>
+    <div style={{ position: 'relative' }}>
+      <h1>Заявки</h1>
+      <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать заявку</Button>
+    </div>
     <div style={{ position: 'relative' }}>
       <Table
-        style={{ width: '100%' }}
         columns={columns}
         data={data}
         emptyText='Нет данных'
         align='left'
-        height='531px'
+        height='150%'
+        width='100%'
         resizable
         border
       />

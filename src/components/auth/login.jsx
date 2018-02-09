@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
 import { Form, Button, Tag, Icon } from 'element-react'
 import { required, email, minLength8, maxLength30, alphaNumeric } from 'utils/validate'
-import TextInput from 'components/common/input/text'
+import InputText from 'components/common/input/text'
 
-const LoginForm = ({
+const Dumb = ({
   handleSubmit,
   submitting,
   pristine,
@@ -19,12 +19,11 @@ const LoginForm = ({
     <h1>Войти</h1>
     <Form onSubmit={handleSubmit(login)}>
       <Form.Item label='E-mail'>
-        <Field name='email' component={TextInput} autocomplete='off' placeholder='Введите e-mail' validate={[required, email]} />
+        <Field name='email' component={InputText} autocomplete='off' placeholder='Введите e-mail' validate={[required, email]} />
       </Form.Item>
       <Form.Item label='Пароль'>
-        <Field name='password' component={TextInput} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
+        <Field name='password' component={InputText} type='password' autocomplete='off' placeholder='Введите пароль' validate={[required, alphaNumeric, minLength8, maxLength30]} />
       </Form.Item>
-      <h1>{invalid}</h1>
       <Button nativeType='submit' disabled={pristine || submitting || invalid}>Войти</Button>
       {!error.errors && error.message &&
         <Form.Item>
@@ -42,7 +41,7 @@ const LoginForm = ({
   </div>
 )
 
-LoginForm.propTypes = {
+Dumb.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -51,8 +50,8 @@ LoginForm.propTypes = {
   error: PropTypes.object,
 }
 
-LoginForm.defaultProps = {
+Dumb.defaultProps = {
   error: {},
 }
 
-export default LoginForm
+export default Dumb
