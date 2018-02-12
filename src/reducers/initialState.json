@@ -22,5 +22,17 @@
     "meta": {
       "isLoading": false
     }
+  },
+  "shop": {
+    "data": [],
+    "meta": {
+      "isLoading": false
+    }
+  },
+  "verification": {
+    "data": [],
+    "meta": {
+      "isLoading": false
+    }
   }
 }

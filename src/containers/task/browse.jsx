@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from 'actions/task'
-import * as selectors from 'selectors/task/browse'
+import * as selectors from 'selectors/task'
 import Dumb from 'components/task/browse'
 
 class Smart extends Component {

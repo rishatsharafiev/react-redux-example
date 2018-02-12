@@ -12,7 +12,7 @@ const Dumb = ({
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
 
-    <Select {...input} placeholder={placeholder} filterable>
+    <Select {...input} placeholder={placeholder} >
       {
           options.map(option =>
             (<Select.Option
