@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Pagination, Icon, Button } from 'element-react'
+import { Table, Pagination, Icon, Button, Loading } from 'element-react'
 // import { Link } from 'react-router-dom'
 import moment from 'utils/moment'
-import Overlay from 'components/common/overlay'
 import routerHistory from 'utils/history'
 
 const columns = [
@@ -135,28 +134,36 @@ const Dumb = ({
       <h1>Заявки</h1>
       <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать заявку</Button>
     </div>
-    <div style={{ position: 'relative' }}>
-      <Table
-        columns={columns}
-        data={data}
-        emptyText='Нет данных'
-        align='left'
-        height='150%'
-        width='100%'
-        resizable
-        border
-      />
-      <Overlay isLoading={isLoading} />
-    </div>
-    <div className='block'>
-      <Pagination
-        layout='prev, pager, next, jumper'
-        total={total || 10}
-        perPage={perPage || 10}
-        currentPage={currentPage}
-        onCurrentChange={(item) => { handlePageChange(item) }}
-      />
-    </div>
+    {
+      (isLoading)
+        ? <Loading text='Загрузка данных...'><Table
+          columns={columns}
+          data={data}
+          emptyText='Нет данных'
+          align='left'
+          height='150%'
+          width='100%'
+          resizable
+          border
+        /></Loading>
+        : <Table
+          columns={columns}
+          data={data}
+          emptyText='Нет данных'
+          align='left'
+          height='150%'
+          width='100%'
+          resizable
+          border
+        />
+    }
+    <Pagination
+      layout='prev, pager, next, jumper'
+      total={total || 10}
+      perPage={perPage || 10}
+      currentPage={currentPage}
+      onCurrentChange={(item) => { handlePageChange(item) }}
+    />
   </div>
 )
 

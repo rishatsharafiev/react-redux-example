@@ -6,6 +6,14 @@ const browse = page => request({
   responseType: 'json',
 })
 
+const add = task => request({
+  url: '/tasks',
+  method: 'post',
+  responseType: 'json',
+  data: task,
+})
+
 export default {
   browse,
+  add,
 }

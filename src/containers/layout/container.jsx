@@ -7,8 +7,8 @@ import routes from 'containers/routes'
 const Container = ({ location }) => (
   <div style={{ padding: '0.5rem' }}>
     <Layout.Row type='flex' justify='center'>
-      <Layout.Col xs='24' sm='24' md='22' lg='10'>
-        <Card>
+      <Layout.Col xs='24' sm='24' md='22' lg='14'>
+        <Card bodyStyle={{ padding: '1.5em' }}>
           <TransitionGroup>
             <CSSTransition
               key={location.pathname}

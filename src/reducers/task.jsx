@@ -1,7 +1,7 @@
 import initialState from 'reducers/initialState'
 import { TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR } from 'constants/task'
 
-const tasks = (state = initialState.tasks, action) => {
+const task = (state = initialState.task, action) => {
   switch (action.type) {
     case TASK_BROWSE_REQUEST:
       return {
@@ -44,4 +44,4 @@ const tasks = (state = initialState.tasks, action) => {
   }
 }
 
-export default tasks
+export default task

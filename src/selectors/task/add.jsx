@@ -1,32 +1,17 @@
 import { createSelector } from 'reselect'
 
-const dataState = state => state.tasks.data
-const totalState = state => state.tasks.meta.total
-const perPageState = state => state.tasks.meta.perPage
-const currentPageState = state => state.tasks.meta.currentPage
-const isLoadingState = state => state.tasks.meta.isLoading
+const dataState = state => state.city.data
+const metaState = state => state.city.meta
 
 export const data = createSelector(
   dataState,
-  items => items,
-)
-
-export const total = createSelector(
-  totalState,
-  items => items,
-)
-
-export const perPage = createSelector(
-  perPageState,
-  items => items,
-)
-
-export const currentPage = createSelector(
-  currentPageState,
-  items => items,
+  items => items.map(item => ({
+    label: item.title,
+    value: item.id,
+  })),
 )
 
 export const isLoading = createSelector(
-  isLoadingState,
-  items => items,
+  metaState,
+  items => items.isLoading,
 )

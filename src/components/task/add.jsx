@@ -26,25 +26,26 @@ const options = [{
 }]
 
 const Dumb = ({
+  city,
   handleSubmit,
   submitting,
   pristine,
   invalid,
   error,
   actions: {
-    add,
+    addTask,
   },
 }) => (
   <div>
     <h1>Новая заявка</h1>
-    <Form onSubmit={handleSubmit(add)}>
+    <Form onSubmit={handleSubmit(addTask)}>
       <Layout.Row gutter='10'>
-        <Layout.Col xs='24' sm='10' md='8' lg='8'>
+        <Layout.Col xs='24' sm='10' md='10' lg='9'>
           <Form.Item label='Город'>
-            <Field name='city' component={SelectFilter} options={options} placeholder='Выбрать город' validate={required} />
+            <Field name='city' component={SelectFilter} options={city.data} loading={city.isLoading} loadingText='Загрузка данных' placeholder='Выбрать город' validate={required} />
           </Form.Item>
         </Layout.Col>
-        <Layout.Col xs='24' sm='10' md='8' lg='6'>
+        <Layout.Col xs='24' sm='10' md='10' lg='9'>
           <Form.Item label='Магазин'>
             <Field name='shop' component={SelectFilter} options={options} placeholder='Выбрать магазин' validate={required} />
           </Form.Item>
@@ -83,6 +84,7 @@ const Dumb = ({
 )
 
 Dumb.propTypes = {
+  city: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,

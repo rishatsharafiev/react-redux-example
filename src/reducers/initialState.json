@@ -8,12 +8,18 @@
   "auth": {
     "token": ""
   },
-  "tasks": {
+  "task": {
     "data": [],
     "meta": {
       "total": 1,
       "pageSize": 10,
       "currentPage": 1,
+      "isLoading": false
+    }
+  },
+  "city": {
+    "data": [],
+    "meta": {
       "isLoading": false
     }
   }

@@ -1,0 +1,2 @@
+export const VERIFICATION_BROWSE_REQUEST = 'VERIFICATION_BROWSE_REQUEST'
+export default {}
