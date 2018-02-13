@@ -1,26 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { DatePicker, Tag, Icon } from 'element-react'
-import moment from 'utils/moment'
+import { Select, Tag, Icon } from 'element-react'
 
 const Dumb = ({
   input,
   label,
   placeholder,
   meta: { touched, error, warning },
+  options,
 }) => (
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
 
     <div>
-      <DatePicker
-        {...input}
-        value={input.value ? moment(input.value).toDate() : null}
-
-        isShowTime
-        placeholder={placeholder}
-        disabledDate={datetime => datetime.getTime() < Date.now() - 8.64e7}
-      />
+      <Select {...input} placeholder={placeholder} clearable>
+        {
+          options.map(option =>
+            (<Select.Option
+              key={option.value}
+              label={option.label}
+              value={option.value}
+            />))
+        }
+      </Select>
     </div>
 
     {touched &&
@@ -31,16 +33,17 @@ const Dumb = ({
   </div>
 )
 
-Dumb.defaultProps = {
-  label: '',
-  placeholder: '',
-}
-
 Dumb.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   meta: PropTypes.object.isRequired,
+  options: PropTypes.array.isRequired,
+}
+
+Dumb.defaultProps = {
+  label: '',
+  placeholder: 'Выбрать',
 }
 
 export default Dumb

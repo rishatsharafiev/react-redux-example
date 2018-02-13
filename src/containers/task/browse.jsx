@@ -7,14 +7,23 @@ import * as selectors from 'selectors/task'
 import Dumb from 'components/task/browse'
 
 class Smart extends Component {
+  static defaultProps = {
+    currentPage: 1,
+  }
+
   static propTypes = {
     actions: PropTypes.object.isRequired,
+    currentPage: PropTypes.number,
   }
 
   constructor(props) {
     super(props)
 
     this.handlePageChange = this.handlePageChange.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.actions.changePage(this.props.currentPage)
   }
 
   handlePageChange(item) {

@@ -1,7 +1,9 @@
 import 'react-hot-loader/patch'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
+import { Provider } from 'react-redux'
+import store from 'store/configureStore'
+import initialState from 'reducers/initialState'
 import Root from 'bootstrap/root'
 
 const render = (Component, target = document.getElementById('root')) => {
@@ -10,9 +12,9 @@ const render = (Component, target = document.getElementById('root')) => {
   }
 
   ReactDOM.render(
-    <AppContainer>
+    <Provider store={store(initialState)}>
       <Component />
-    </AppContainer>,
+    </Provider>,
     target,
   )
 }

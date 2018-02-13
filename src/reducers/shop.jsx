@@ -1,5 +1,8 @@
 import initialState from 'reducers/initialState'
-import { SHOP_BROWSE_REQUEST, SHOP_BROWSE_REQUEST_SUCCESS, SHOP_BROWSE_REQUEST_ERROR } from 'constants/shop'
+import {
+  SHOP_BROWSE_REQUEST, SHOP_BROWSE_REQUEST_SUCCESS,
+  SHOP_BROWSE_REQUEST_ERROR, SHOP_BROWSE_CLEAR,
+} from 'constants/shop'
 
 const shop = (state = initialState.shop, action) => {
   switch (action.type) {
@@ -25,6 +28,14 @@ const shop = (state = initialState.shop, action) => {
     case SHOP_BROWSE_REQUEST_ERROR:
       return {
         ...state,
+        meta: {
+          isLoading: false,
+        },
+      }
+    case SHOP_BROWSE_CLEAR:
+      return {
+        ...state,
+        data: [],
         meta: {
           isLoading: false,
         },

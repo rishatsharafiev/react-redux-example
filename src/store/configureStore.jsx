@@ -7,11 +7,12 @@ import { APP_INIT } from 'constants/app'
 
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware()
+  const middleware = [sagaMiddleware]
 
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(applyMiddleware(sagaMiddleware)),
+    composeWithDevTools(applyMiddleware(...middleware)),
   )
 
   sagaMiddleware.run(rootSaga)

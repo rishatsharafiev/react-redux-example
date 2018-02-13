@@ -12,16 +12,18 @@ const Dumb = ({
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
 
-    <Select value={[]} placeholder={placeholder} multiple>
-      {
-        options.map(option =>
-          (<Select.Option
-            key={option.value}
-            label={option.label}
-            value={option.value}
-          />))
-      }
-    </Select>
+    <div>
+      <Select {...input} placeholder={placeholder} multiple>
+        {
+          options.map(option =>
+            (<Select.Option
+              key={option.value}
+              label={option.label}
+              value={option.value}
+            />))
+        }
+      </Select>
+    </div>
 
     {touched &&
       ((error &&

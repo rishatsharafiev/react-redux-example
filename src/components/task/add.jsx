@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon } from 'element-react'
-import SelectDefault from 'components/common/select/default'
+import SelectFilter from 'components/common/select/filter'
 import SelectMultiple from 'components/common/select/multiple'
 import DatePickerDefault from 'components/common/datapicker/default'
 import routerHistory from 'utils/history'
@@ -30,7 +30,7 @@ const Dumb = ({
           <Form.Item label='Город'>
             <Field
               name='city'
-              component={SelectDefault}
+              component={SelectFilter}
               options={city.data}
               loading={city.isLoading}
               onChange={handleCitySelectChange}
@@ -44,7 +44,7 @@ const Dumb = ({
           <Form.Item label='Магазин'>
             <Field
               name='shop'
-              component={SelectDefault}
+              component={SelectFilter}
               options={shop.data}
               loading={shop.isLoading}
               placeholder='Выбрать магазин'

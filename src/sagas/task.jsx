@@ -3,13 +3,32 @@ import {
   TASK_BROWSE_INIT, TASK_BROWSE_REQUEST,
   TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR,
 } from 'constants/task'
-import { LOGOUT_REQUEST } from 'constants/auth'
+import { LOGOUT_REQUEST, AUTHORIZED } from 'constants/auth'
 import taskApi from 'api/task'
 
 export function* taskBrowseWait() {
+  let authorized = false
   while (true) {
-    yield take(TASK_BROWSE_INIT)
-    yield put({ type: TASK_BROWSE_REQUEST, payload: { page: 1 } })
+    if (authorized) {
+      const {
+        payload: {
+          page,
+        },
+      } = yield take(TASK_BROWSE_INIT)
+      yield put({ type: TASK_BROWSE_REQUEST, payload: { page } })
+    } else {
+      const actions = yield all([
+        take(AUTHORIZED),
+        take(TASK_BROWSE_INIT),
+      ])
+      authorized = true
+      const {
+        payload: {
+          page,
+        },
+      } = actions[1]
+      yield put({ type: TASK_BROWSE_REQUEST, payload: { page } })
+    }
   }
 }
 
@@ -26,7 +45,6 @@ export function* taskBrowse() {
     }
   }
 }
-
 
 export function* taskBrowseFork(page) {
   try {

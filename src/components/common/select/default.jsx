@@ -12,8 +12,9 @@ const Dumb = ({
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
 
-    <Select {...input} placeholder={placeholder} >
-      {
+    <div>
+      <Select {...input} placeholder={placeholder}>
+        {
           options.map(option =>
             (<Select.Option
               key={option.value}
@@ -21,7 +22,8 @@ const Dumb = ({
               value={option.value}
             />))
         }
-    </Select>
+      </Select>
+    </div>
 
     {touched &&
       ((error &&
