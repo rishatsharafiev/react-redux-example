@@ -16,7 +16,6 @@ const Dumb = ({
       <DatePicker
         {...input}
         value={input.value ? moment(input.value).toDate() : null}
-
         isShowTime
         placeholder={placeholder}
         disabledDate={datetime => datetime.getTime() < Date.now() - 8.64e7}
