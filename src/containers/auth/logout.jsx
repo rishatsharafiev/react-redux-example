@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from 'actions/auth'
 
-const Logout = (props) => {
+const Smart = (props) => {
   props.actions.logout()
   return (
     <div />
   )
 }
 
-Logout.propTypes = {
+Smart.propTypes = {
   actions: PropTypes.object.isRequired,
 }
 
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(null, mapDispatchToProps)(Logout)
+export default connect(null, mapDispatchToProps)(Smart)

@@ -1,22 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input, Tag, Icon } from 'element-react'
+import { Select, Tag, Icon } from 'element-react'
 
 const Dumb = ({
   input,
-  type,
   label,
   placeholder,
   meta: { touched, error, warning },
+  options,
 }) => (
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
-    <Input
-      {...input}
-      name={input.name}
-      type={type}
-      placeholder={placeholder}
-    />
+
+    <div>
+      <Select {...input} placeholder={placeholder} clearable>
+        {
+          options.map(option =>
+            (<Select.Option
+              key={option.value}
+              label={option.label}
+              value={option.value}
+            />))
+        }
+      </Select>
+    </div>
+
     {touched &&
       ((error &&
         <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
@@ -27,16 +35,15 @@ const Dumb = ({
 
 Dumb.propTypes = {
   input: PropTypes.object.isRequired,
-  type: PropTypes.string,
   label: PropTypes.string,
-  meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
+  meta: PropTypes.object.isRequired,
+  options: PropTypes.array.isRequired,
 }
 
 Dumb.defaultProps = {
-  placeholder: '',
-  type: 'text',
   label: '',
+  placeholder: 'Выбрать',
 }
 
 export default Dumb

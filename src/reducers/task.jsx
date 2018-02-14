@@ -1,22 +1,22 @@
 import initialState from 'reducers/initialState'
-import { TASK_LIST_REQUEST, TASK_LIST_REQUEST_SUCCESS, TASK_LIST_REQUEST_ERROR } from 'constants/task'
+import { TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR } from 'constants/task'
 
-const tasks = (state = initialState.tasks, action) => {
+const task = (state = initialState.task, action) => {
   switch (action.type) {
-    case TASK_LIST_REQUEST:
+    case TASK_BROWSE_REQUEST:
       return {
         ...state,
         meta: {
           isLoading: true,
         },
       }
-    case TASK_LIST_REQUEST_SUCCESS:
+    case TASK_BROWSE_REQUEST_SUCCESS:
       const {
         data,
         meta: {
           pagination: {
             total,
-            count: pageSize,
+            per_page: perPage,
             current_page: currentPage,
           },
         },
@@ -27,12 +27,12 @@ const tasks = (state = initialState.tasks, action) => {
         data,
         meta: {
           total,
-          pageSize,
+          perPage,
           currentPage,
           isLoading: false,
         },
       }
-    case TASK_LIST_REQUEST_ERROR:
+    case TASK_BROWSE_REQUEST_ERROR:
       return {
         ...state,
         meta: {
@@ -44,4 +44,4 @@ const tasks = (state = initialState.tasks, action) => {
   }
 }
 
-export default tasks
+export default task

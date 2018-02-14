@@ -1,4 +1,11 @@
-export const required = value => (value ? undefined : 'Обязательное поле')
+export const required = (value) => {
+  if (value instanceof Array) {
+    return value.length ? undefined : 'Обязательное поле'
+  } else if (value instanceof Array) {
+    return Object.keys(value).length ? undefined : 'Обязательное поле'
+  }
+  return value ? undefined : 'Обязательное поле'
+}
 
 export const maxLength = max => value =>
   (value && value.length > max ? `Должно быть ${max} символов или менее` : undefined)

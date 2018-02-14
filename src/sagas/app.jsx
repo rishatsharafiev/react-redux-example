@@ -8,14 +8,11 @@ import {
   ROLE_INIT, ROLE_REQUEST, ROLE_REQUEST_SUCCESS, ROLE_REQUEST_ERROR,
   POPUP_SHOW_ERROR,
 } from 'constants/app'
-import { TASK_LIST_INIT, TASK_INSTANCE_INIT } from 'constants/task'
 import { LOGIN_REQUEST_SUCCESS, LOGOUT_INIT, LOGOUT_REQUEST, AUTHORIZED } from 'constants/auth'
 
 export function* appAuthorized() {
   while (true) {
     yield take(AUTHORIZED)
-    yield put({ type: TASK_LIST_INIT })
-    yield put({ type: TASK_INSTANCE_INIT })
   }
 }
 

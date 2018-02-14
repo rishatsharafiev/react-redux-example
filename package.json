@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "element-react": "^1.4.3",
-    "element-theme-default": "^1.4.10",
+    "element-react": "^1.4.5",
+    "element-theme-default": "^1.4.13",
     "lockr": "^0.8.4",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
@@ -27,7 +27,6 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.2.0",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1"
