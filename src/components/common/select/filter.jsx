@@ -15,13 +15,13 @@ const Dumb = ({
     <div>
       <Select {...input} placeholder={placeholder} filterable clearable>
         {
-            options.map(option =>
-              (<Select.Option
-                key={option.value}
-                label={option.label}
-                value={option.value}
-              />))
-          }
+          options.map(option =>
+            (<Select.Option
+              key={option.value}
+              label={option.label}
+              value={option.value}
+            />))
+        }
       </Select>
     </div>
 

@@ -36,6 +36,7 @@ class Smart extends Component {
 }
 
 function mapStateToProps(state) {
+  // TODO: wrap meta properties in object
   return {
     data: selectors.data(state),
     total: selectors.total(state),

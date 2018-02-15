@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { reduxForm } from 'redux-form'
 import * as actions from 'actions/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
 import * as verificationSelectors from 'selectors/verification'
-import Dumb from 'components/task/add'
+import Dumb from 'components/task/edit'
 
 class Smart extends Component {
   static propTypes = {
@@ -18,19 +17,20 @@ class Smart extends Component {
   constructor(props) {
     super(props)
 
+    this.handleCitySelectChange = this.handleCitySelectChange.bind(this)
+  }
+
+  componentDidMount() {
     const {
       match: {
         params: {
           id,
         },
       },
-    } = props
-    console.log(id)
+    } = this.props
 
-    this.handleCitySelectChange = this.handleCitySelectChange.bind(this)
-  }
-
-  componentDidMount() {
+    this.props.actions.getTaskById(id)
+    // TODO: запускать при условии, что статус не FINISHED, в sagas/task
     this.props.actions.getCities()
     this.props.actions.getVerifications()
   }
@@ -43,12 +43,6 @@ class Smart extends Component {
     return <Dumb {...this.props} handleCitySelectChange={this.handleCitySelectChange} />
   }
 }
-
-const reduxFormConfig = {
-  form: 'taskAdd',
-}
-
-const Smarter = reduxForm(reduxFormConfig)(Smart)
 
 function mapStateToProps(state) {
   return {
@@ -71,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Smarter)
+export default connect(mapStateToProps, mapDispatchToProps)(Smart)

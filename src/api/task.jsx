@@ -6,6 +6,12 @@ const browse = page => request({
   responseType: 'json',
 })
 
+const read = taskId => request({
+  url: `/tasks/${taskId}`,
+  method: 'GET',
+  responseType: 'json',
+})
+
 const add = task => request({
   url: '/tasks',
   method: 'post',
@@ -13,7 +19,16 @@ const add = task => request({
   data: task,
 })
 
+const edit = (taskId, task) => request({
+  url: `/tasks/${taskId}`,
+  method: 'PATCH',
+  responseType: 'json',
+  data: task,
+})
+
 export default {
   browse,
+  read,
   add,
+  edit,
 }

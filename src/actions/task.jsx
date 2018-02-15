@@ -1,4 +1,7 @@
-import { TASK_BROWSE_INIT, TASK_ADD_REQUEST } from 'constants/task'
+import {
+  TASK_BROWSE_INIT, TASK_ADD_REQUEST,
+  TASK_READ_INIT, TASK_EDIT_REQUEST,
+} from 'constants/task'
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
 import { VERIFICATION_BROWSE_INIT } from 'constants/verification'
@@ -12,3 +15,5 @@ export const addTask = (task) => {
   const newTask = { ...task, planned_at: moment(task.planned_at).format('YYYY-MM-DD HH:mm:ss') }
   return ({ type: TASK_ADD_REQUEST, payload: { task: newTask } })
 }
+export const editTask = (taskId, task) => ({ type: TASK_EDIT_REQUEST, payload: { taskId, task } })
+export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId } })

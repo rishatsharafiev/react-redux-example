@@ -9,12 +9,21 @@
     "token": ""
   },
   "task": {
-    "data": [],
-    "meta": {
-      "total": 1,
-      "pageSize": 10,
-      "currentPage": 1,
-      "isLoading": false
+    "browse": {
+      "data": [],
+      "meta": {
+        "total": 1,
+        "pageSize": 10,
+        "currentPage": 1,
+        "isLoading": false
+      }
+    },
+    "edit": {
+      "data": [],
+      "meta": {
+        "taskId": null,
+        "isLoading": false
+      }
     }
   },
   "city": {

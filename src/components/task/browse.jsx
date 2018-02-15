@@ -132,7 +132,7 @@ const Dumb = ({
   <div>
     <div style={{ position: 'relative' }}>
       <h1>Заявки</h1>
-      <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать заявку</Button>
+      <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать</Button>
     </div>
     {
       (isLoading)

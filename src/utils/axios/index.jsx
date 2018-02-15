@@ -11,7 +11,7 @@ const headers = {
 const client = axios.create({
   baseURL: config.api,
   headers,
-  timeout: 5000,
+  timeout: 60 * 1000,
 })
 
 const request = options =>

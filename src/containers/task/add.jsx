@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { reduxForm } from 'redux-form'
 import * as actions from 'actions/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
@@ -34,12 +33,6 @@ class Smart extends Component {
   }
 }
 
-const reduxFormConfig = {
-  form: 'taskAdd',
-}
-
-const Smarter = reduxForm(reduxFormConfig)(Smart)
-
 function mapStateToProps(state) {
   return {
     city: {
@@ -61,4 +54,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Smarter)
+export default connect(mapStateToProps, mapDispatchToProps)(Smart)
