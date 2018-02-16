@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { change } from 'redux-form'
 import * as actions from 'actions/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
@@ -13,23 +14,13 @@ class Smart extends Component {
     actions: PropTypes.object.isRequired,
   }
 
-  constructor(props) {
-    super(props)
-
-    this.handleCitySelectChange = this.handleCitySelectChange.bind(this)
-  }
-
   componentDidMount() {
     this.props.actions.getCities()
     this.props.actions.getVerifications()
   }
 
-  handleCitySelectChange(event, value) {
-    this.props.actions.getShopsByCityId(value)
-  }
-
   render() {
-    return <Dumb {...this.props} handleCitySelectChange={this.handleCitySelectChange} />
+    return <Dumb {...this.props} />
   }
 }
 
@@ -52,6 +43,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
+  handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
+  handleTransferChange: value => dispatch(change('taskAdd', 'verification_types', value)),
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Smart)

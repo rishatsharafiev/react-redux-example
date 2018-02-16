@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon } from 'element-react'
 import SelectFilter from 'components/common/select/filter'
-import SelectMultiple from 'components/common/select/multiple'
+import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
@@ -21,6 +21,7 @@ const Dumb = ({
     addTask,
   },
   handleCitySelectChange,
+  handleTransferChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
     <Layout.Col xs='24' sm='12' md='12' lg='12'>
@@ -49,7 +50,7 @@ const Dumb = ({
                 name='shop'
                 component={SelectFilter}
                 options={shop.data}
-                disabled={!shop.data}
+                disabled={shop.isLoading}
                 loading={shop.isLoading}
                 placeholder='Выбрать магазин'
                 validate={required}
@@ -62,11 +63,10 @@ const Dumb = ({
             <Form.Item label='Проверки'>
               <Field
                 name='verification_types'
-                component={SelectMultiple}
+                component={TransferDefault}
                 options={verification.data}
-                loading={verification.isLoading}
-                placeholder='Выбрать проверки'
                 validate={required}
+                handleTransferChange={handleTransferChange}
               />
             </Form.Item>
           </Layout.Col>
@@ -117,6 +117,7 @@ Dumb.propTypes = {
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
   handleCitySelectChange: PropTypes.func.isRequired,
+  handleTransferChange: PropTypes.func.isRequired,
 }
 
 Dumb.defaultProps = {

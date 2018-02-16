@@ -19,7 +19,7 @@
       }
     },
     "edit": {
-      "data": [],
+      "data": {},
       "meta": {
         "taskId": null,
         "isLoading": false
