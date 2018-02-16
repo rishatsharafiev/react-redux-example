@@ -8,6 +8,7 @@ const Dumb = ({
   label,
   placeholder,
   meta: { touched, error, warning },
+  selectedValue,
 }) => (
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
@@ -15,10 +16,9 @@ const Dumb = ({
     <div>
       <DatePicker
         {...input}
-        value={input.value ? moment(input.value).toDate() : null}
+        value={input.value ? moment(input.value).toDate() : moment(selectedValue).toDate()}
         isShowTime
         placeholder={placeholder}
-        disabledDate={datetime => datetime.getTime() < Date.now() - 8.64e7}
       />
     </div>
 
@@ -33,6 +33,7 @@ const Dumb = ({
 Dumb.defaultProps = {
   label: '',
   placeholder: '',
+  selectedValue: null,
 }
 
 Dumb.propTypes = {
@@ -40,6 +41,7 @@ Dumb.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   meta: PropTypes.object.isRequired,
+  selectedValue: PropTypes.string,
 }
 
 export default Dumb

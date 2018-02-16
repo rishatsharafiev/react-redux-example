@@ -8,7 +8,7 @@ const browse = page => request({
 
 const read = taskId => request({
   url: `/tasks/${taskId}`,
-  method: 'GET',
+  method: 'get',
   responseType: 'json',
 })
 
@@ -21,7 +21,7 @@ const add = task => request({
 
 const edit = (taskId, task) => request({
   url: `/tasks/${taskId}`,
-  method: 'PATCH',
+  method: 'patch',
   responseType: 'json',
   data: task,
 })

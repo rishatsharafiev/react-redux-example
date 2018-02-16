@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 const dataState = state => state.shop.data
 const metaState = state => state.shop.meta
 
-export const data = createSelector(
+export const getBrowseData = createSelector(
   dataState,
   items => items.map(item => ({
     label: item.title,
@@ -11,7 +11,7 @@ export const data = createSelector(
   })),
 )
 
-export const isLoading = createSelector(
+export const getBrowseIsLoading = createSelector(
   metaState,
   items => items.isLoading,
 )

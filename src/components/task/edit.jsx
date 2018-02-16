@@ -9,6 +9,7 @@ import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
 
 const Dumb = ({
+  task,
   city,
   shop,
   verification,
@@ -39,6 +40,7 @@ const Dumb = ({
                 loadingText='Загрузка данных'
                 placeholder='Выбрать город'
                 validate={required}
+                selectedValue={task.city}
               />
             </Form.Item>
           </Layout.Col>
@@ -54,6 +56,7 @@ const Dumb = ({
                 loading={shop.isLoading}
                 placeholder='Выбрать магазин'
                 validate={required}
+                selectedValue={task.shop}
               />
             </Form.Item>
           </Layout.Col>
@@ -67,6 +70,9 @@ const Dumb = ({
                 options={verification.data}
                 validate={required}
                 handleTransferChange={handleTransferChange}
+                selectedValue={task.verification_types}
+                propsAlias={{ key: 'id', label: 'title' }}
+                selectedOptions={verification.data}
               />
             </Form.Item>
           </Layout.Col>
@@ -79,6 +85,7 @@ const Dumb = ({
                 component={DatePickerDefault}
                 placeholder='Выберите дату и время'
                 validate={required}
+                selectedValue='2017-12-02 23:12:23'
               />
             </Form.Item>
           </Layout.Col>
@@ -107,6 +114,7 @@ const Dumb = ({
 )
 
 Dumb.propTypes = {
+  task: PropTypes.object.isRequired,
   city: PropTypes.object.isRequired,
   shop: PropTypes.object.isRequired,
   verification: PropTypes.object.isRequired,

@@ -109,13 +109,11 @@ const columns = [
     prop: 'executor',
     render(task) {
       const {
-        executor: {
-          name,
-        },
+        executor,
       } = task
 
       return (
-        <span>{name}</span>
+        <span>{executor ? executor.name : ''}</span>
       )
     },
   },

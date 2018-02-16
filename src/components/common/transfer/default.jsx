@@ -7,12 +7,18 @@ class Dumb extends Component {
     input: PropTypes.object.isRequired,
     label: PropTypes.string,
     meta: PropTypes.object.isRequired,
+    propsAlias: PropTypes.object,
     options: PropTypes.array.isRequired,
+    selectedValue: PropTypes.array,
+    selectedOptions: PropTypes.array,
     handleTransferChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     label: '',
+    selectedValue: [],
+    selectedOptions: [],
+    propsAlias: { key: 'value', label: 'label' },
   }
 
   constructor(props) {
@@ -35,7 +41,10 @@ class Dumb extends Component {
       input,
       label,
       meta: { touched, error, warning },
+      propsAlias,
       options,
+      selectedValue,
+      selectedOptions,
     } = this.props
 
     const { value } = this.state
@@ -46,14 +55,11 @@ class Dumb extends Component {
 
         <div>
           <Transfer
-            propsAlias={{
-              key: 'value',
-              label: 'label',
-            }}
             {...input}
-            value={value}
+            propsAlias={propsAlias}
+            value={value.length ? value : selectedValue}
             onChange={this.handleChange}
-            data={options}
+            data={options.length ? options : selectedOptions}
           />
         </div>
 

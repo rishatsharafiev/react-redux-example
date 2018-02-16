@@ -1,5 +1,4 @@
-import { call, take, put, all, fork, cancel, cancelled } from 'redux-saga/effects'
-import { reset } from 'redux-form'
+import { call, take, put, all, fork, cancel, cancelled, select } from 'redux-saga/effects'
 import routerHistory from 'utils/history'
 import {
   TASK_BROWSE_INIT, TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR,
@@ -9,6 +8,7 @@ import {
 } from 'constants/task'
 import { LOGOUT_REQUEST, AUTHORIZED } from 'constants/auth'
 import taskApi from 'api/task'
+import { getEditTaskId } from 'selectors/task'
 
 export function* taskBrowseWait() {
   let authorized = false
@@ -87,7 +87,6 @@ export function* taskAdd() {
 
 export function* taskAddFork(task) {
   try {
-    yield put(reset('taskAdd')) // order of that expression can break code
     const { response, error } = yield call(taskApi.add, task)
     if (response && response.data) {
       yield put({ type: TASK_ADD_REQUEST_SUCCESS, payload: { ...response.data } })
@@ -173,7 +172,8 @@ export function* taskReadFork(taskId) {
 export function* taskEdit() {
   while (true) {
     const action_request = yield take(TASK_EDIT_REQUEST)
-    const { taskId, task } = action_request.payload
+    const { task } = action_request.payload
+    const taskId = yield select(getEditTaskId)
     const response = yield fork(tasEditFork, taskId, task)
     const action = yield take([
       LOGOUT_REQUEST, TASK_EDIT_REQUEST_SUCCESS, TASK_EDIT_REQUEST_ERROR,

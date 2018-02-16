@@ -13,7 +13,10 @@ export const getShopsByCityId = cityId => ({ type: SHOP_BROWSE_REQUEST, payload:
 export const getVerifications = () => ({ type: VERIFICATION_BROWSE_INIT })
 export const addTask = (task) => {
   const newTask = { ...task, planned_at: moment(task.planned_at).format('YYYY-MM-DD HH:mm:ss') }
-  return ({ type: TASK_ADD_REQUEST, payload: { task: newTask } })
+  return { type: TASK_ADD_REQUEST, payload: { task: newTask } }
 }
-export const editTask = (taskId, task) => ({ type: TASK_EDIT_REQUEST, payload: { taskId, task } })
+export const editTask = (task) => {
+  const newTask = { ...task, planned_at: moment(task.planned_at).format('YYYY-MM-DD HH:mm:ss') }
+  return { type: TASK_EDIT_REQUEST, payload: { task: newTask } }
+}
 export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId } })

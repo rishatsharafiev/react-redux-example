@@ -1,29 +1,54 @@
+import get from 'lodash/get'
 import { createSelector } from 'reselect'
 
-const dataState = state => state.task.browse.data
-const metaState = state => state.task.browse.meta
+const dataBrowseState = state => state.task.browse.data
+const metaBrowseState = state => state.task.browse.meta
 
-export const data = createSelector(
-  dataState,
+export const getBrowseData = createSelector(
+  dataBrowseState,
   items => items,
 )
 
-export const total = createSelector(
-  metaState,
+export const getBrowseTotal = createSelector(
+  metaBrowseState,
   items => items.total,
 )
 
-export const perPage = createSelector(
-  metaState,
+export const getBrowsePerPage = createSelector(
+  metaBrowseState,
   items => items.perPage,
 )
 
-export const currentPage = createSelector(
-  metaState,
+export const getBrowseCurrentPage = createSelector(
+  metaBrowseState,
   items => items.currentPage,
 )
 
-export const isLoading = createSelector(
-  metaState,
+export const getBrowseIsLoading = createSelector(
+  metaBrowseState,
   items => items.isLoading,
+)
+
+const dataEditState = state => state.task.edit.data
+const metaEditState = state => state.task.edit.meta
+
+export const getEditData = createSelector(
+  dataEditState,
+  items => ({
+    ...items,
+    city: {
+      label: get(items, 'shop.city.title', ''),
+      value: get(items, 'shop.city.id', ''),
+    },
+    shop: {
+      label: get(items, 'shop.title', ''),
+      value: get(items, 'shop.id', ''),
+    },
+    verification_types: get(items, 'verification_types', []),
+  }),
+)
+
+export const getEditTaskId = createSelector(
+  metaEditState,
+  items => items.taskId,
 )
