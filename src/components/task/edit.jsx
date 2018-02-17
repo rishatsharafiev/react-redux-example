@@ -70,9 +70,8 @@ const Dumb = ({
                 options={verification.data}
                 validate={required}
                 handleTransferChange={handleTransferChange}
-                selectedValue={task.verification_types}
-                propsAlias={{ key: 'id', label: 'title' }}
-                selectedOptions={verification.data}
+                selectedValue={task.verification_types_selected}
+                selectedOptions={task.verification_types}
               />
             </Form.Item>
           </Layout.Col>
