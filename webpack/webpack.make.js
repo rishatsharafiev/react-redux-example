@@ -294,7 +294,7 @@ function makeConfig(options) {
           }
         }));
         plugins.push(new CompressionPlugin({
-          asset: "[path]",
+          asset: "[path].gz",
           algorithm: "gzip",
           test: /\.js$|\.css$|\.html$/,
           threshold: 10240,
