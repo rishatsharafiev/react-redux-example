@@ -32,8 +32,8 @@ class Dumb extends Component {
   }
 
   handleChange(value) {
-    this.setState({ value })
     this.props.handleTransferChange(value)
+    this.setState({ value })
   }
 
   render() {

@@ -9,26 +9,31 @@ const Dumb = ({
   placeholder,
   meta: { touched, error, warning },
   selectedValue,
-}) => (
-  <div>
-    { label && <label htmlFor={input.name}>{label}</label> }
+}) => {
+  const newValue = input.value ? moment(input.value).toDate() : null
+  const newSelectedValue = selectedValue ? moment(selectedValue).toDate() : null
 
+  return (
     <div>
-      <DatePicker
-        {...input}
-        value={input.value ? moment(input.value).toDate() : moment(selectedValue).toDate()}
-        isShowTime
-        placeholder={placeholder}
-      />
-    </div>
+      { label && <label htmlFor={input.name}>{label}</label> }
 
-    {touched &&
-      ((error &&
-        <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
-        (warning &&
-          <Tag type='warning'><Icon name='warning' /> {warning}</Tag>))}
-  </div>
-)
+      <div>
+        <DatePicker
+          {...input}
+          value={newValue || newSelectedValue}
+          isShowTime
+          placeholder={placeholder}
+        />
+      </div>
+
+      {touched &&
+        ((error &&
+          <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
+          (warning &&
+            <Tag type='warning'><Icon name='warning' /> {warning}</Tag>))}
+    </div>
+  )
+}
 
 Dumb.defaultProps = {
   label: '',
