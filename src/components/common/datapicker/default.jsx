@@ -8,10 +8,8 @@ const Dumb = ({
   label,
   placeholder,
   meta: { touched, error, warning },
-  selectedValue,
 }) => {
   const newValue = input.value ? moment(input.value).toDate() : null
-  const newSelectedValue = selectedValue ? moment(selectedValue).toDate() : null
 
   return (
     <div>
@@ -20,7 +18,7 @@ const Dumb = ({
       <div>
         <DatePicker
           {...input}
-          value={newValue || newSelectedValue}
+          value={newValue}
           isShowTime
           placeholder={placeholder}
         />
@@ -38,7 +36,6 @@ const Dumb = ({
 Dumb.defaultProps = {
   label: '',
   placeholder: '',
-  selectedValue: null,
 }
 
 Dumb.propTypes = {
@@ -46,7 +43,6 @@ Dumb.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   meta: PropTypes.object.isRequired,
-  selectedValue: PropTypes.string,
 }
 
 export default Dumb

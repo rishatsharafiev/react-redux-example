@@ -40,7 +40,6 @@ const Dumb = ({
                 loadingText='Загрузка данных'
                 placeholder='Выбрать город'
                 validate={required}
-                selectedValue={task.city}
               />
             </Form.Item>
           </Layout.Col>
@@ -56,7 +55,6 @@ const Dumb = ({
                 loading={shop.isLoading}
                 placeholder='Выбрать магазин'
                 validate={required}
-                selectedValue={task.shop}
               />
             </Form.Item>
           </Layout.Col>
@@ -67,11 +65,9 @@ const Dumb = ({
               <Field
                 name='verification_types'
                 component={TransferDefault}
-                options={verification.data}
+                options={verification.data || task.verification_types_selected}
                 validate={required}
                 handleTransferChange={handleTransferChange}
-                selectedValue={task.verification_types_selected}
-                selectedOptions={task.verification_types}
               />
             </Form.Item>
           </Layout.Col>
@@ -84,7 +80,6 @@ const Dumb = ({
                 component={DatePickerDefault}
                 placeholder='Выберите дату и время'
                 validate={required}
-                selectedValue='2017-12-02 23:12:23'
               />
             </Form.Item>
           </Layout.Col>
@@ -133,6 +128,8 @@ Dumb.defaultProps = {
 
 const reduxFormConfig = {
   form: 'taskEdit',
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

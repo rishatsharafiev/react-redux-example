@@ -32,7 +32,7 @@ export const getBrowseIsLoading = createSelector(
 const dataEditState = state => state.task.edit.data
 const metaEditState = state => state.task.edit.meta
 
-export const getEditData = createSelector(
+export const getEditFormData = createSelector(
   dataEditState,
   items => ({
     ...items,
@@ -48,6 +48,17 @@ export const getEditData = createSelector(
     verification_types_selected: get(items, 'verification_types', []).map(item => (item.id)),
   }),
 )
+
+export const getEditInitialData = createSelector(
+  dataEditState,
+  items => ({
+    city: get(items, 'shop.city.id', null),
+    shop: get(items, 'shop.id', null),
+    verification_types: get(items, 'verification_types', []).map(item => (item.id)),
+    planned_at: get(items, 'planned_at.date', null),
+  }),
+)
+
 
 export const getEditTaskId = createSelector(
   metaEditState,

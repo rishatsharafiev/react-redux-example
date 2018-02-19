@@ -52,8 +52,8 @@ const task = (state = initialState.task, action) => {
     case TASK_READ_REQUEST:
       return {
         ...state,
-        read: {
-          ...state.read,
+        edit: {
+          ...state.edit,
           meta: {
             isLoading: true,
           },

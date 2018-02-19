@@ -28,6 +28,7 @@ class Smart extends Component {
     this.props.actions.getTaskById(id)
     // TODO: запускать при условии, что статус не FINISHED, в sagas/task
     this.props.actions.getCities()
+    this.props.actions.getShopsByCityId()
     this.props.actions.getVerifications()
   }
 
@@ -50,7 +51,8 @@ function mapStateToProps(state) {
       data: verificationSelectors.getBrowseData(state),
       isLoading: verificationSelectors.getBrowseIsLoading(state),
     },
-    task: taskSelectors.getEditData(state),
+    task: taskSelectors.getEditFormData(state),
+    initialValues: taskSelectors.getEditInitialData(state),
   }
 }
 

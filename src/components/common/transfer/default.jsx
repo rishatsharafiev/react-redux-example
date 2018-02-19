@@ -9,15 +9,11 @@ class Dumb extends Component {
     meta: PropTypes.object.isRequired,
     propsAlias: PropTypes.object,
     options: PropTypes.array.isRequired,
-    selectedValue: PropTypes.array,
-    selectedOptions: PropTypes.array,
     handleTransferChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     label: '',
-    selectedValue: [],
-    selectedOptions: [],
     propsAlias: { key: 'value', label: 'label' },
   }
 
@@ -43,8 +39,6 @@ class Dumb extends Component {
       meta: { touched, error, warning },
       propsAlias,
       options,
-      selectedValue,
-      selectedOptions,
     } = this.props
 
     const { value } = this.state
@@ -57,9 +51,9 @@ class Dumb extends Component {
           <Transfer
             {...input}
             propsAlias={propsAlias}
-            value={value.length ? value : selectedValue}
+            value={value}
             onChange={this.handleChange}
-            data={options.length ? options : selectedOptions}
+            data={options}
           />
         </div>
 
