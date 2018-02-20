@@ -9,7 +9,9 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin")
+const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssNano = require('cssnano');
 
 const PROJECT_ROOT = path.join(__dirname, '..');;
@@ -274,24 +276,23 @@ function makeConfig(options) {
           }
         }));
         plugins.push(new ExtractTextPlugin(`${baseFileName}.css`));
-        plugins.push(new webpack.optimize.UglifyJsPlugin({
-          minimize: true,
+        plugins.push(new UglifyJsPlugin({
           parallel: true,
-          compress: {
-            warnings: false,
-            drop_console: true,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true
+          uglifyOptions: {
+            minimize: true,
+            compress: {
+              warnings: false,
+              drop_console: true,
+              conditionals: true,
+              unused: true,
+              comparisons: true,
+              sequences: true,
+              // dead_code: true,
+              evaluate: true,
+              if_return: true,
+              join_vars: true
+            },
           },
-          output: {
-            comments: false
-          }
         }));
         plugins.push(new CompressionPlugin({
           asset: "[path].gz",
@@ -300,6 +301,7 @@ function makeConfig(options) {
           threshold: 10240,
           minRatio: 0.8
         }));
+        plugins.push(new BundleAnalyzerPlugin());
       }
 
       if (isRunningDevServer) {
