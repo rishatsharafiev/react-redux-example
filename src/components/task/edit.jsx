@@ -25,7 +25,7 @@ const Dumb = ({
   handleTransferChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
-    <Layout.Col xs='24' sm='12' md='12' lg='12'>
+    <Layout.Col xs='24' sm='22' md='22' lg='12'>
       <h1>Изменить заявку</h1>
       <Form onSubmit={handleSubmit(editTask)}>
         <Layout.Row type='flex' justify='center' align='top'>
@@ -87,7 +87,7 @@ const Dumb = ({
         <Layout.Row type='flex' justify='center' align='top'>
           <Layout.Col xs='24' sm='24' md='24' lg='24'>
             <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
-            <Button nativeType='submit' disabled={pristine || submitting || invalid}>Создать</Button>
+            <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
           </Layout.Col>
         </Layout.Row>
         {!error.errors && error.message &&
@@ -129,7 +129,6 @@ Dumb.defaultProps = {
 const reduxFormConfig = {
   form: 'taskEdit',
   enableReinitialize: true,
-  keepDirtyOnReinitialize: true,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

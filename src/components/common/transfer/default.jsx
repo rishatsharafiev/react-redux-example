@@ -20,16 +20,11 @@ class Dumb extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      value: [],
-    }
-
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(value) {
     this.props.handleTransferChange(value)
-    this.setState({ value })
   }
 
   render() {
@@ -41,8 +36,6 @@ class Dumb extends Component {
       options,
     } = this.props
 
-    const { value } = this.state
-
     return (
       <div>
         { label && <label htmlFor={input.name}>{label}</label> }
@@ -51,7 +44,7 @@ class Dumb extends Component {
           <Transfer
             {...input}
             propsAlias={propsAlias}
-            value={value}
+            value={Array.isArray(input.value) ? input.value : []}
             onChange={this.handleChange}
             data={options}
           />

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { change, reset } from 'redux-form'
+import { change } from 'redux-form'
 import * as actions from 'actions/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
@@ -41,15 +41,11 @@ function mapStateToProps(state) {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  dispatch(reset('taskAdd'))
-
-  return {
-    actions: bindActionCreators(actions, dispatch),
-    handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
-    handleTransferChange: value => dispatch(change('taskAdd', 'verification_types', value)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+  handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
+  handleTransferChange: value => dispatch(change('taskAdd', 'verification_types', value)),
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Smart)

@@ -24,7 +24,7 @@ const Dumb = ({
   handleTransferChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
-    <Layout.Col xs='24' sm='12' md='12' lg='12'>
+    <Layout.Col xs='24' sm='22' md='22' lg='12'>
       <h1>Новая заявка</h1>
       <Form onSubmit={handleSubmit(addTask)}>
         <Layout.Row type='flex' justify='center' align='top'>
@@ -126,6 +126,7 @@ Dumb.defaultProps = {
 
 const reduxFormConfig = {
   form: 'taskAdd',
+  enableReinitialize: true,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

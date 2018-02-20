@@ -59,7 +59,6 @@ export const getEditInitialData = createSelector(
   }),
 )
 
-
 export const getEditTaskId = createSelector(
   metaEditState,
   items => items.taskId,

@@ -1,4 +1,5 @@
 import { call, take, put, all, fork, cancel, cancelled, select } from 'redux-saga/effects'
+import { reset, untouch, startSubmit, stopSubmit } from 'redux-form'
 import routerHistory from 'utils/history'
 import {
   TASK_BROWSE_INIT, TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR,
@@ -87,6 +88,7 @@ export function* taskAdd() {
 
 export function* taskAddFork(task) {
   try {
+    yield put(startSubmit('taskAdd'))
     const { response, error } = yield call(taskApi.add, task)
     if (response && response.data) {
       yield put({ type: TASK_ADD_REQUEST_SUCCESS, payload: { ...response.data } })
@@ -97,6 +99,8 @@ export function* taskAddFork(task) {
         payload: { ...error.response.data },
         error: true,
       })
+      const errors = { ...error.response.data }
+      yield put(stopSubmit('taskAdd', { _error: errors }))
     }
   } catch (error) {
     yield put({ type: TASK_ADD_REQUEST_ERROR, payload: { error }, error: true })
@@ -104,6 +108,9 @@ export function* taskAddFork(task) {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
     }
+    yield put(stopSubmit('taskAdd'))
+    yield put(reset('taskAdd'))
+    yield put(untouch('taskAdd'))
   }
 }
 
@@ -186,16 +193,18 @@ export function* taskEdit() {
 
 export function* tasEditFork(taskId, task) {
   try {
+    yield put(startSubmit('taskEdit'))
     const { response, error } = yield call(taskApi.edit, taskId, task)
     if (response && response.data) {
       yield put({ type: TASK_EDIT_REQUEST_SUCCESS, payload: { ...response.data } })
-      // put new updated task in state
     } else if (error) {
       yield put({
         type: TASK_EDIT_REQUEST_ERROR,
         payload: { ...error.response.data },
         error: true,
       })
+      const errors = { ...error.response.data }
+      yield put(stopSubmit('taskEdit', { _error: errors }))
     }
   } catch (error) {
     yield put({ type: TASK_EDIT_REQUEST_ERROR, payload: { error }, error: true })
@@ -203,6 +212,7 @@ export function* tasEditFork(taskId, task) {
     if (yield cancelled()) {
       // ... put special cancellation handling code here
     }
+    yield put(stopSubmit('taskEdit'))
   }
 }
 
