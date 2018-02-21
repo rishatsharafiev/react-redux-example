@@ -60,6 +60,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
   handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
   handleTransferChange: value => dispatch(change('taskEdit', 'verification_types', value)),
+  handleStatusChange: () => { dispatch(actions.updateStatus()) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Smart)

@@ -2,6 +2,7 @@ import initialState from 'reducers/initialState'
 import {
   TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR,
   TASK_READ_REQUEST, TASK_READ_REQUEST_SUCCESS, TASK_READ_REQUEST_ERROR,
+  TASK_STATUS_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
 } from 'constants/task'
 
 const task = (state = initialState.task, action) => {
@@ -62,7 +63,7 @@ const task = (state = initialState.task, action) => {
     case TASK_READ_REQUEST_SUCCESS:
       const {
         data: readData,
-        taskId,
+        taskId: readTaskId,
       } = action.payload
 
       return {
@@ -70,12 +71,47 @@ const task = (state = initialState.task, action) => {
         edit: {
           data: readData,
           meta: {
-            taskId,
+            taskId: readTaskId,
             isLoading: false,
           },
         },
       }
     case TASK_READ_REQUEST_ERROR:
+      return {
+        ...state,
+        edit: {
+          meta: {
+            isLoading: false,
+          },
+        },
+      }
+    case TASK_STATUS_REQUEST:
+      return {
+        ...state,
+        edit: {
+          ...state.edit,
+          meta: {
+            isLoading: true,
+          },
+        },
+      }
+    case TASK_STATUS_REQUEST_SUCCESS:
+      const {
+        data: statusData,
+        taskId: statusTaskId,
+      } = action.payload
+
+      return {
+        ...state,
+        edit: {
+          data: statusData,
+          meta: {
+            taskId: statusTaskId,
+            isLoading: false,
+          },
+        },
+      }
+    case TASK_STATUS_REQUEST_ERROR:
       return {
         ...state,
         edit: {

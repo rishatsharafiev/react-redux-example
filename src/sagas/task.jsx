@@ -1,15 +1,16 @@
 import { call, take, put, all, fork, cancel, cancelled, select } from 'redux-saga/effects'
-import { reset, untouch, startSubmit, stopSubmit } from 'redux-form'
+import { startSubmit, stopSubmit } from 'redux-form'
 import routerHistory from 'utils/history'
 import {
   TASK_BROWSE_INIT, TASK_BROWSE_REQUEST, TASK_BROWSE_REQUEST_SUCCESS, TASK_BROWSE_REQUEST_ERROR,
   TASK_ADD_REQUEST, TASK_ADD_REQUEST_SUCCESS, TASK_ADD_REQUEST_ERROR,
   TASK_READ_INIT, TASK_READ_REQUEST, TASK_READ_REQUEST_SUCCESS, TASK_READ_REQUEST_ERROR,
   TASK_EDIT_REQUEST, TASK_EDIT_REQUEST_SUCCESS, TASK_EDIT_REQUEST_ERROR,
+  TASK_STATUS_INIT, TASK_STATUS_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
 } from 'constants/task'
 import { LOGOUT_REQUEST, AUTHORIZED } from 'constants/auth'
 import taskApi from 'api/task'
-import { getEditTaskId } from 'selectors/task'
+import { getEditTaskId, getEditStatus } from 'selectors/task'
 
 export function* taskBrowseWait() {
   let authorized = false
@@ -109,8 +110,6 @@ export function* taskAddFork(task) {
       // ... put special cancellation handling code here
     }
     yield put(stopSubmit('taskAdd'))
-    yield put(reset('taskAdd'))
-    yield put(untouch('taskAdd'))
   }
 }
 
@@ -216,6 +215,48 @@ export function* tasEditFork(taskId, task) {
   }
 }
 
+export function* taskStatusWait() {
+  while (true) {
+    yield take(TASK_STATUS_INIT)
+    yield put({ type: TASK_STATUS_REQUEST })
+  }
+}
+
+export function* taskStatus() {
+  while (true) {
+    yield take(TASK_STATUS_REQUEST)
+    const { taskId, statusValue } = yield select(getEditStatus)
+    const task = yield fork(taskStatusFork, taskId, statusValue)
+    const action = yield take([
+      LOGOUT_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
+    ])
+    if (action.type === LOGOUT_REQUEST) {
+      yield cancel(task)
+    }
+  }
+}
+
+export function* taskStatusFork(taskId, statusValue) {
+  try {
+    const { response, error } = yield call(taskApi.status, taskId, statusValue)
+    if (response && response.data) {
+      yield put({ type: TASK_STATUS_REQUEST_SUCCESS, payload: { ...response.data, taskId } })
+    } else if (error) {
+      yield put({
+        type: TASK_STATUS_REQUEST_ERROR,
+        payload: { ...error.response.data },
+        error: true,
+      })
+    }
+  } catch (error) {
+    yield put({ type: TASK_STATUS_REQUEST_ERROR, payload: { error }, error: true })
+  } finally {
+    if (yield cancelled()) {
+      // ... put special cancellation handling code here
+    }
+  }
+}
+
 export default function* taskSaga() {
   yield all([
     fork(taskBrowseWait),
@@ -224,5 +265,7 @@ export default function* taskSaga() {
     fork(taskReadWait),
     fork(taskRead),
     fork(taskEdit),
+    fork(taskStatusWait),
+    fork(taskStatus),
   ])
 }

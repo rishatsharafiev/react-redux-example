@@ -63,3 +63,11 @@ export const getEditTaskId = createSelector(
   metaEditState,
   items => items.taskId,
 )
+
+export const getEditStatus = createSelector(
+  dataEditState,
+  items => ({
+    taskId: items.id,
+    statusValue: items.status,
+  }),
+)

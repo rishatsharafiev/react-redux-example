@@ -1,6 +1,7 @@
 import {
   TASK_BROWSE_INIT, TASK_ADD_REQUEST,
   TASK_READ_INIT, TASK_EDIT_REQUEST,
+  TASK_STATUS_INIT,
 } from 'constants/task'
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
@@ -20,3 +21,4 @@ export const editTask = (task) => {
   return { type: TASK_EDIT_REQUEST, payload: { task: newTask } }
 }
 export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId } })
+export const updateStatus = () => ({ type: TASK_STATUS_INIT })

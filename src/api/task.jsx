@@ -26,9 +26,20 @@ const edit = (taskId, task) => request({
   data: task,
 })
 
+const status = (taskId, statusValue) => request({
+  url: `/tasks/${taskId}/status`,
+  method: 'patch',
+  responseType: 'json',
+  data: {
+    status: statusValue + 1,
+  },
+})
+
+
 export default {
   browse,
   read,
   add,
   edit,
+  status,
 }

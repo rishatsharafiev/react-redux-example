@@ -23,6 +23,7 @@ const Dumb = ({
   },
   handleCitySelectChange,
   handleTransferChange,
+  handleStatusChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
     <Layout.Col xs='24' sm='22' md='22' lg='12'>
@@ -94,6 +95,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> Назад</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать проверку</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -162,13 +164,80 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='button' type='danger' onClick={handleStatusChange}>Закончить проверку проверку</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
         }
 
         {/* Статус: выполнение задачи */}
-        {task.status === 3 && <b>Hello</b> }
+        {task.status === 3 &&
+          <div>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Город'>
+                  <Field
+                    name='city'
+                    component={SelectFilter}
+                    options={city.data}
+                    loading={city.isLoading}
+                    onChange={handleCitySelectChange}
+                    loadingText='Загрузка данных'
+                    placeholder='Выбрать город'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Магазин'>
+                  <Field
+                    name='shop'
+                    component={SelectFilter}
+                    options={shop.data}
+                    disabled={shop.isLoading}
+                    loading={shop.isLoading}
+                    placeholder='Выбрать магазин'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleTransferChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Плановая дата'>
+                  <Field
+                    name='planned_at'
+                    component={DatePickerDefault}
+                    placeholder='Выберите дату и время'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
+                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='button' type='success' onClick={handleStatusChange}>Закончить исправление замечаний</Button>
+              </Layout.Col>
+            </Layout.Row>
+          </div>
+        }
 
         {/* Статус: задача завершена */}
         {task.status === 4 && <b>Hello</b> }
@@ -203,6 +272,7 @@ Dumb.propTypes = {
   error: PropTypes.object,
   handleCitySelectChange: PropTypes.func.isRequired,
   handleTransferChange: PropTypes.func.isRequired,
+  handleStatusChange: PropTypes.func.isRequired,
 }
 
 Dumb.defaultProps = {
@@ -212,6 +282,8 @@ Dumb.defaultProps = {
 const reduxFormConfig = {
   form: 'taskEdit',
   enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
+  destroyOnUnmount: false,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

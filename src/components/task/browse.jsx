@@ -39,8 +39,18 @@ const columns = [
       } = task
 
       let statusName = ''
-      if (status === 1) {
+      if (status === 0) {
+        statusName = 'Отменен'
+      } else if (status === 1) {
         statusName = 'Планируется'
+      } else if (status === 2) {
+        statusName = 'Идет проверка'
+      } else if (status === 3) {
+        statusName = 'Исправление замечаний'
+      } else if (status === 4) {
+        statusName = 'Завершено'
+      } else {
+        statusName = '...'
       }
 
       return (
