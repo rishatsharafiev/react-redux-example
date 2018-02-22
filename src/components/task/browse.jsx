@@ -96,18 +96,18 @@ const columns = [
     },
   },
   {
-    label: 'Дата окончания',
-    prop: 'started_at',
+    label: 'Дата завершения',
+    prop: 'finished_at',
     width: 170,
     render(task) {
-      if (!task.started_at) {
+      if (!task.finished_at) {
         return <span>Неизвестно</span>
       }
 
       return (
         <span>
           <Icon name='time' />
-          <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')}</span>
+          <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')}</span>
         </span>
       )
     },

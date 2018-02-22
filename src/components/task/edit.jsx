@@ -8,6 +8,7 @@ import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
+import moment from 'utils/moment'
 
 const Dumb = ({
   task,
@@ -104,7 +105,7 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> Назад</Button>
+                <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
@@ -167,6 +168,14 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время начала'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
                   <Field
                     name='verification_types'
@@ -200,7 +209,7 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
@@ -263,6 +272,14 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время начала'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
                   <Field
                     name='verification_types'
@@ -296,7 +313,7 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
@@ -359,6 +376,22 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время начала'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время завершения'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
                   <Field
                     name='verification_types'
@@ -392,7 +425,7 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
               </Layout.Col>
             </Layout.Row>
@@ -441,8 +474,7 @@ Dumb.defaultProps = {
 const reduxFormConfig = {
   form: 'taskEdit',
   enableReinitialize: true,
-  keepDirtyOnReinitialize: true,
-  // destroyOnUnmount: false,
+  destroyOnUnmount: false,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)
