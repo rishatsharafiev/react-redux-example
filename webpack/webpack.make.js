@@ -10,7 +10,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssNano = require('cssnano');
 
@@ -301,7 +301,7 @@ function makeConfig(options) {
           threshold: 10240,
           minRatio: 0.8
         }));
-        plugins.push(new BundleAnalyzerPlugin());
+        // plugins.push(new BundleAnalyzerPlugin());
       }
 
       if (isRunningDevServer) {

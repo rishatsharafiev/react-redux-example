@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Pagination, Icon, Button, Loading } from 'element-react'
+import { Table, Pagination, Icon, Button, Loading, Tag } from 'element-react'
 // import { Link } from 'react-router-dom'
 import moment from 'utils/moment'
 import routerHistory from 'utils/history'
@@ -32,41 +32,39 @@ const columns = [
   {
     label: 'Статус',
     prop: 'status',
-    width: 120,
+    width: 180,
     render(task) {
       const {
         status,
       } = task
 
-      let statusName = ''
+      let content = <div />
       if (status === 0) {
-        statusName = 'Отменен'
+        content = <Tag type='primary'>Отменен</Tag>
       } else if (status === 1) {
-        statusName = 'Планируется'
+        content = <Tag type='gray'>Планируется</Tag>
       } else if (status === 2) {
-        statusName = 'Идет проверка'
+        content = <Tag type='warning'>Идет проверка</Tag>
       } else if (status === 3) {
-        statusName = 'Исправление замечаний'
+        content = <Tag type='danger'>Исправление замечаний</Tag>
       } else if (status === 4) {
-        statusName = 'Завершено'
+        content = <Tag type='success'>Завершено</Tag>
       } else {
-        statusName = '...'
+        content = <Tag>...</Tag>
       }
 
-      return (
-        <span>{statusName}</span>
-      )
+      return content
     },
   },
   {
     label: 'Адрес магазина',
     prop: 'shop.address',
-    width: 220,
+    width: 300,
   },
   {
     label: 'Планируемая дата',
     prop: 'planned_at',
-    width: 160,
+    width: 170,
     render(task) {
       if (!task.planned_at) {
         return <span>Скоро</span>
@@ -83,7 +81,7 @@ const columns = [
   {
     label: 'Дата начала',
     prop: 'started_at',
-    width: 150,
+    width: 170,
     render(task) {
       if (!task.started_at) {
         return <span>Неизвестно</span>
@@ -100,7 +98,7 @@ const columns = [
   {
     label: 'Дата окончания',
     prop: 'started_at',
-    width: 150,
+    width: 170,
     render(task) {
       if (!task.started_at) {
         return <span>Неизвестно</span>

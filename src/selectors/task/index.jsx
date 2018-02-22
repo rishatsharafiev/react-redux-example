@@ -46,6 +46,8 @@ export const getEditFormData = createSelector(
     },
     verification_types: get(items, 'verification_types', []).map(item => ({ label: item.title, value: item.id })),
     verification_types_selected: get(items, 'verification_types', []).map(item => (item.id)),
+    violation_types: get(items, 'violation_types', []).map(item => ({ label: item.title, value: item.id })),
+    violation_types_selected: get(items, 'violation_types', []).map(item => (item.id)),
   }),
 )
 
@@ -55,6 +57,8 @@ export const getEditInitialData = createSelector(
     city: get(items, 'shop.city.id', null),
     shop: get(items, 'shop.id', null),
     verification_types: get(items, 'verification_types', []).map(item => (item.id)),
+    violation_types: get(items, 'violation_types', []).map(item => (item.id)),
+    violation_comment: get(items, 'violation_comment', ''),
     planned_at: get(items, 'planned_at.date', null),
   }),
 )

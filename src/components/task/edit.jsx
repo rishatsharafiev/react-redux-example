@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon } from 'element-react'
+import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
@@ -13,6 +14,7 @@ const Dumb = ({
   city,
   shop,
   verification,
+  violation,
   handleSubmit,
   submitting,
   pristine,
@@ -22,7 +24,8 @@ const Dumb = ({
     editTask,
   },
   handleCitySelectChange,
-  handleTransferChange,
+  handleVerificationChange,
+  handleViolationChange,
   handleStatusChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
@@ -30,11 +33,19 @@ const Dumb = ({
       <h1>Изменить заявку</h1>
       <Form onSubmit={handleSubmit(editTask)}>
         {/* Статус: задача отменена */}
-        {task.status === 0 && <b>Hello</b> }
+        {task.status === 0 && <Tag type='primary'>Отменен</Tag> }
+
 
         {/* Статус: планируемая проверка */}
         {task.status === 1 &&
-          <div>
+          <div status='1'>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='gray'>Планируется</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Город'>
@@ -68,25 +79,25 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Проверки'>
-                  <Field
-                    name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
-                    validate={required}
-                    handleTransferChange={handleTransferChange}
-                  />
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Плановая дата'>
                   <Field
                     name='planned_at'
                     component={DatePickerDefault}
                     placeholder='Выберите дату и время'
                     validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleVerificationChange}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -95,7 +106,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> Назад</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать проверку</Button>
+                <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -103,7 +114,14 @@ const Dumb = ({
 
         {/* Статус: идет проверка */}
         {task.status === 2 &&
-          <div>
+          <div status='2'>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='warning'>Идет проверка</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Город'>
@@ -137,19 +155,6 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Проверки'>
-                  <Field
-                    name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
-                    validate={required}
-                    handleTransferChange={handleTransferChange}
-                  />
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Плановая дата'>
                   <Field
                     name='planned_at'
@@ -162,9 +167,42 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleVerificationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Замечания'>
+                  <Field
+                    name='violation_types'
+                    component={TransferDefault}
+                    options={violation.data || task.violation_types_selected}
+                    validate={required}
+                    handleTransferChange={handleViolationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Комментарий к замечаниям'>
+                  <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='danger' onClick={handleStatusChange}>Закончить проверку проверку</Button>
+                <Button nativeType='button' type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -172,7 +210,14 @@ const Dumb = ({
 
         {/* Статус: выполнение задачи */}
         {task.status === 3 &&
-          <div>
+          <div status='3'>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='danger'>Исправление замечаний</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Город'>
@@ -206,13 +251,96 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Плановая дата'>
+                  <Field
+                    name='planned_at'
+                    component={DatePickerDefault}
+                    placeholder='Выберите дату и время'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
                   <Field
                     name='verification_types'
                     component={TransferDefault}
                     options={verification.data || task.verification_types_selected}
                     validate={required}
-                    handleTransferChange={handleTransferChange}
+                    handleTransferChange={handleVerificationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Замечания'>
+                  <Field
+                    name='violation_types'
+                    component={TransferDefault}
+                    options={violation.data || task.violation_types_selected}
+                    validate={required}
+                    handleTransferChange={handleViolationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Комментарий к замечаниям'>
+                  <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
+                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='button' type='success' onClick={handleStatusChange}>Закрыть</Button>
+              </Layout.Col>
+            </Layout.Row>
+          </div>
+        }
+
+        {/* Статус: задача завершена */}
+        {task.status === 4 &&
+          <div status='4'>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='success'>Завершено</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Город'>
+                  <Field
+                    name='city'
+                    component={SelectFilter}
+                    options={city.data}
+                    loading={city.isLoading}
+                    onChange={handleCitySelectChange}
+                    loadingText='Загрузка данных'
+                    placeholder='Выбрать город'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Магазин'>
+                  <Field
+                    name='shop'
+                    component={SelectFilter}
+                    options={shop.data}
+                    disabled={shop.isLoading}
+                    loading={shop.isLoading}
+                    placeholder='Выбрать магазин'
+                    validate={required}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -231,16 +359,45 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleVerificationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Замечания'>
+                  <Field
+                    name='violation_types'
+                    component={TransferDefault}
+                    options={violation.data || task.violation_types_selected}
+                    validate={required}
+                    handleTransferChange={handleViolationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Комментарий к замечаниям'>
+                  <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> Назад</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='success' onClick={handleStatusChange}>Закончить исправление замечаний</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
         }
-
-        {/* Статус: задача завершена */}
-        {task.status === 4 && <b>Hello</b> }
 
         {!error.errors && error.message &&
           <Form.Item>
@@ -264,6 +421,7 @@ Dumb.propTypes = {
   city: PropTypes.object.isRequired,
   shop: PropTypes.object.isRequired,
   verification: PropTypes.object.isRequired,
+  violation: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -271,7 +429,8 @@ Dumb.propTypes = {
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
   handleCitySelectChange: PropTypes.func.isRequired,
-  handleTransferChange: PropTypes.func.isRequired,
+  handleVerificationChange: PropTypes.func.isRequired,
+  handleViolationChange: PropTypes.func.isRequired,
   handleStatusChange: PropTypes.func.isRequired,
 }
 
@@ -283,7 +442,7 @@ const reduxFormConfig = {
   form: 'taskEdit',
   enableReinitialize: true,
   keepDirtyOnReinitialize: true,
-  destroyOnUnmount: false,
+  // destroyOnUnmount: false,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

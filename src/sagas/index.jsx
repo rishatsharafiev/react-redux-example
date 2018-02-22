@@ -1,18 +1,20 @@
 import { all, fork } from 'redux-saga/effects'
-import appSaga from 'sagas/app'
-import authSaga from 'sagas/auth'
-import taskSaga from 'sagas/task'
-import citySaga from 'sagas/city'
-import shopSaga from 'sagas/shop'
-import verificationSaga from 'sagas/verification'
+import app from 'sagas/app'
+import auth from 'sagas/auth'
+import task from 'sagas/task'
+import city from 'sagas/city'
+import shop from 'sagas/shop'
+import verification from 'sagas/verification'
+import violation from 'sagas/violation'
 
 export default function* rootSaga() {
   yield all([
-    fork(appSaga),
-    fork(authSaga),
-    fork(taskSaga),
-    fork(citySaga),
-    fork(shopSaga),
-    fork(verificationSaga),
+    fork(app),
+    fork(auth),
+    fork(task),
+    fork(city),
+    fork(shop),
+    fork(verification),
+    fork(violation),
   ])
 }

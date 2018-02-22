@@ -43,5 +43,11 @@
     "meta": {
       "isLoading": false
     }
+  },
+  "violation": {
+    "data": [],
+    "meta": {
+      "isLoading": false
+    }
   }
 }

@@ -8,6 +8,7 @@ import * as taskSelectors from 'selectors/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
 import * as verificationSelectors from 'selectors/verification'
+import * as violationSelectors from 'selectors/violation'
 import Dumb from 'components/task/edit'
 
 class Smart extends Component {
@@ -24,12 +25,12 @@ class Smart extends Component {
         },
       },
     } = this.props
-
     this.props.actions.getTaskById(id)
     // TODO: запускать при условии, что статус не FINISHED, в sagas/task
     this.props.actions.getCities()
     this.props.actions.getShopsByCityId()
     this.props.actions.getVerifications()
+    this.props.actions.getViolations()
   }
 
   render() {
@@ -51,6 +52,10 @@ function mapStateToProps(state) {
       data: verificationSelectors.getBrowseData(state),
       isLoading: verificationSelectors.getBrowseIsLoading(state),
     },
+    violation: {
+      data: violationSelectors.getBrowseData(state),
+      isLoading: violationSelectors.getBrowseIsLoading(state),
+    },
     task: taskSelectors.getEditFormData(state),
     initialValues: taskSelectors.getEditInitialData(state),
   }
@@ -59,7 +64,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
   handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
-  handleTransferChange: value => dispatch(change('taskEdit', 'verification_types', value)),
+  handleVerificationChange: value => dispatch(change('taskEdit', 'verification_types', value)),
+  handleViolationChange: value => dispatch(change('taskEdit', 'violation_types', value)),
   handleStatusChange: () => { dispatch(actions.updateStatus()) },
 })
 
