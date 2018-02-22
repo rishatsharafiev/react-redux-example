@@ -7,7 +7,7 @@ import routes from 'containers/routes'
 const Container = ({ location }) => (
   <div style={{ padding: '0.5rem' }}>
     <Layout.Row type='flex' justify='center'>
-      <Layout.Col xs='24' sm='24' md='22' lg='14'>
+      <Layout.Col xs='24' sm='24' md='22' lg='20'>
         <Card bodyStyle={{ padding: '1.5em', minHeight: '500px' }}>
           <TransitionGroup>
             <CSSTransition

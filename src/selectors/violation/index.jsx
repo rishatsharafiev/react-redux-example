@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
-const dataState = state => state.city.data
-const metaState = state => state.city.meta
+const dataState = state => state.violation.data
+const metaState = state => state.violation.meta
 
 export const getBrowseData = createSelector(
   dataState,

@@ -6,6 +6,7 @@ import task from 'reducers/task'
 import city from 'reducers/city'
 import shop from 'reducers/shop'
 import verification from 'reducers/verification'
+import violation from 'reducers/violation'
 
 const rootReducer = combineReducers({
   app,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   city,
   shop,
   verification,
+  violation,
   form: formReducer,
 })
 

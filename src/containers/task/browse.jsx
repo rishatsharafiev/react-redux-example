@@ -36,12 +36,13 @@ class Smart extends Component {
 }
 
 function mapStateToProps(state) {
+  // TODO: wrap meta properties in object
   return {
-    data: selectors.data(state),
-    total: selectors.total(state),
-    perPage: selectors.perPage(state),
-    currentPage: selectors.currentPage(state),
-    isLoading: selectors.isLoading(state),
+    data: selectors.getBrowseData(state),
+    total: selectors.getBrowseTotal(state),
+    perPage: selectors.getBrowsePerPage(state),
+    currentPage: selectors.getBrowseCurrentPage(state),
+    isLoading: selectors.getBrowseIsLoading(state),
   }
 }
 

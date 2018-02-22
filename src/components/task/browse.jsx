@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Pagination, Icon, Button, Loading } from 'element-react'
+import { Table, Pagination, Icon, Button, Loading, Tag } from 'element-react'
 // import { Link } from 'react-router-dom'
 import moment from 'utils/moment'
 import routerHistory from 'utils/history'
@@ -32,31 +32,39 @@ const columns = [
   {
     label: 'Статус',
     prop: 'status',
-    width: 120,
+    width: 180,
     render(task) {
       const {
         status,
       } = task
 
-      let statusName = ''
-      if (status === 1) {
-        statusName = 'Планируется'
+      let content = <div />
+      if (status === 0) {
+        content = <Tag type='primary'>Отменен</Tag>
+      } else if (status === 1) {
+        content = <Tag type='gray'>Планируется</Tag>
+      } else if (status === 2) {
+        content = <Tag type='warning'>Идет проверка</Tag>
+      } else if (status === 3) {
+        content = <Tag type='danger'>Исправление замечаний</Tag>
+      } else if (status === 4) {
+        content = <Tag type='success'>Завершено</Tag>
+      } else {
+        content = <Tag>...</Tag>
       }
 
-      return (
-        <span>{statusName}</span>
-      )
+      return content
     },
   },
   {
     label: 'Адрес магазина',
     prop: 'shop.address',
-    width: 220,
+    width: 300,
   },
   {
     label: 'Планируемая дата',
     prop: 'planned_at',
-    width: 160,
+    width: 170,
     render(task) {
       if (!task.planned_at) {
         return <span>Скоро</span>
@@ -73,7 +81,7 @@ const columns = [
   {
     label: 'Дата начала',
     prop: 'started_at',
-    width: 150,
+    width: 170,
     render(task) {
       if (!task.started_at) {
         return <span>Неизвестно</span>
@@ -88,18 +96,18 @@ const columns = [
     },
   },
   {
-    label: 'Дата окончания',
-    prop: 'started_at',
-    width: 150,
+    label: 'Дата завершения',
+    prop: 'finished_at',
+    width: 170,
     render(task) {
-      if (!task.started_at) {
+      if (!task.finished_at) {
         return <span>Неизвестно</span>
       }
 
       return (
         <span>
           <Icon name='time' />
-          <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')}</span>
+          <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')}</span>
         </span>
       )
     },
@@ -109,13 +117,11 @@ const columns = [
     prop: 'executor',
     render(task) {
       const {
-        executor: {
-          name,
-        },
+        executor,
       } = task
 
       return (
-        <span>{name}</span>
+        <span>{executor ? executor.name : ''}</span>
       )
     },
   },
@@ -132,7 +138,7 @@ const Dumb = ({
   <div>
     <div style={{ position: 'relative' }}>
       <h1>Заявки</h1>
-      <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать заявку</Button>
+      <Button style={{ position: 'absolute', bottom: '0px', right: '0px' }} type='primary' nativeType='button' onClick={() => { routerHistory.push('/tasks/add') }}><Icon name='document' /> Создать</Button>
     </div>
     {
       (isLoading)

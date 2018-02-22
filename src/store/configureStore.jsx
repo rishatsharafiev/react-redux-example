@@ -1,5 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from 'reducers'
 import rootSaga from 'sagas'
@@ -8,11 +7,24 @@ import { APP_INIT } from 'constants/app'
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [sagaMiddleware]
+  const reduxDevtoolsOptions = {
+    maxAge: 30,
+    latency: 1500,
+    serialize: {
+      options: false,
+    },
+  }
+  const enhancers = compose(
+    applyMiddleware(...middleware),
+    typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
+      ? window.__REDUX_DEVTOOLS_EXTENSION__(reduxDevtoolsOptions)
+      : f => f,
+  )
 
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middleware)),
+    enhancers,
   )
 
   sagaMiddleware.run(rootSaga)

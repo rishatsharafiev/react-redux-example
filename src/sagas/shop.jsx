@@ -17,11 +17,11 @@ export function* shopBrowseWait() {
 }
 
 export function* shopBrowse() {
-  yield take(SHOP_BROWSE_INIT)
   while (true) {
     const action_request = yield take(SHOP_BROWSE_REQUEST)
     const { cityId } = action_request.payload
-    const shop = yield fork(shopBrowseFork, cityId)
+    const newCityId = cityId || ''
+    const shop = yield fork(shopBrowseFork, newCityId)
     const action = yield take([
       LOGOUT_REQUEST, SHOP_BROWSE_REQUEST_SUCCESS, SHOP_BROWSE_REQUEST_ERROR,
     ])

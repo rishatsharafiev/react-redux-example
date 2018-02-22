@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { reduxForm } from 'redux-form'
+import { change } from 'redux-form'
 import * as actions from 'actions/task'
 import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
@@ -14,51 +14,38 @@ class Smart extends Component {
     actions: PropTypes.object.isRequired,
   }
 
-  constructor(props) {
-    super(props)
-
-    this.handleCitySelectChange = this.handleCitySelectChange.bind(this)
-  }
-
   componentDidMount() {
     this.props.actions.getCities()
     this.props.actions.getVerifications()
   }
 
-  handleCitySelectChange(event, value) {
-    this.props.actions.getShopsByCityId(value)
-  }
-
   render() {
-    return <Dumb {...this.props} handleCitySelectChange={this.handleCitySelectChange} />
+    return <Dumb {...this.props} />
   }
 }
-
-const reduxFormConfig = {
-  form: 'taskAdd',
-}
-
-const Smarter = reduxForm(reduxFormConfig)(Smart)
 
 function mapStateToProps(state) {
   return {
     city: {
-      data: citySelectors.data(state),
-      isLoading: citySelectors.isLoading(state),
+      data: citySelectors.getBrowseData(state),
+      isLoading: citySelectors.getBrowseIsLoading(state),
     },
     shop: {
-      data: shopSelectors.data(state),
-      isLoading: shopSelectors.isLoading(state),
+      data: shopSelectors.getBrowseData(state),
+      isLoading: shopSelectors.getBrowseIsLoading(state),
     },
     verification: {
-      data: verificationSelectors.data(state),
-      isLoading: verificationSelectors.isLoading(state),
+      data: verificationSelectors.getBrowseData(state),
+      isLoading: verificationSelectors.getBrowseIsLoading(state),
     },
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
+  handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
+  handleTransferChange: value => dispatch(change('taskAdd', 'verification_types', value)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Smarter)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Smart)

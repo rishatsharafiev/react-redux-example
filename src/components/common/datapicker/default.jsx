@@ -8,28 +8,30 @@ const Dumb = ({
   label,
   placeholder,
   meta: { touched, error, warning },
-}) => (
-  <div>
-    { label && <label htmlFor={input.name}>{label}</label> }
+}) => {
+  const newValue = input.value ? moment(input.value).toDate() : null
 
+  return (
     <div>
-      <DatePicker
-        {...input}
-        value={input.value ? moment(input.value).toDate() : null}
+      { label && <label htmlFor={input.name}>{label}</label> }
 
-        isShowTime
-        placeholder={placeholder}
-        disabledDate={datetime => datetime.getTime() < Date.now() - 8.64e7}
-      />
+      <div>
+        <DatePicker
+          {...input}
+          value={newValue}
+          isShowTime
+          placeholder={placeholder}
+        />
+      </div>
+
+      {touched &&
+        ((error &&
+          <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
+          (warning &&
+            <Tag type='warning'><Icon name='warning' /> {warning}</Tag>))}
     </div>
-
-    {touched &&
-      ((error &&
-        <Tag type='danger'><Icon name='warning' /> {error}</Tag>) ||
-        (warning &&
-          <Tag type='warning'><Icon name='warning' /> {warning}</Tag>))}
-  </div>
-)
+  )
+}
 
 Dumb.defaultProps = {
   label: '',

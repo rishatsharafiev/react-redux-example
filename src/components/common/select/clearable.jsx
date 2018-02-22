@@ -8,12 +8,21 @@ const Dumb = ({
   placeholder,
   meta: { touched, error, warning },
   options,
+  selectedValue,
 }) => (
   <div>
     { label && <label htmlFor={input.name}>{label}</label> }
 
     <div>
       <Select {...input} placeholder={placeholder} clearable>
+        { selectedValue && selectedValue.value && selectedValue.label &&
+          <Select.Option
+            selected
+            key={selectedValue.value}
+            label={selectedValue.label}
+            value={selectedValue.value}
+          />
+        }
         {
           options.map(option =>
             (<Select.Option
@@ -39,11 +48,13 @@ Dumb.propTypes = {
   placeholder: PropTypes.string,
   meta: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
+  selectedValue: PropTypes.object,
 }
 
 Dumb.defaultProps = {
   label: '',
   placeholder: 'Выбрать',
+  selectedValue: null,
 }
 
 export default Dumb
