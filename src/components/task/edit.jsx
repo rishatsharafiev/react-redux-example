@@ -33,13 +33,81 @@ const Dumb = ({
     <Layout.Col xs='24' sm='22' md='22' lg='12'>
       <h1>Изменить заявку</h1>
       <Form onSubmit={handleSubmit(editTask)}>
+        {/* Статус: неизвестен */}
+        {!task.status &&
+          <div>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='gray'>...</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Город'>
+                  <Field
+                    name='city'
+                    component={SelectFilter}
+                    options={city.data}
+                    loading={city.isLoading}
+                    onChange={handleCitySelectChange}
+                    loadingText='Загрузка данных'
+                    placeholder='Выбрать город'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Магазин'>
+                  <Field
+                    name='shop'
+                    component={SelectFilter}
+                    options={shop.data}
+                    disabled={shop.isLoading}
+                    loading={shop.isLoading}
+                    placeholder='Выбрать магазин'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Плановая дата'>
+                  <Field
+                    name='planned_at'
+                    component={DatePickerDefault}
+                    placeholder='Выберите дату и время'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleVerificationChange}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+          </div>
+        }
+
         {/* Статус: задача отменена */}
         {task.status === 0 && <Tag type='primary'>Отменен</Tag> }
 
-
         {/* Статус: планируемая проверка */}
         {task.status === 1 &&
-          <div status='1'>
+          <div>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
@@ -115,7 +183,7 @@ const Dumb = ({
 
         {/* Статус: идет проверка */}
         {task.status === 2 &&
-          <div status='2'>
+          <div>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
@@ -219,7 +287,7 @@ const Dumb = ({
 
         {/* Статус: выполнение задачи */}
         {task.status === 3 &&
-          <div status='3'>
+          <div>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
@@ -323,7 +391,7 @@ const Dumb = ({
 
         {/* Статус: задача завершена */}
         {task.status === 4 &&
-          <div status='4'>
+          <div>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
