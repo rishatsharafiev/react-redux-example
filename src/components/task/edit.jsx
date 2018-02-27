@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
-import { Layout, Form, Button, Tag, Icon } from 'element-react'
+import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
 import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
@@ -35,7 +35,7 @@ const Dumb = ({
       <Form onSubmit={handleSubmit(editTask)}>
         {/* Статус: неизвестен */}
         {!task.status &&
-          <div>
+          <Loading text='Загрузка данных...'>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
@@ -99,7 +99,7 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-          </div>
+          </Loading>
         }
 
         {/* Статус: задача отменена */}
