@@ -95,6 +95,7 @@ const Dumb = ({
                     options={verification.data || task.verification_types_selected}
                     validate={required}
                     handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -167,6 +168,7 @@ const Dumb = ({
                     options={verification.data || task.verification_types_selected}
                     validate={required}
                     handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -251,6 +253,7 @@ const Dumb = ({
                     options={verification.data || task.verification_types_selected}
                     validate={required}
                     handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -264,6 +267,7 @@ const Dumb = ({
                     options={violation.data || task.violation_types_selected}
                     validate={required}
                     handleTransferChange={handleViolationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -355,6 +359,7 @@ const Dumb = ({
                     options={verification.data || task.verification_types_selected}
                     validate={required}
                     handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -368,6 +373,7 @@ const Dumb = ({
                     options={violation.data || task.violation_types_selected}
                     validate={required}
                     handleTransferChange={handleViolationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -467,6 +473,7 @@ const Dumb = ({
                     options={verification.data || task.verification_types_selected}
                     validate={required}
                     handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>
@@ -480,6 +487,7 @@ const Dumb = ({
                     options={violation.data || task.violation_types_selected}
                     validate={required}
                     handleTransferChange={handleViolationChange}
+                    titles={['Все', 'Выбрано']}
                   />
                 </Form.Item>
               </Layout.Col>

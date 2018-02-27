@@ -8,6 +8,8 @@ class Dumb extends Component {
     label: PropTypes.string,
     meta: PropTypes.object.isRequired,
     propsAlias: PropTypes.object,
+    titles: PropTypes.array,
+    buttonTexts: PropTypes.array,
     options: PropTypes.array.isRequired,
     handleTransferChange: PropTypes.func.isRequired,
   }
@@ -15,6 +17,8 @@ class Dumb extends Component {
   static defaultProps = {
     label: '',
     propsAlias: { key: 'value', label: 'label' },
+    titles: ['Список 1', 'Список 2'],
+    buttonTexts: ['Влево', 'Вправо'],
   }
 
   constructor(props) {
@@ -33,6 +37,8 @@ class Dumb extends Component {
       label,
       meta: { touched, error, warning },
       propsAlias,
+      titles,
+      buttonTexts,
       options,
     } = this.props
 
@@ -47,6 +53,8 @@ class Dumb extends Component {
             value={Array.isArray(input.value) ? input.value : []}
             onChange={this.handleChange}
             data={options}
+            titles={titles}
+            buttonTexts={buttonTexts}
           />
         </div>
 

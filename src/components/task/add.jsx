@@ -67,6 +67,7 @@ const Dumb = ({
                 options={verification.data}
                 validate={required}
                 handleTransferChange={handleTransferChange}
+                titles={['Все', 'Выбрано']}
               />
             </Form.Item>
           </Layout.Col>
