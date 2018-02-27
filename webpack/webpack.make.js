@@ -251,7 +251,7 @@ function makeConfig(options) {
         new HtmlWebpackPlugin({
           filename: path.join('../', options.HtmlWebpackPlugin.filename || 'index.html' ),
           template: path.join(SOURCES_DIR, 'templates', 'index.html'),
-          inject: 'body',
+          inject: false,
           title: options.HtmlWebpackPlugin.title,
           alwaysWriteToDisk: true,
           minify: {
