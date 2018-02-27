@@ -31,7 +31,7 @@ const status = (taskId, statusValue) => request({
   method: 'patch',
   responseType: 'json',
   data: {
-    status: statusValue + 1,
+    status: statusValue,
   },
 })
 

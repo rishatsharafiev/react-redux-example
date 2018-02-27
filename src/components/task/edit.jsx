@@ -28,13 +28,14 @@ const Dumb = ({
   handleVerificationChange,
   handleViolationChange,
   handleStatusChange,
+  handleCancellation,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
     <Layout.Col xs='24' sm='22' md='22' lg='12'>
       <h1>Изменить заявку</h1>
       <Form onSubmit={handleSubmit(editTask)}>
         {/* Статус: неизвестен */}
-        {!task.status &&
+        {!task.status && task.status !== 0 &&
           <Loading text='Загрузка данных...'>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
@@ -104,7 +105,116 @@ const Dumb = ({
         }
 
         {/* Статус: задача отменена */}
-        {task.status === 0 && <Tag type='primary'>Отменен</Tag> }
+        {task.status === 0 &&
+          <div>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Статус'>
+                  <Tag type='primary'>Отменено</Tag>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Город'>
+                  <Field
+                    name='city'
+                    component={SelectFilter}
+                    options={city.data}
+                    loading={city.isLoading}
+                    onChange={handleCitySelectChange}
+                    loadingText='Загрузка данных'
+                    placeholder='Выбрать город'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Магазин'>
+                  <Field
+                    name='shop'
+                    component={SelectFilter}
+                    options={shop.data}
+                    disabled={shop.isLoading}
+                    loading={shop.isLoading}
+                    placeholder='Выбрать магазин'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Плановая дата'>
+                  <Field
+                    name='planned_at'
+                    component={DatePickerDefault}
+                    placeholder='Выберите дату и время'
+                    validate={required}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время начала'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Дата и время завершения'>
+                  <Icon name='time' />
+                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Проверки'>
+                  <Field
+                    name='verification_types'
+                    component={TransferDefault}
+                    options={verification.data || task.verification_types_selected}
+                    validate={required}
+                    handleTransferChange={handleVerificationChange}
+                    titles={['Все', 'Выбрано']}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Замечания'>
+                  <Field
+                    name='violation_types'
+                    component={TransferDefault}
+                    options={violation.data || task.violation_types_selected}
+                    validate={required}
+                    handleTransferChange={handleViolationChange}
+                    titles={['Все', 'Выбрано']}
+                  />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Form.Item label='Комментарий к замечаниям'>
+                  <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='center' align='top'>
+              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+              </Layout.Col>
+            </Layout.Row>
+          </div>
+        }
 
         {/* Статус: планируемая проверка */}
         {task.status === 1 &&
@@ -176,6 +286,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
+                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
@@ -240,7 +351,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Дата и время начала'>
                   <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -282,6 +393,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
@@ -346,7 +458,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Дата и время начала'>
                   <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -388,6 +500,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
@@ -452,7 +565,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Дата и время начала'>
                   <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -460,7 +573,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Дата и время завершения'>
                   <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -541,6 +654,7 @@ Dumb.propTypes = {
   handleVerificationChange: PropTypes.func.isRequired,
   handleViolationChange: PropTypes.func.isRequired,
   handleStatusChange: PropTypes.func.isRequired,
+  handleCancellation: PropTypes.func.isRequired,
 }
 
 Dumb.defaultProps = {

@@ -67,6 +67,7 @@ const mapDispatchToProps = dispatch => ({
   handleVerificationChange: value => dispatch(change('taskEdit', 'verification_types', value)),
   handleViolationChange: value => dispatch(change('taskEdit', 'violation_types', value)),
   handleStatusChange: () => { dispatch(actions.updateStatus()) },
+  handleCancellation: () => { dispatch(actions.updateStatus(0)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Smart)

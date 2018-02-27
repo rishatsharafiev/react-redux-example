@@ -23,4 +23,4 @@ export const editTask = (task) => {
   return { type: TASK_EDIT_REQUEST, payload: { task: newTask } }
 }
 export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId } })
-export const updateStatus = () => ({ type: TASK_STATUS_INIT })
+export const updateStatus = status => ({ type: TASK_STATUS_INIT, payload: { status } })
