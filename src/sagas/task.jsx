@@ -217,15 +217,20 @@ export function* tasEditFork(taskId, task) {
 
 export function* taskStatusWait() {
   while (true) {
-    yield take(TASK_STATUS_INIT)
-    yield put({ type: TASK_STATUS_REQUEST })
+    const action_request = yield take(TASK_STATUS_INIT)
+    const { status } = action_request.payload
+    yield put({ type: TASK_STATUS_REQUEST, payload: { status } })
   }
 }
 
 export function* taskStatus() {
   while (true) {
-    yield take(TASK_STATUS_REQUEST)
-    const { taskId, statusValue } = yield select(getEditStatus)
+    const action_request = yield take(TASK_STATUS_REQUEST)
+    const { status } = action_request.payload
+    const { taskId } = yield select(getEditStatus)
+    let { statusValue } = yield select(getEditStatus)
+    if (status === 0) statusValue = 0
+    else statusValue += 1
     const task = yield fork(taskStatusFork, taskId, statusValue)
     const action = yield take([
       LOGOUT_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
