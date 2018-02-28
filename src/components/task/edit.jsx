@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
-import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
+import {
+  Layout, Form, Button, Tag,
+  Icon, Loading, Dialog, Table,
+} from 'element-react'
 import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
@@ -9,6 +12,18 @@ import DatePickerDefault from 'components/common/datapicker/default'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
 import moment from 'utils/moment'
+
+
+const verificationColumns = [
+  {
+    label: 'title',
+    prop: 'title',
+  },
+  {
+    label: 'Operations',
+    render: (row, column, index) => <span><Button type='text' size='small' onClick={() => console.log('action is here')}>Удалить {index}</Button></span>,
+  },
+]
 
 const Dumb = ({
   task,
@@ -620,6 +635,57 @@ const Dumb = ({
             </Layout.Row>
           </div>
         }
+
+        <Dialog
+          title='Проверки'
+          visible={false}
+          size='large'
+          onCancel={() => {}}
+        >
+          <Dialog.Body>
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='18' md='12' lg='6'>
+                <Table
+                  columns={verificationColumns}
+                  width='100%'
+                  resizable
+                  data={[
+                    {
+                      id: 1,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 2,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 3,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 4,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 5,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 6,
+                      title: 'Hello',
+                    },
+                    {
+                      id: 7,
+                      title: 'Hello',
+                    },
+                  ]}
+                  border
+                  maxHeight={250}
+                />
+              </Layout.Col>
+            </Layout.Row>
+          </Dialog.Body>
+        </Dialog>
 
         {!error.errors && error.message &&
           <Form.Item>
