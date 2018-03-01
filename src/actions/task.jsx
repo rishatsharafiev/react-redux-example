@@ -5,7 +5,11 @@ import {
 } from 'constants/task'
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
-import { VERIFICATION_BROWSE_INIT } from 'constants/verification'
+import {
+  VERIFICATION_BROWSE_INIT,
+  VERIFICATION_DIALOG_OPEN,
+  VERIFICATION_DIALOG_CLOSE,
+} from 'constants/verification'
 import { VIOLATION_BROWSE_INIT } from 'constants/violation'
 import moment from 'utils/moment'
 
@@ -24,3 +28,5 @@ export const editTask = (task) => {
 }
 export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId } })
 export const updateStatus = status => ({ type: TASK_STATUS_INIT, payload: { status } })
+export const openVerificationDialog = () => ({ type: VERIFICATION_DIALOG_OPEN })
+export const closeVerificationDialog = () => ({ type: VERIFICATION_DIALOG_CLOSE })

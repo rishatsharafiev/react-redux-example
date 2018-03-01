@@ -7,6 +7,7 @@ const violation = (state = initialState.violation, action) => {
       return {
         ...state,
         meta: {
+          ...state.meta,
           isLoading: true,
         },
       }
@@ -19,6 +20,7 @@ const violation = (state = initialState.violation, action) => {
         ...state,
         data,
         meta: {
+          ...state.meta,
           isLoading: false,
         },
       }
@@ -26,6 +28,7 @@ const violation = (state = initialState.violation, action) => {
       return {
         ...state,
         meta: {
+          ...state.meta,
           isLoading: false,
         },
       }

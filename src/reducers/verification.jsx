@@ -1,5 +1,9 @@
 import initialState from 'reducers/initialState'
-import { VERIFICATION_BROWSE_REQUEST, VERIFICATION_BROWSE_REQUEST_SUCCESS, VERIFICATION_BROWSE_REQUEST_ERROR } from 'constants/verification'
+import {
+  VERIFICATION_BROWSE_REQUEST, VERIFICATION_BROWSE_REQUEST_SUCCESS,
+  VERIFICATION_BROWSE_REQUEST_ERROR, VERIFICATION_DIALOG_OPEN,
+  VERIFICATION_DIALOG_CLOSE,
+} from 'constants/verification'
 
 const verification = (state = initialState.verification, action) => {
   switch (action.type) {
@@ -7,6 +11,7 @@ const verification = (state = initialState.verification, action) => {
       return {
         ...state,
         meta: {
+          ...state.meta,
           isLoading: true,
         },
       }
@@ -19,6 +24,7 @@ const verification = (state = initialState.verification, action) => {
         ...state,
         data,
         meta: {
+          ...state.meta,
           isLoading: false,
         },
       }
@@ -26,7 +32,24 @@ const verification = (state = initialState.verification, action) => {
       return {
         ...state,
         meta: {
+          ...state.meta,
           isLoading: false,
+        },
+      }
+    case VERIFICATION_DIALOG_OPEN:
+      return {
+        ...state,
+        meta: {
+          ...state.meta,
+          isVisible: true,
+        },
+      }
+    case VERIFICATION_DIALOG_CLOSE:
+      return {
+        ...state,
+        meta: {
+          ...state.meta,
+          isVisible: false,
         },
       }
     default:
