@@ -204,6 +204,7 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
