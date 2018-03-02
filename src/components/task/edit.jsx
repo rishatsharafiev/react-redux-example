@@ -115,7 +115,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
-                  <Tag type='primary'>Отменено</Tag>
+                  <Tag type='primary'>Отмена</Tag>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -526,7 +526,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
-                  <Tag type='success'>Завершено</Tag>
+                  <Tag type='success'>Завершена</Tag>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
