@@ -10,6 +10,7 @@ import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import VerificationDialog from 'containers/verification/dialog'
+import ViolationDialog from 'containers/violation/dialog'
 
 const Dumb = ({
   task,
@@ -24,6 +25,8 @@ const Dumb = ({
   error,
   actions: {
     editTask,
+    openVerificationDialog,
+    openViolationDialog,
   },
   handleCitySelectChange,
   handleVerificationChange,
@@ -99,6 +102,7 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -185,12 +189,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -204,7 +209,7 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -281,6 +286,7 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -367,12 +373,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -381,12 +388,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -474,12 +482,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -488,12 +497,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -589,12 +599,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -603,12 +614,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -616,13 +628,10 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
         }
-
-        <VerificationDialog />
 
         {!error.errors && error.message &&
           <Form.Item>
@@ -637,6 +646,9 @@ const Dumb = ({
           ))
         }
       </Form>
+
+      <VerificationDialog />
+      <ViolationDialog />
     </Layout.Col>
   </Layout.Row>
 )

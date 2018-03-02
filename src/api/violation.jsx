@@ -6,6 +6,14 @@ const browse = () => request({
   responseType: 'json',
 })
 
+const add = violation => request({
+  url: '/violation_types',
+  method: 'post',
+  responseType: 'json',
+  data: violation,
+})
+
 export default {
   browse,
+  add,
 }

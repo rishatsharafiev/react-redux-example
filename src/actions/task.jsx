@@ -6,11 +6,13 @@ import {
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
 import {
-  VERIFICATION_BROWSE_INIT,
-  VERIFICATION_DIALOG_OPEN,
-  VERIFICATION_DIALOG_CLOSE,
+  VERIFICATION_BROWSE_INIT, VERIFICATION_ADD_REQUEST,
+  VERIFICATION_DIALOG_OPEN, VERIFICATION_DIALOG_CLOSE,
 } from 'constants/verification'
-import { VIOLATION_BROWSE_INIT } from 'constants/violation'
+import {
+  VIOLATION_BROWSE_INIT, VIOLATION_ADD_REQUEST,
+  VIOLATION_DIALOG_OPEN, VIOLATION_DIALOG_CLOSE,
+} from 'constants/violation'
 import moment from 'utils/moment'
 
 export const changePage = page => ({ type: TASK_BROWSE_INIT, payload: { page } })
@@ -30,3 +32,13 @@ export const getTaskById = taskId => ({ type: TASK_READ_INIT, payload: { taskId 
 export const updateStatus = status => ({ type: TASK_STATUS_INIT, payload: { status } })
 export const openVerificationDialog = () => ({ type: VERIFICATION_DIALOG_OPEN })
 export const closeVerificationDialog = () => ({ type: VERIFICATION_DIALOG_CLOSE })
+export const addVerification = verification => ({
+  type: VERIFICATION_ADD_REQUEST,
+  payload: { verification },
+})
+export const openViolationDialog = () => ({ type: VIOLATION_DIALOG_OPEN })
+export const closeViolationDialog = () => ({ type: VIOLATION_DIALOG_CLOSE })
+export const addViolation = violation => ({
+  type: VIOLATION_ADD_REQUEST,
+  payload: { violation },
+})

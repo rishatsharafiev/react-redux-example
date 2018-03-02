@@ -6,7 +6,7 @@ import { Layout, Form, Dialog, Loading, Table, Button, Tag, Icon } from 'element
 import InputText from 'components/common/input/text'
 import { required } from 'utils/validate'
 
-const verificationColumns = [
+const violationColumns = [
   {
     label: 'Название',
     prop: 'label',
@@ -23,8 +23,8 @@ const Dumb = ({
   isLoading,
   isVisible,
   actions: {
-    closeVerificationDialog,
-    addVerification,
+    closeViolationDialog,
+    addViolation,
   },
   handleSubmit,
   submitting,
@@ -36,7 +36,7 @@ const Dumb = ({
     title='Проверки'
     visible={isVisible}
     size='large'
-    onCancel={closeVerificationDialog}
+    onCancel={closeViolationDialog}
   >
     <Dialog.Body>
       <Layout.Row align='top' gutter='10' >
@@ -44,7 +44,7 @@ const Dumb = ({
           {
             (isLoading)
               ? <Loading text='Загрузка данных...'><Table
-                columns={verificationColumns}
+                columns={violationColumns}
                 width='100%'
                 resizable
                 data={data}
@@ -53,7 +53,7 @@ const Dumb = ({
                 style={{ marginBottom: '35px' }}
               /></Loading>
               : <Table
-                columns={verificationColumns}
+                columns={violationColumns}
                 width='100%'
                 resizable
                 data={data}
@@ -64,7 +64,7 @@ const Dumb = ({
           }
         </Layout.Col>
         <Layout.Col xs='24' sm='8' md='6' lg='6'>
-          <Form onSubmit={handleSubmit(addVerification)}>
+          <Form onSubmit={handleSubmit(addViolation)}>
             <Form.Item>
               <Field
                 name='title'
@@ -114,7 +114,7 @@ Dumb.defaultProps = {
 }
 
 const reduxFormConfig = {
-  form: 'verificationAdd',
+  form: 'violationAdd',
   enableReinitialize: true,
   destroyOnUnmount: false,
 }

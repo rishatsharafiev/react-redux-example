@@ -42,7 +42,7 @@
     "data": [],
     "meta": {
       "isLoading": false,
-      "isVisible": true
+      "isVisible": false
     }
   },
   "violation": {
