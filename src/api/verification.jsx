@@ -13,7 +13,14 @@ const add = verification => request({
   data: verification,
 })
 
+const remove = verificationId => request({
+  url: `/verification_types/${verificationId}`,
+  method: 'delete',
+  responseType: 'json',
+})
+
 export default {
   browse,
   add,
+  remove,
 }

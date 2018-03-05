@@ -13,7 +13,14 @@ const add = violation => request({
   data: violation,
 })
 
+const remove = violationId => request({
+  url: `/violation_types/${violationId}`,
+  method: 'delete',
+  responseType: 'json',
+})
+
 export default {
   browse,
   add,
+  remove,
 }

@@ -6,11 +6,11 @@ import {
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
 import {
-  VERIFICATION_BROWSE_INIT, VERIFICATION_ADD_REQUEST,
+  VERIFICATION_BROWSE_INIT, VERIFICATION_ADD_REQUEST, VERIFICATION_REMOVE_REQUEST,
   VERIFICATION_DIALOG_OPEN, VERIFICATION_DIALOG_CLOSE,
 } from 'constants/verification'
 import {
-  VIOLATION_BROWSE_INIT, VIOLATION_ADD_REQUEST,
+  VIOLATION_BROWSE_INIT, VIOLATION_ADD_REQUEST, VIOLATION_REMOVE_REQUEST,
   VIOLATION_DIALOG_OPEN, VIOLATION_DIALOG_CLOSE,
 } from 'constants/violation'
 import moment from 'utils/moment'
@@ -36,9 +36,17 @@ export const addVerification = verification => ({
   type: VERIFICATION_ADD_REQUEST,
   payload: { verification },
 })
+export const removeVerification = verificationId => ({
+  type: VERIFICATION_REMOVE_REQUEST,
+  payload: { verificationId },
+})
 export const openViolationDialog = () => ({ type: VIOLATION_DIALOG_OPEN })
 export const closeViolationDialog = () => ({ type: VIOLATION_DIALOG_CLOSE })
 export const addViolation = violation => ({
   type: VIOLATION_ADD_REQUEST,
   payload: { violation },
+})
+export const removeViolation = violationId => ({
+  type: VIOLATION_REMOVE_REQUEST,
+  payload: { violationId },
 })
