@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
+import routerHistory from 'utils/history'
+import { required } from 'utils/validate'
+import moment from 'utils/moment'
 import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
-import routerHistory from 'utils/history'
-import { required } from 'utils/validate'
-import moment from 'utils/moment'
+import VerificationDialog from 'containers/verification/dialog'
+import ViolationDialog from 'containers/violation/dialog'
 
 const Dumb = ({
   task,
@@ -23,6 +25,8 @@ const Dumb = ({
   error,
   actions: {
     editTask,
+    openVerificationDialog,
+    openViolationDialog,
   },
   handleCitySelectChange,
   handleVerificationChange,
@@ -98,6 +102,7 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -110,7 +115,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
-                  <Tag type='primary'>Отменено</Tag>
+                  <Tag type='primary'>Отмена</Tag>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -157,22 +162,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время завершения'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -184,12 +193,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -198,12 +208,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -280,6 +291,7 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -347,14 +359,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -366,12 +390,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -380,12 +405,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -454,14 +480,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -473,12 +511,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -487,12 +526,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -514,7 +554,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Статус'>
-                  <Tag type='success'>Завершено</Tag>
+                  <Tag type='success'>Завершена</Tag>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -561,22 +601,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время завершения'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -588,12 +632,13 @@ const Dumb = ({
                     handleTransferChange={handleVerificationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Замечания'>
+                <Form.Item label='Нарушения'>
                   <Field
                     name='violation_types'
                     component={TransferDefault}
@@ -602,12 +647,13 @@ const Dumb = ({
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Комментарий к замечаниям'>
+                <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
@@ -615,7 +661,6 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -634,6 +679,9 @@ const Dumb = ({
           ))
         }
       </Form>
+
+      <VerificationDialog />
+      <ViolationDialog />
     </Layout.Col>
   </Layout.Row>
 )

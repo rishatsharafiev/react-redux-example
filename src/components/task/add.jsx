@@ -7,6 +7,7 @@ import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
+import VerificationDialog from 'containers/verification/dialog'
 
 const Dumb = ({
   city,
@@ -19,6 +20,7 @@ const Dumb = ({
   error,
   actions: {
     addTask,
+    openVerificationDialog,
   },
   handleCitySelectChange,
   handleTransferChange,
@@ -69,6 +71,7 @@ const Dumb = ({
                 handleTransferChange={handleTransferChange}
                 titles={['Все', 'Выбрано']}
               />
+              <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
             </Form.Item>
           </Layout.Col>
         </Layout.Row>
@@ -103,6 +106,8 @@ const Dumb = ({
           ))
         }
       </Form>
+
+      <VerificationDialog />
     </Layout.Col>
   </Layout.Row>
 )

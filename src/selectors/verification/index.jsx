@@ -15,3 +15,8 @@ export const getBrowseIsLoading = createSelector(
   metaState,
   items => items.isLoading,
 )
+
+export const getDialogIsVisible = createSelector(
+  metaState,
+  items => items.isVisible,
+)

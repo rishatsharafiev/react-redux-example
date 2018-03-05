@@ -40,7 +40,7 @@ const columns = [
 
       let content = <div />
       if (status === 0) {
-        content = <Tag type='primary'>Отменен</Tag>
+        content = <Tag type='primary'>Отмена</Tag>
       } else if (status === 1) {
         content = <Tag type='gray'>Планируется</Tag>
       } else if (status === 2) {
@@ -48,7 +48,7 @@ const columns = [
       } else if (status === 3) {
         content = <Tag type='danger'>Исправление замечаний</Tag>
       } else if (status === 4) {
-        content = <Tag type='success'>Завершено</Tag>
+        content = <Tag type='success'>Завершена</Tag>
       } else {
         content = <Tag>...</Tag>
       }

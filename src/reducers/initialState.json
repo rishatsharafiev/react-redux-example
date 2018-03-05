@@ -41,13 +41,15 @@
   "verification": {
     "data": [],
     "meta": {
-      "isLoading": false
+      "isLoading": false,
+      "isVisible": false
     }
   },
   "violation": {
     "data": [],
     "meta": {
-      "isLoading": false
+      "isLoading": false,
+      "isVisible": false
     }
   }
 }
