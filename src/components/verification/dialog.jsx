@@ -57,6 +57,7 @@ const Dumb = ({
                   border
                   maxHeight={250}
                   style={{ marginBottom: '35px' }}
+                  emptyText='Нет данных'
                 /></Loading>
                 : <Table
                   columns={verificationColumns}
@@ -66,6 +67,7 @@ const Dumb = ({
                   border
                   maxHeight={250}
                   style={{ marginBottom: '35px' }}
+                  emptyText='Нет данных'
                 />
             }
           </Layout.Col>
