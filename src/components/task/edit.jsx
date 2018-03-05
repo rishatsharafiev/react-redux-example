@@ -11,6 +11,7 @@ import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import VerificationDialog from 'containers/verification/dialog'
 import ViolationDialog from 'containers/violation/dialog'
+import ScannerAdd from 'containers/scanner/add'
 
 const Dumb = ({
   task,
@@ -682,6 +683,7 @@ const Dumb = ({
 
       <VerificationDialog />
       <ViolationDialog />
+      <ScannerAdd />
     </Layout.Col>
   </Layout.Row>
 )
