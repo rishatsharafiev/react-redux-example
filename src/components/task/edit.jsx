@@ -162,22 +162,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время завершения'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -355,14 +359,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -464,14 +480,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
@@ -573,22 +601,26 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время начала'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.started_at && moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Form.Item label='Дата и время завершения'>
-                  <Icon name='time' />
-                  <span style={{ marginLeft: '10px' }}>{task.finished_at && moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
-                </Form.Item>
-              </Layout.Col>
-            </Layout.Row>
+            { task.started_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время начала'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.started_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            { task.finished_at &&
+              <Layout.Row type='flex' justify='center' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Дата и время завершения'>
+                    <Icon name='time' />
+                    <span style={{ marginLeft: '10px' }}>{moment(task.finished_at.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY HH:mm:ss')}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
