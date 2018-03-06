@@ -1,15 +1,7 @@
 @import 'transition';
+@import 'scanner';
 
 body {
   margin: 0;
   padding: 0;
 }
-
-/* stylelint-disable */
-.drawing,
-.drawingBuffer {
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-/* stylelint-enable */

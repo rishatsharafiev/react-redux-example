@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import Quagga from 'quagga'
 
 class Dumb extends Component {
+  static propTypes = {
+    handleChange: PropTypes.func.isRequired,
+  }
+
   componentDidMount() {
+    const { handleChange } = this.props
     Quagga.init({
       inputStream: {
         name: 'Live',
         type: 'LiveStream',
-        width: 200,
-        height: 200,
+        width: { min: 160, max: 240 },
+        height: { min: 120, max: 200 },
+        facingMode: 'environment',
         aspectRatio: { min: 1, max: 2 },
-        target: document.querySelector('#hello'),
+        target: this._barcode128,
       },
       locator: {
         patchSize: 'medium',
@@ -20,65 +26,73 @@ class Dumb extends Component {
       numOfWorkers: 2,
       frequency: 10,
       decoder: {
-        readers: ['code_128_reader'],
-      },
-      debug: {
-        drawBoundingBox: false,
-        showFrequency: false,
-        drawScanline: false,
-        showPattern: false,
+        readers: [{
+          format: 'code_128_reader',
+          config: {},
+        }],
       },
       locate: true,
     }, (err) => {
       if (err) {
-        console.log(err)
+        handleChange({ type: 'ERROR', payload: { error: err } })
+        Quagga.stop()
         return
       }
-      console.log('Initialization finished. Ready to start')
+      handleChange({ type: 'READY' })
       Quagga.start()
     })
 
-    // Quagga.onProcessed((result) => {
-    //   const drawingCtx = Quagga.canvas.ctx.overlay
-    //   const drawingCanvas = Quagga.canvas.dom.overlay
+    Quagga.onProcessed((result) => {
+      const drawingCtx = Quagga.canvas.ctx.overlay
+      const drawingCanvas = Quagga.canvas.dom.overlay
+      if (result) {
+        if (result.boxes) {
+          drawingCtx.clearRect(
+            0, 0, parseInt(drawingCanvas.getAttribute('width'), 10),
+            parseInt(drawingCanvas.getAttribute('height'), 10),
+          )
+          result.boxes.filter(box => box !== result.box).forEach((box) => {
+            Quagga.ImageDebug.drawPath(
+              box, { x: 0, y: 1 }, drawingCtx,
+              { color: 'green', lineWidth: 2 },
+            )
+          })
+        }
 
-    //   if (result) {
-    //     if (result.boxes) {
-    //       drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width'), 10),
-    //         parseInt(drawingCanvas.getAttribute('height'), 10))
-    //       result.boxes.filter(box => box !== result.box).forEach((box) => {
-    //         Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx,
-    //           { color: 'green', lineWidth: 2 })
-    //       })
-    //     }
+        if (result.box) {
+          Quagga.ImageDebug.drawPath(
+            result.box, { x: 0, y: 1 }, drawingCtx,
+            { color: '#00F', lineWidth: 2 },
+          )
+        }
 
-    //     if (result.box) {
-    //       Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx,
-    //         { color: '#00F', lineWidth: 2 })
-    //     }
-
-    //     if (result.codeResult && result.codeResult.code) {
-    //       Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx,
-    //         { color: 'red', lineWidth: 3 })
-    //     }
-    //   }
-    // })
+        if (result.codeResult && result.codeResult.code) {
+          Quagga.ImageDebug.drawPath(
+            result.line, { x: 'x', y: 'y' }, drawingCtx,
+            { color: 'red', lineWidth: 3 },
+          )
+        }
+      }
+    })
 
     Quagga.onDetected((result) => {
-      if (parseInt(result, 10)) {
-        const img = document.getElementById('img')
-        img.src = Quagga.canvas.dom.image.toDataURL()
+      const {
+        codeResult: {
+          code,
+        },
+      } = result
+      if (parseInt(code, 10) && code.length === 10) {
+        handleChange({ type: 'RESULT', payload: { code } })
         Quagga.stop()
       }
     })
   }
 
+  getBarcode128Ref = (node) => { this._barcode128 = node }
+
   render() {
     return (
-      <div>
-        <div id='hello' style={{ width: '100%' }} />
-        <img id='img' alt='Barcode' />
-      </div>
+      <div className='barcode128' ref={this.getBarcode128Ref} />
     )
   }
 }

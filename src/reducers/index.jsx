@@ -7,6 +7,7 @@ import city from 'reducers/city'
 import shop from 'reducers/shop'
 import verification from 'reducers/verification'
 import violation from 'reducers/violation'
+import scanner from 'reducers/scanner'
 
 const rootReducer = combineReducers({
   app,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   shop,
   verification,
   violation,
+  scanner,
   form: formReducer,
 })
 

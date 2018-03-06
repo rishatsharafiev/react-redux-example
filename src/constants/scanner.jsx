@@ -1,0 +1,3 @@
+export const SCANNER_READY = 'SCANNER_READY'
+export const SCANNER_RESULT = 'SCANNER_RESULT'
+export const SCANNER_ERROR = 'SCANNER_ERROR'
