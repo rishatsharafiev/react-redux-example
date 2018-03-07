@@ -16,14 +16,16 @@ export function* scannerResult() {
 export function* scannerChange() {
   let prevSignature = ''
   while (true) {
-    yield take('@@redux-form/CHANGE')
-    const { signature } = yield select(getFormValues('taskEdit'))
-    if (signature && prevSignature !== signature && signature.length === 10) {
-      prevSignature = signature
-      yield put({
-        type: EMPLOYEE_BROWSE_REQUEST,
-        payload: { code: signature },
-      })
+    const action = yield take('@@redux-form/CHANGE')
+    if (action.meta.form === 'taskEdit') {
+      const { signature } = yield select(getFormValues('taskEdit'))
+      if (signature && prevSignature !== signature && signature.length === 10) {
+        prevSignature = signature
+        yield put({
+          type: EMPLOYEE_BROWSE_REQUEST,
+          payload: { code: signature },
+        })
+      }
     }
   }
 }
