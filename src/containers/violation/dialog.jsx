@@ -12,7 +12,7 @@ class Smart extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getVerifications()
+    this.props.actions.getViolations()
   }
 
   render() {
