@@ -5,6 +5,7 @@ import {
   TASK_STATUS_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
 } from 'constants/task'
 import { SCANNER_RESULT } from 'constants/scanner'
+import { EMPLOYEE_BROWSE_REQUEST_SUCCESS, EMPLOYEE_BROWSE_REQUEST_ERROR } from 'constants/employee'
 
 const task = (state = initialState.task, action) => {
   switch (action.type) {
@@ -132,6 +133,34 @@ const task = (state = initialState.task, action) => {
           data: {
             ...state.edit.data,
             signature: code,
+          },
+        },
+      }
+    case EMPLOYEE_BROWSE_REQUEST_SUCCESS:
+      const {
+        employee: employeeBrowseData,
+      } = action.payload
+      return {
+        ...state,
+        edit: {
+          ...state.edit,
+          data: {
+            ...state.edit.data,
+            employee: employeeBrowseData,
+          },
+        },
+      }
+    case EMPLOYEE_BROWSE_REQUEST_ERROR:
+      const {
+        employee: employeeBrowseDataError,
+      } = action.payload
+      return {
+        ...state,
+        edit: {
+          ...state.edit,
+          data: {
+            ...state.edit.data,
+            employee: employeeBrowseDataError,
           },
         },
       }

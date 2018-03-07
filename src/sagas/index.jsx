@@ -7,6 +7,7 @@ import shop from 'sagas/shop'
 import verification from 'sagas/verification'
 import violation from 'sagas/violation'
 import scanner from 'sagas/scanner'
+import employee from 'sagas/employee'
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
     fork(verification),
     fork(violation),
     fork(scanner),
+    fork(employee),
   ])
 }

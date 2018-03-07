@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
 import routerHistory from 'utils/history'
-import { required } from 'utils/validate'
+import { required, maxLength10 } from 'utils/validate'
 import moment from 'utils/moment'
 import InputText from 'components/common/input/text'
 import InputTextArea from 'components/common/input/textarea'
@@ -450,7 +450,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, maxLength10]} placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -604,7 +604,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, maxLength10]} placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>

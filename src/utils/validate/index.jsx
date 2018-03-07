@@ -33,6 +33,7 @@ export const russianName = value =>
 
 export const minLength2 = minLength(2)
 export const minLength8 = minLength(8)
+export const maxLength10 = maxLength(10)
 export const maxLength30 = maxLength(30)
 
 export default {}

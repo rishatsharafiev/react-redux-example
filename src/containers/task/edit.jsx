@@ -34,6 +34,10 @@ class Smart extends Component {
     this.props.actions.getViolations()
   }
 
+  componentWillUnmount() {
+    this.props.actions.toggleScannerButton(false)
+  }
+
   render() {
     return <Dumb {...this.props} />
   }
