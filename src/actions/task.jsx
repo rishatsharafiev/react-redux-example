@@ -13,6 +13,9 @@ import {
   VIOLATION_BROWSE_INIT, VIOLATION_ADD_REQUEST, VIOLATION_REMOVE_REQUEST,
   VIOLATION_DIALOG_OPEN, VIOLATION_DIALOG_CLOSE,
 } from 'constants/violation'
+import {
+  SCANNER_READY, SCANNER_RESULT, SCANNER_ERROR, SCANNER_TOGGLE,
+} from 'constants/scanner'
 import moment from 'utils/moment'
 
 export const changePage = page => ({ type: TASK_BROWSE_INIT, payload: { page } })
@@ -50,3 +53,21 @@ export const removeViolation = violationId => ({
   type: VIOLATION_REMOVE_REQUEST,
   payload: { violationId },
 })
+export const updateScanner = (action) => {
+  switch (action.type) {
+    case 'READY':
+      return { type: SCANNER_READY, payload: { message: 'Сканер штрих-кодов готов' } }
+    case 'RESULT':
+      const {
+        payload: {
+          code,
+        },
+      } = action
+      return { type: SCANNER_RESULT, payload: { code } }
+    case 'ERROR':
+      return { type: SCANNER_ERROR, payload: { message: 'Перезагрузите сканер штрих-кодов или введите вручную' } }
+    default:
+      return null
+  }
+}
+export const toggleScannerButton = toggle => ({ type: SCANNER_TOGGLE, payload: { toggle } })

@@ -51,5 +51,10 @@
       "isLoading": false,
       "isVisible": false
     }
+  },
+  "scanner": {
+    "message": "",
+    "code": "",
+    "toggle": false
   }
 }

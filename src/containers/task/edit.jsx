@@ -9,6 +9,7 @@ import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
 import * as verificationSelectors from 'selectors/verification'
 import * as violationSelectors from 'selectors/violation'
+import * as scannerSelectors from 'selectors/scanner'
 import Dumb from 'components/task/edit'
 
 class Smart extends Component {
@@ -31,6 +32,10 @@ class Smart extends Component {
     this.props.actions.getShopsByCityId()
     this.props.actions.getVerifications()
     this.props.actions.getViolations()
+  }
+
+  componentWillUnmount() {
+    this.props.actions.toggleScannerButton(false)
   }
 
   render() {
@@ -57,6 +62,7 @@ function mapStateToProps(state) {
       isLoading: violationSelectors.getBrowseIsLoading(state),
     },
     task: taskSelectors.getEditFormData(state),
+    scanner: scannerSelectors.getReadData(state),
     initialValues: taskSelectors.getEditInitialData(state),
   }
 }
