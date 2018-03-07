@@ -5,6 +5,7 @@ import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
 import moment from 'utils/moment'
+import InputText from 'components/common/input/text'
 import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
@@ -15,6 +16,7 @@ import ScannerAdd from 'containers/scanner/add'
 
 const Dumb = ({
   task,
+  scanner,
   city,
   shop,
   verification,
@@ -28,6 +30,7 @@ const Dumb = ({
     editTask,
     openVerificationDialog,
     openViolationDialog,
+    toggleScannerButton,
   },
   handleCitySelectChange,
   handleVerificationChange,
@@ -107,6 +110,15 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
           </Loading>
         }
 
@@ -214,12 +226,21 @@ const Dumb = ({
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+              <Layout.Col xs='24' sm='24' md='24' lg='16'>
                 <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
@@ -296,6 +317,15 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
@@ -410,10 +440,43 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='20' lg='16'>
                 <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='12' lg='8'>
+                <Form.Item label='Табельный номер сотрудника'>
+                  <Field name='signature' component={InputText} autocomplete='off' placeholder='Введите табельный номер' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='12' lg='12'>
+                <Form.Item label='Сканнер табельного номера'>
+                  { scanner && !scanner.toggle &&
+                    <div>
+                      <Button nativeType='button' type='success' size='small' onClick={() => { toggleScannerButton(true) }}>Включить сканнер</Button>
+                    </div>
+                  }
+                  { scanner && scanner.toggle &&
+                    <div>
+                      <Button nativeType='button' type='danger' size='small' onClick={() => { toggleScannerButton(false) }}>Выключить сканнер</Button>
+                      <ScannerAdd />
+                    </div>
+                  }
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -531,10 +594,43 @@ const Dumb = ({
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
-            <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='20' lg='16'>
                 <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='12' lg='8'>
+                <Form.Item label='Табельный номер сотрудника'>
+                  <Field name='signature' component={InputText} autocomplete='off' placeholder='Введите табельный номер' />
+                </Form.Item>
+              </Layout.Col>
+            </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
+            <Layout.Row type='flex' justify='left' align='top'>
+              <Layout.Col xs='24' sm='24' md='12' lg='12'>
+                <Form.Item label='Сканнер табельного номера'>
+                  { scanner && !scanner.toggle &&
+                    <div>
+                      <Button nativeType='button' type='success' size='small' onClick={() => { toggleScannerButton(true) }}>Включить сканнер</Button>
+                    </div>
+                  }
+                  { scanner && scanner.toggle &&
+                    <div>
+                      <Button nativeType='button' type='danger' size='small' onClick={() => { toggleScannerButton(false) }}>Выключить сканнер</Button>
+                      <ScannerAdd />
+                    </div>
+                  }
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -653,12 +749,21 @@ const Dumb = ({
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
-              <Layout.Col xs='24' sm='24' md='24' lg='24'>
+              <Layout.Col xs='24' sm='24' md='24' lg='16'>
                 <Form.Item label='Комментарий к нарушениям'>
                   <Field name='violation_comment' component={InputTextArea} autocomplete='off' placeholder='Введите ваши комментарии' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
+            { task.employee && task.employee.full_name &&
+              <Layout.Row type='flex' justify='left' align='top'>
+                <Layout.Col xs='24' sm='24' md='24' lg='24'>
+                  <Form.Item label='Сотрудник'>
+                    <span style={{ marginLeft: '10px' }}>{task.employee.full_name}</span>
+                  </Form.Item>
+                </Layout.Col>
+              </Layout.Row>
+            }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
@@ -683,13 +788,13 @@ const Dumb = ({
 
       <VerificationDialog />
       <ViolationDialog />
-      <ScannerAdd />
     </Layout.Col>
   </Layout.Row>
 )
 
 Dumb.propTypes = {
   task: PropTypes.object.isRequired,
+  scanner: PropTypes.object.isRequired,
   city: PropTypes.object.isRequired,
   shop: PropTypes.object.isRequired,
   verification: PropTypes.object.isRequired,

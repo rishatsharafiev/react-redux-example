@@ -54,6 +54,7 @@
   },
   "scanner": {
     "message": "",
-    "code": ""
+    "code": "",
+    "toggle": false
   }
 }

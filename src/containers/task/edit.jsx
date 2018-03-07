@@ -9,6 +9,7 @@ import * as citySelectors from 'selectors/city'
 import * as shopSelectors from 'selectors/shop'
 import * as verificationSelectors from 'selectors/verification'
 import * as violationSelectors from 'selectors/violation'
+import * as scannerSelectors from 'selectors/scanner'
 import Dumb from 'components/task/edit'
 
 class Smart extends Component {
@@ -57,6 +58,7 @@ function mapStateToProps(state) {
       isLoading: violationSelectors.getBrowseIsLoading(state),
     },
     task: taskSelectors.getEditFormData(state),
+    scanner: scannerSelectors.getReadData(state),
     initialValues: taskSelectors.getEditInitialData(state),
   }
 }

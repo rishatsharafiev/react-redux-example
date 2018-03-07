@@ -14,7 +14,7 @@ import {
   VIOLATION_DIALOG_OPEN, VIOLATION_DIALOG_CLOSE,
 } from 'constants/violation'
 import {
-  SCANNER_READY, SCANNER_RESULT, SCANNER_ERROR,
+  SCANNER_READY, SCANNER_RESULT, SCANNER_ERROR, SCANNER_TOGGLE,
 } from 'constants/scanner'
 import moment from 'utils/moment'
 
@@ -70,3 +70,4 @@ export const updateScanner = (action) => {
       return null
   }
 }
+export const toggleScannerButton = toggle => ({ type: SCANNER_TOGGLE, payload: { toggle } })

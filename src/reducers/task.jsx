@@ -4,6 +4,7 @@ import {
   TASK_READ_REQUEST, TASK_READ_REQUEST_SUCCESS, TASK_READ_REQUEST_ERROR,
   TASK_STATUS_REQUEST, TASK_STATUS_REQUEST_SUCCESS, TASK_STATUS_REQUEST_ERROR,
 } from 'constants/task'
+import { SCANNER_RESULT } from 'constants/scanner'
 
 const task = (state = initialState.task, action) => {
   switch (action.type) {
@@ -117,6 +118,20 @@ const task = (state = initialState.task, action) => {
         edit: {
           meta: {
             isLoading: false,
+          },
+        },
+      }
+    case SCANNER_RESULT:
+      const {
+        code,
+      } = action.payload
+      return {
+        ...state,
+        edit: {
+          ...state.edit,
+          data: {
+            ...state.edit.data,
+            signature: code,
           },
         },
       }
