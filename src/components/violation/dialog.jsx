@@ -125,7 +125,6 @@ Dumb.defaultProps = {
 const reduxFormConfig = {
   form: 'violationAdd',
   enableReinitialize: true,
-  destroyOnUnmount: false,
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)

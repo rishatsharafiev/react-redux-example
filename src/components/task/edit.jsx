@@ -329,7 +329,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='submit' disabled={pristine || submitting || invalid || (task.employee && !task.employee.guid)}>Сохранить</Button>
                 <Button nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
@@ -448,7 +448,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, length10]} placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[length10]} placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
