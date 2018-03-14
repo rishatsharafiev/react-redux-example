@@ -13,6 +13,9 @@ export const maxLength = max => value =>
 export const minLength = min => value =>
   (value && value.length < min ? `Должно быть ${min} символов или более` : undefined)
 
+export const length = size => value =>
+  (value && value.length !== size ? `Должно быть ровно ${size} символов` : undefined)
+
 export const number = value =>
   (value && Number.isNaN(Number(value)) ? 'Должно быть число' : undefined)
 
@@ -35,5 +38,6 @@ export const minLength2 = minLength(2)
 export const minLength8 = minLength(8)
 export const maxLength10 = maxLength(10)
 export const maxLength30 = maxLength(30)
+export const length10 = length(10)
 
 export default {}
