@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, reset } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon } from 'element-react'
 import SelectFilter from 'components/common/select/filter'
 import TransferDefault from 'components/common/transfer/default'
@@ -132,7 +132,10 @@ Dumb.defaultProps = {
 
 const reduxFormConfig = {
   form: 'taskAdd',
-  enableReinitialize: true,
+  destroyOnUnmount: false,
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(reset('taskAdd'))
+  },
 }
 
 export default reduxForm(reduxFormConfig)(Dumb)
