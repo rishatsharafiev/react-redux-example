@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon, Loading } from 'element-react'
 import routerHistory from 'utils/history'
-import { required, maxLength10 } from 'utils/validate'
+import { required, length10 } from 'utils/validate'
 import moment from 'utils/moment'
 import InputText from 'components/common/input/text'
 import InputTextArea from 'components/common/input/textarea'
@@ -217,7 +217,6 @@ const Dumb = ({
                     name='violation_types'
                     component={TransferDefault}
                     options={violation.data || task.violation_types_selected}
-                    validate={required}
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
@@ -331,7 +330,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='warning' onClick={handleStatusChange}>Начать</Button>
+                <Button nativeType='button' disabled={pristine || submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -432,7 +431,6 @@ const Dumb = ({
                     name='violation_types'
                     component={TransferDefault}
                     options={violation.data || task.violation_types_selected}
-                    validate={required}
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
@@ -450,7 +448,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, maxLength10]} placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, length10]} placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -485,7 +483,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='danger' onClick={handleStatusChange}>Завершить</Button>
+                <Button nativeType='button' disabled={pristine || submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -586,7 +584,6 @@ const Dumb = ({
                     name='violation_types'
                     component={TransferDefault}
                     options={violation.data || task.violation_types_selected}
-                    validate={required}
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
@@ -604,7 +601,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, maxLength10]} placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, length10]} placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -639,7 +636,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' type='success' onClick={handleStatusChange}>Закрыть</Button>
+                <Button nativeType='button' disabled={pristine || submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -740,7 +737,6 @@ const Dumb = ({
                     name='violation_types'
                     component={TransferDefault}
                     options={violation.data || task.violation_types_selected}
-                    validate={required}
                     handleTransferChange={handleViolationChange}
                     titles={['Все', 'Выбрано']}
                   />
