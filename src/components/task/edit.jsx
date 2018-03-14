@@ -330,7 +330,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={pristine || submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
+                <Button nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -483,7 +483,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={pristine || submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
+                <Button nativeType='button' disabled={submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -636,7 +636,7 @@ const Dumb = ({
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
                 <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={pristine || submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
+                <Button nativeType='button' disabled={submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
