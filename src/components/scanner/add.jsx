@@ -24,8 +24,8 @@ class Dumb extends Component {
           patchSize: 'medium',
           halfSample: true,
         },
-        numOfWorkers: 8,
-        frequency: 10,
+        numOfWorkers: 2,
+        frequency: 3,
         decoder: {
           readers: [{
             format: 'code_128_reader',
