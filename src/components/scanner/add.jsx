@@ -25,7 +25,7 @@ class Dumb extends Component {
           halfSample: true,
         },
         numOfWorkers: 2,
-        frequency: 3,
+        frequency: 1,
         decoder: {
           readers: [{
             format: 'code_128_reader',
