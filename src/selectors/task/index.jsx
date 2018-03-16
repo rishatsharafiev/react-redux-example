@@ -44,6 +44,7 @@ export const getEditFormData = createSelector(
       label: get(items, 'shop.title', ''),
       value: get(items, 'shop.id', ''),
     },
+    planned_at: get(items, 'planned_at.date', ''),
     verification_types: get(items, 'verification_types', []).map(item => ({ label: item.title, value: item.id })),
     verification_types_selected: get(items, 'verification_types', []).map(item => (item.id)),
     violation_types: get(items, 'violation_types', []).map(item => ({ label: item.title, value: item.id })),

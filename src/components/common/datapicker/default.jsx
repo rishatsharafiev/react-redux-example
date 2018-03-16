@@ -8,8 +8,10 @@ const Dumb = ({
   label,
   placeholder,
   meta: { touched, error, warning },
+  selectedValue,
 }) => {
-  const newValue = input.value ? moment(input.value).toDate() : null
+  const selectedValueResult = (selectedValue) ? moment(selectedValue).toDate() : null
+  const newValue = input.value ? moment(input.value).toDate() : selectedValueResult
 
   return (
     <div>
@@ -36,6 +38,7 @@ const Dumb = ({
 Dumb.defaultProps = {
   label: '',
   placeholder: '',
+  selectedValue: null,
 }
 
 Dumb.propTypes = {
@@ -43,6 +46,7 @@ Dumb.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   meta: PropTypes.object.isRequired,
+  selectedValue: PropTypes.string,
 }
 
 export default Dumb

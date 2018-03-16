@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
   handleCitySelectChange: (event, value) => { dispatch(actions.getShopsByCityId(value)) },
-  handleTransferChange: value => dispatch(change('taskAdd', 'verification_types', value)),
+  handleVerificationChange: value => dispatch(change('taskAdd', 'verification_types', value)),
 })
 
 
