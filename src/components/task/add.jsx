@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field, reset } from 'redux-form'
 import { Layout, Form, Button, Tag, Icon } from 'element-react'
 import SelectFilter from 'components/common/select/filter'
-import TransferDefault from 'components/common/transfer/default'
 import DatePickerDefault from 'components/common/datapicker/default'
+import CheckboxDefault from 'components/common/checkbox/default'
 import routerHistory from 'utils/history'
 import { required } from 'utils/validate'
 import VerificationDialog from 'containers/verification/dialog'
@@ -23,7 +23,7 @@ const Dumb = ({
     openVerificationDialog,
   },
   handleCitySelectChange,
-  handleTransferChange,
+  handleVerificationChange,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
     <Layout.Col xs='24' sm='22' md='22' lg='12'>
@@ -63,15 +63,14 @@ const Dumb = ({
         <Layout.Row type='flex' justify='center' align='top'>
           <Layout.Col xs='24' sm='24' md='24' lg='24'>
             <Form.Item label='Проверки'>
+              <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
               <Field
                 name='verification_types'
-                component={TransferDefault}
+                component={CheckboxDefault}
                 options={verification.data}
                 validate={required}
-                handleTransferChange={handleTransferChange}
-                titles={['Все', 'Выбрано']}
+                handleCheckboxChange={handleVerificationChange}
               />
-              <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
             </Form.Item>
           </Layout.Col>
         </Layout.Row>
@@ -123,7 +122,7 @@ Dumb.propTypes = {
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
   handleCitySelectChange: PropTypes.func.isRequired,
-  handleTransferChange: PropTypes.func.isRequired,
+  handleVerificationChange: PropTypes.func.isRequired,
 }
 
 Dumb.defaultProps = {

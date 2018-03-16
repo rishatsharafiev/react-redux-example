@@ -8,7 +8,7 @@ import moment from 'utils/moment'
 import InputText from 'components/common/input/text'
 import InputTextArea from 'components/common/input/textarea'
 import SelectFilter from 'components/common/select/filter'
-import TransferDefault from 'components/common/transfer/default'
+import CheckboxDefault from 'components/common/checkbox/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import VerificationDialog from 'containers/verification/dialog'
 import ViolationDialog from 'containers/violation/dialog'
@@ -23,7 +23,6 @@ const Dumb = ({
   violation,
   handleSubmit,
   submitting,
-  pristine,
   invalid,
   error,
   actions: {
@@ -98,15 +97,14 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -198,29 +196,27 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Нарушения'>
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                   <Field
                     name='violation_types'
-                    component={TransferDefault}
-                    options={violation.data || task.violation_types_selected}
-                    handleTransferChange={handleViolationChange}
-                    titles={['Все', 'Выбрано']}
+                    component={CheckboxDefault}
+                    options={violation.data}
+                    handleCheckboxChange={handleViolationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -304,15 +300,14 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -329,7 +324,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid || (task.employee && !task.employee.guid)}>Сохранить</Button>
+                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
@@ -412,29 +407,27 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Нарушения'>
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                   <Field
                     name='violation_types'
-                    component={TransferDefault}
-                    options={violation.data || task.violation_types_selected}
-                    handleTransferChange={handleViolationChange}
-                    titles={['Все', 'Выбрано']}
+                    component={CheckboxDefault}
+                    options={violation.data}
+                    handleCheckboxChange={handleViolationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -482,14 +475,14 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' disabled={submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
         }
 
-        {/* Статус: выполнение задачи */}
+        {/* Статус: исправление замечаний */}
         {task.status === 3 &&
           <div>
             <Layout.Row type='flex' justify='center' align='top'>
@@ -565,29 +558,27 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Нарушения'>
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                   <Field
                     name='violation_types'
-                    component={TransferDefault}
-                    options={violation.data || task.violation_types_selected}
-                    handleTransferChange={handleViolationChange}
-                    titles={['Все', 'Выбрано']}
+                    component={CheckboxDefault}
+                    options={violation.data}
+                    handleCheckboxChange={handleViolationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -601,7 +592,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='left' align='top'>
               <Layout.Col xs='24' sm='24' md='12' lg='8'>
                 <Form.Item label='Табельный номер сотрудника'>
-                  <Field name='signature' component={InputText} autocomplete='off' validate={[required, length10]} placeholder='Введите табельный номер' />
+                  <Field name='signature' component={InputText} autocomplete='off' validate={[length10]}placeholder='Введите табельный номер' />
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -635,7 +626,7 @@ const Dumb = ({
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
                 <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={pristine || submitting || invalid}>Сохранить</Button>
+                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button nativeType='button' disabled={submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
             </Layout.Row>
@@ -718,29 +709,27 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Проверки'>
+                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                   <Field
                     name='verification_types'
-                    component={TransferDefault}
-                    options={verification.data || task.verification_types_selected}
+                    component={CheckboxDefault}
+                    options={verification.data}
                     validate={required}
-                    handleTransferChange={handleVerificationChange}
-                    titles={['Все', 'Выбрано']}
+                    handleCheckboxChange={handleVerificationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openVerificationDialog}>Список проверок</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Form.Item label='Нарушения'>
+                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                   <Field
                     name='violation_types'
-                    component={TransferDefault}
-                    options={violation.data || task.violation_types_selected}
-                    handleTransferChange={handleViolationChange}
-                    titles={['Все', 'Выбрано']}
+                    component={CheckboxDefault}
+                    options={violation.data}
+                    handleCheckboxChange={handleViolationChange}
                   />
-                  <Button size='small' nativeType='button' onClick={openViolationDialog}>Список нарушений</Button>
                 </Form.Item>
               </Layout.Col>
             </Layout.Row>
@@ -798,7 +787,6 @@ Dumb.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
-  pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.object,
   handleCitySelectChange: PropTypes.func.isRequired,
@@ -815,6 +803,7 @@ Dumb.defaultProps = {
 const reduxFormConfig = {
   form: 'taskEdit',
   enableReinitialize: true,
+  // keepDirtyOnReinitialize: true,
   destroyOnUnmount: false,
 }
 
