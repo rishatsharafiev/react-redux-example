@@ -70,6 +70,7 @@ const Dumb = ({
                 options={verification.data}
                 validate={required}
                 handleCheckboxChange={handleVerificationChange}
+                selected={[]}
               />
             </Form.Item>
           </Layout.Col>
