@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Table, Pagination, Icon, Button, Loading, Tag } from 'element-react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'utils/moment'
 import routerHistory from 'utils/history'
+import get from 'lodash/get'
 
 const columns = [
   {
@@ -28,6 +29,15 @@ const columns = [
     label: 'Название магазина',
     prop: 'shop.title',
     width: 220,
+    render(task) {
+      const { id } = task
+      const title = get(task, 'shop.title', 'Нет магазина')
+      const href = `/tasks/${id}`
+
+      return (
+        <Link to={href}>{title}</Link>
+      )
+    },
   },
   {
     label: 'Статус',
