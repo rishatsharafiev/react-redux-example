@@ -238,7 +238,7 @@ const Dumb = ({
             }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -322,10 +322,10 @@ const Dumb = ({
             }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
-                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
+                <Button className='btn' nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
+                <Button className='btn' nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -473,10 +473,10 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
+                <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
+                <Button className='btn' nativeType='button' disabled={submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -624,10 +624,10 @@ const Dumb = ({
             </Layout.Row>
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
-                <Button nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
-                <Button nativeType='button' disabled={submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
+                <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
+                <Button className='btn' nativeType='button' disabled={submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
@@ -751,7 +751,7 @@ const Dumb = ({
             }
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
-                <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+                <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
               </Layout.Col>
             </Layout.Row>
           </div>
