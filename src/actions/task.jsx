@@ -2,6 +2,7 @@ import {
   TASK_BROWSE_INIT, TASK_ADD_REQUEST,
   TASK_READ_INIT, TASK_EDIT_REQUEST,
   TASK_STATUS_INIT,
+  TASK_CANCEL_DIALOG_OPEN, TASK_CANCEL_DIALOG_CLOSE,
 } from 'constants/task'
 import { CITY_BROWSE_INIT } from 'constants/city'
 import { SHOP_BROWSE_REQUEST } from 'constants/shop'
@@ -71,3 +72,5 @@ export const updateScanner = (action) => {
   }
 }
 export const toggleScannerButton = toggle => ({ type: SCANNER_TOGGLE, payload: { toggle } })
+export const openCancelDialog = () => ({ type: TASK_CANCEL_DIALOG_OPEN })
+export const closeCancelDialog = () => ({ type: TASK_CANCEL_DIALOG_CLOSE })

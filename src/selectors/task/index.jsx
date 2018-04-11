@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 
 const dataBrowseState = state => state.task.browse.data
 const metaBrowseState = state => state.task.browse.meta
+const metaDialogState = state => state.task.dialog.meta
 
 export const getBrowseData = createSelector(
   dataBrowseState,
@@ -75,4 +76,9 @@ export const getEditStatus = createSelector(
     taskId: items.id,
     statusValue: items.status,
   }),
+)
+
+export const getDialogIsVisible = createSelector(
+  metaDialogState,
+  items => items.isVisible,
 )
