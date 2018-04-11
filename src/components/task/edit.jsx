@@ -12,6 +12,7 @@ import CheckboxDefault from 'components/common/checkbox/default'
 import DatePickerDefault from 'components/common/datapicker/default'
 import VerificationDialog from 'containers/verification/dialog'
 import ViolationDialog from 'containers/violation/dialog'
+import CancelTaskDialog from 'containers/task/dialog'
 import ScannerAdd from 'containers/scanner/add'
 
 const Dumb = ({
@@ -29,13 +30,13 @@ const Dumb = ({
     editTask,
     openVerificationDialog,
     openViolationDialog,
+    openCancelDialog,
     toggleScannerButton,
   },
   handleCitySelectChange,
   handleVerificationChange,
   handleViolationChange,
   handleStatusChange,
-  handleCancellation,
 }) => (
   <Layout.Row type='flex' justify='center' align='top'>
     <Layout.Col xs='24' sm='22' md='22' lg='12'>
@@ -323,7 +324,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button className='btn' nativeType='button' onClick={() => { routerHistory.push('/tasks') }}> На главную</Button>
-                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={openCancelDialog}>Отменить</Button>
                 <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button className='btn' nativeType='button' disabled={submitting || invalid} type='warning' onClick={handleStatusChange}>Начать</Button>
               </Layout.Col>
@@ -474,7 +475,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={openCancelDialog}>Отменить</Button>
                 <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button className='btn' nativeType='button' disabled={submitting || invalid} type='danger' onClick={handleStatusChange}>Завершить</Button>
               </Layout.Col>
@@ -625,7 +626,7 @@ const Dumb = ({
             <Layout.Row type='flex' justify='center' align='top'>
               <Layout.Col xs='24' sm='24' md='24' lg='24'>
                 <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-                <Button className='btn' nativeType='button' type='primary' onClick={handleCancellation}>Отменить</Button>
+                <Button className='btn' nativeType='button' type='primary' onClick={openCancelDialog}>Отменить</Button>
                 <Button className='btn' nativeType='submit' disabled={submitting || invalid}>Сохранить</Button>
                 <Button className='btn' nativeType='button' disabled={submitting || invalid} type='success' onClick={handleStatusChange}>Закрыть</Button>
               </Layout.Col>
@@ -773,6 +774,7 @@ const Dumb = ({
 
       <VerificationDialog />
       <ViolationDialog />
+      <CancelTaskDialog />
     </Layout.Col>
   </Layout.Row>
 )
@@ -793,7 +795,6 @@ Dumb.propTypes = {
   handleVerificationChange: PropTypes.func.isRequired,
   handleViolationChange: PropTypes.func.isRequired,
   handleStatusChange: PropTypes.func.isRequired,
-  handleCancellation: PropTypes.func.isRequired,
 }
 
 Dumb.defaultProps = {

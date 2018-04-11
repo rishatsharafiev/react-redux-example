@@ -24,6 +24,11 @@
         "taskId": null,
         "isLoading": false
       }
+    },
+    "dialog": {
+      "meta": {
+        "isVisible": false
+      }
     }
   },
   "city": {
