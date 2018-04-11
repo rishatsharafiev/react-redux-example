@@ -89,8 +89,8 @@ const Dumb = ({
         </Layout.Row>
         <Layout.Row type='flex' justify='center' align='top'>
           <Layout.Col xs='24' sm='24' md='24' lg='24'>
-            <Button nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
-            <Button nativeType='submit' disabled={pristine || submitting || invalid}>Создать</Button>
+            <Button className='btn' nativeType='button' onClick={() => { routerHistory.goBack() }}> На главную</Button>
+            <Button className='btn' nativeType='submit' disabled={pristine || submitting || invalid}>Создать</Button>
           </Layout.Col>
         </Layout.Row>
         {!error.errors && error.message &&
