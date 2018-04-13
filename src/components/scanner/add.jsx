@@ -27,10 +27,11 @@ class Dumb extends Component {
         numOfWorkers: 4,
         frequency: 2,
         decoder: {
-          readers: [{
-            format: 'code_128_reader',
-            config: {},
-          }],
+          readers: [
+            'code_128_reader',
+            'code_39_reader',
+          ],
+          multiple: false,
         },
         locate: true,
       }, (err) => {
