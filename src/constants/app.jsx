@@ -1,0 +1,15 @@
+export const APP_INIT = 'APP_INIT'
+export const APP_SUCCESS = 'APP_SUCCESS'
+export const APP_ERROR = 'APP_ERROR'
+
+export const TOKEN_INIT = 'TOKEN_INIT'
+export const TOKEN_FILLED = 'TOKEN_FILLED'
+export const TOKEN_EMTPY = 'TOKEN_EMTPY'
+
+export const ROLE_INIT = 'ROLE_INIT'
+export const ROLE_REQUEST = 'ROLE_REQUEST'
+export const ROLE_REQUEST_SUCCESS = 'ROLE_REQUEST_SUCCESS'
+export const ROLE_REQUEST_ERROR = 'ROLE_REQUEST_ERROR'
+
+export const POPUP_SHOW_MESSAGE = 'POPUP_SHOW_MESSAGE'
+export const POPUP_SHOW_ERROR = 'POPUP_SHOW_ERROR'

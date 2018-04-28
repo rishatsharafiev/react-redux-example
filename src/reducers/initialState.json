@@ -1,0 +1,65 @@
+{
+  "app": {
+    "user": {
+      "name": "Guest",
+      "role": "guest"
+    }
+  },
+  "auth": {
+    "token": ""
+  },
+  "task": {
+    "browse": {
+      "data": [],
+      "meta": {
+        "total": 1,
+        "pageSize": 10,
+        "currentPage": 1,
+        "isLoading": false
+      }
+    },
+    "edit": {
+      "data": {},
+      "meta": {
+        "taskId": null,
+        "isLoading": false
+      }
+    },
+    "dialog": {
+      "meta": {
+        "isVisible": false
+      }
+    }
+  },
+  "city": {
+    "data": [],
+    "meta": {
+      "isLoading": false
+    }
+  },
+  "shop": {
+    "data": [],
+    "meta": {
+      "isLoading": false
+    }
+  },
+  "verification": {
+    "data": [],
+    "meta": {
+      "isLoading": false,
+      "isVisible": false
+    }
+  },
+  "violation": {
+    "data": [],
+    "meta": {
+      "isLoading": false,
+      "isVisible": false
+    }
+  },
+  "scanner": {
+    "message": "",
+    "code": "",
+    "toggle": false
+  }
+}

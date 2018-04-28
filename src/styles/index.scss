@@ -1,12 +1,4 @@
-$font-stack: Helvetica, sans-serif;
-$primary-color: #ddf234;
-
-body {
-  background-color: $primary-color;
-  color: #534343;
-  font: 100% $font-stack;
-}
-
-h1 {
-  color: #000;
-}
+@import 'main';
+@import 'button';
+@import 'transition';
+@import 'scanner';

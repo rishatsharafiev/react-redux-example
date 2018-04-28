@@ -3,11 +3,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssNano = require('cssnano');
 
 const PROJECT_ROOT = path.join(__dirname, '..');;
@@ -131,7 +135,7 @@ function makeConfig(options) {
   ];
 
   if (isProd) {
-    cssLoaders.unshift(ExtractTextPlugin.loader({ remove: true, omit: 1, disable: isProd ? false: true }));
+    cssLoaders.unshift(ExtractTextPlugin.loader({ remove: true, omit: 1 /*, disable: isProd ? false: true*/ }));
   }
 
   const stats = "errors-only";
@@ -159,7 +163,7 @@ function makeConfig(options) {
           enforce: "pre",
           options: {
             configFile: eslintRcPath,
-            cache: true
+            fix: true
           }
         },
       ]).concat([
@@ -191,10 +195,11 @@ function makeConfig(options) {
     },
 
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.scss'],
+      extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
+      enforceExtension: false,
       modules: [
         SOURCES_DIR,
-        path.join(PROJECT_ROOT, "node_modules")
+        path.join(PROJECT_ROOT, "node_modules"),
       ].concat(isRunningDevServer ? [
         path.join(WEBPACK_DIR, "node_modules")
       ] : []),
@@ -210,6 +215,11 @@ function makeConfig(options) {
       hints: isProd ? 'warning' : false, // webpack-dev-tools takes over 200kb by iteself, so warning is guaranteed
       maxAssetSize: 200000,
       maxEntrypointSize: 400000,
+    },
+
+    watchOptions: {
+      aggregateTimeout: 200,
+      poll: 400
     },
 
     stats: stats,
@@ -233,26 +243,28 @@ function makeConfig(options) {
 
     plugins: ((plugins) => {
       plugins = [
-        new CleanWebpackPlugin(
-          [DIST_DIR],
-          {
-            root: __dirname,
-            verbose: true,
-            watch: false,
-            allowExternal: true
-          }
-        ),
+        new CaseSensitivePathsPlugin(),
+        new webpack.NormalModuleReplacementPlugin(/element-react[\/\\]src[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-react/src/locale/lang/ru-RU'),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development')
+          'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
         }),
         new HtmlWebpackPlugin({
           filename: path.join('../', options.HtmlWebpackPlugin.filename || 'index.html' ),
           template: path.join(SOURCES_DIR, 'templates', 'index.html'),
-          inject: 'body',
+          inject: false,
           title: options.HtmlWebpackPlugin.title,
-          alwaysWriteToDisk: true
+          alwaysWriteToDisk: true,
+          minify: {
+            collapseWhitespace: true,
+            collapseInlineTagWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true
+          }
         }),
-        new WriteFilePlugin()
+        new WriteFilePlugin(),
+        new WebpackCleanupPlugin({
+          exclude: ['config.example.js', 'config.js'],
+        }),
       ];
 
       if (isProd) {
@@ -264,17 +276,42 @@ function makeConfig(options) {
           }
         }));
         plugins.push(new ExtractTextPlugin(`${baseFileName}.css`));
-        plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
+        plugins.push(new UglifyJsPlugin({
+          parallel: true,
+          uglifyOptions: {
+            minimize: true,
+            compress: {
+              warnings: false,
+              drop_console: true,
+              conditionals: true,
+              unused: true,
+              comparisons: true,
+              sequences: true,
+              // dead_code: true,
+              evaluate: true,
+              if_return: true,
+              join_vars: true
+            },
+          },
+        }));
+        plugins.push(new CompressionPlugin({
+          asset: "[path].gz",
+          algorithm: "gzip",
+          test: /\.js$|\.css$|\.html$/,
+          threshold: 10240,
+          minRatio: 0.8
+        }));
+        // plugins.push(new BundleAnalyzerPlugin());
       }
 
       if (isRunningDevServer) {
-        plugins.push(new webpack.HotModuleReplacementPlugin());
+        plugins.push(new webpack.HotModuleReplacementPlugin({multiStep:false}));
         plugins.push(new webpack.NamedModulesPlugin());
       }
 
       if(options.lint) {
         plugins.push(new StyleLintPlugin({
-          configFile: stylelintRcPath,
+          configFile: stylelintRcPath
         }));
       }
 

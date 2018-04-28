@@ -1,5 +1,7 @@
 # Application
 /dist
+!/dist/config.example.js
+!/dist/favicon120x120.ico
 
 # Logs
 logs
@@ -62,3 +64,4 @@ typings/
 
 # Others
 *~
+.idea

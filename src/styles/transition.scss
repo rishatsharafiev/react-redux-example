@@ -1,0 +1,21 @@
+.fade-appear {
+  opacity: 0;
+  transform: translateY(5rem);
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s linear;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(5rem);
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s linear;
+}
